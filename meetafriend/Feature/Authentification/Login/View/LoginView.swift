@@ -12,19 +12,21 @@ struct LoginView: View {
     @State private var showRegistration = false
     @State private var showForgotPassword = false
     
+    @StateObject private var vm = LoginViewModelImpl(
+        service: LoginServiceImpl()
+    )
+    
     var body: some View {
         VStack(spacing: 16) {
             VStack(spacing: 16) {
-                InputTextFieldView(text: .constant(""),
+                InputTextFieldView(text: $vm.credentials.email,
                                    placeholder: "Email",
                                    keyboardType: .emailAddress,
                                    sfSymbol: "envelope")
                 
-                InputPasswordView(password: .constant(""),
+                InputPasswordView(password: $vm.credentials.password,
                                   placeholder: "Password",
                                   sfSymbol: "lock")
-                
-                
             }
             
             HStack {
@@ -43,7 +45,7 @@ struct LoginView: View {
             
             VStack(spacing: 16) {
                 ButtonView(title: "Login") {
-                    // TODO: Handle login action here
+                    vm.login()
                 }
                 
                 ButtonView(title: "Register",
@@ -60,6 +62,16 @@ struct LoginView: View {
         }
         .padding(.horizontal, 15)
         .navigationTitle("Login")
+        .alert(isPresented: $vm.hasError,
+               content: {
+            if case .failed(let error) = vm.state {
+                return Alert(title: Text("Error"),
+                             message: Text(error.localizedDescription))
+            } else {
+                return Alert(title: Text("Error"),
+                             message: Text("Something went wrong"))
+            }
+        })
     }
 }
 
