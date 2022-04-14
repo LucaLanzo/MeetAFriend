@@ -1,4 +1,4 @@
-# Meet A Friend
+# meet a friend
 A social, location-based iOS chat app using the proposed front end design mockup (end design might vary):
 
 ![PDF 1](https://user-images.githubusercontent.com/40578534/161431018-d8868896-c068-4bcc-858c-31a37c2f1019.png)
