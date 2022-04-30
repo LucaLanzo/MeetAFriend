@@ -1,7 +1,8 @@
 const express = require('express')
 const mongodb = require('mongodb')
+const filesystem = require("fs");
 
-const uri = "mongodb+srv://lucaAdmin:CMFgKGTnb2SNZycP@meeetafriend.qymjc.mongodb.net/meetafriend?retryWrites=true&w=majority";
+const uri = filesystem.readFileSync("server.txt").toString();
 const client = new mongodb.MongoClient(uri, {
     useNewUrlParser: true, 
     useUnifiedTopology: true
