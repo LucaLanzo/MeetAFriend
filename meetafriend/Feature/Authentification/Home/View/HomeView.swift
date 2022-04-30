@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var sessionService: SessionServiceImpl
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 16) {
-                Text("First Name: Placeholder")
-                Text("Last Name: Placeholder")
-                Text("Occupation: Placeholder")
+                Text("First Name: \(sessionService.userDetails?.firstName ?? "N/A")")
+                Text("Last Name: \(sessionService.userDetails?.lastName ?? "N/A")")
+                Text("Age: \(sessionService.userDetails?.age ?? "N/A")")
             }
             
             ButtonView(title: "Logout") {
-                // TODO: Handle logout action here
+                sessionService.logout()
             }
         }
         .padding(.horizontal, 16)
@@ -29,6 +31,7 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HomeView()
+                .environmentObject(SessionServiceImpl())
         }
     }
 }

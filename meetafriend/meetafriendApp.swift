@@ -21,11 +21,19 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 struct meetafriendApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject var sessionService = SessionServiceImpl()
     
     var body: some Scene {
         WindowGroup {
             NavigationView{
-                LoginView()
+                switch sessionService.state {
+                case .loggedIn:
+                    HomeView()
+                        .environmentObject(sessionService)
+                    
+                case .loggedOut:
+                    LoginView()
+                }
             }
         }
     }

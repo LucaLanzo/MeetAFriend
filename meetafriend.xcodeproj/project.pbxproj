@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */; };
+		810DE00027F1DA91008D72EC /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DDFFF27F1DA91008D72EC /* LoginService.swift */; };
+		810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00227F1DBA6008D72EC /* LoginViewModel.swift */; };
+		810DE00727F1E37F008D72EC /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */; };
+		810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */; };
 		8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */; };
 		8128C6DA27E84E9B00B8B9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */; };
 		8128C6DD27E84E9B00B8B9C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6DC27E84E9B00B8B9C9 /* Preview Assets.xcassets */; };
@@ -27,10 +32,15 @@
 		819F8D5527EE0870002F408B /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5427EE0870002F408B /* RegistrationService.swift */; };
 		819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */; };
 		819F8D5C27EE10F5002F408B /* SessionUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */; };
-		819F8D5F27EE112E002F408B /* SessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5E27EE112E002F408B /* SessionState.swift */; };
+		819F8D5F27EE112E002F408B /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5E27EE112E002F408B /* SessionService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
+		810DDFFF27F1DA91008D72EC /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		810DE00227F1DBA6008D72EC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
+		810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		8128C6D227E84E9700B8B9C9 /* meetafriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meetafriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meetafriendApp.swift; sourceTree = "<group>"; };
 		8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,7 +59,7 @@
 		819F8D5427EE0870002F408B /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
 		819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDetails.swift; sourceTree = "<group>"; };
-		819F8D5E27EE112E002F408B /* SessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionState.swift; sourceTree = "<group>"; };
+		819F8D5E27EE112E002F408B /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		810DDFFB27F1DA55008D72EC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		810DDFFE27F1DA86008D72EC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				810DDFFF27F1DA91008D72EC /* LoginService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		810DE00127F1DB9A008D72EC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				810DE00227F1DBA6008D72EC /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		810DE00427F1E35A008D72EC /* Authentification */ = {
+			isa = PBXGroup;
+			children = (
+				819F8D5927EE10D9002F408B /* Session */,
+				819F8D4C27EE022D002F408B /* ForgotPassword */,
+				819F8D4827EE014C002F408B /* Home */,
+				819F8D4227EDDF70002F408B /* Register */,
+				819F8D3427EDD132002F408B /* Login */,
+			);
+			path = Authentification;
+			sourceTree = "<group>";
+		};
+		810DE00527F1E36E008D72EC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		810DE00827F1E7CB008D72EC /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		8128C6C927E84E9700B8B9C9 = {
 			isa = PBXGroup;
 			children = (
@@ -106,11 +168,7 @@
 		819F8D3327EDD129002F408B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				819F8D5927EE10D9002F408B /* Session */,
-				819F8D4C27EE022D002F408B /* ForgotPassword */,
-				819F8D4827EE014C002F408B /* Home */,
-				819F8D4227EDDF70002F408B /* Register */,
-				819F8D3427EDD132002F408B /* Login */,
+				810DE00427F1E35A008D72EC /* Authentification */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -118,6 +176,9 @@
 		819F8D3427EDD132002F408B /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				810DE00127F1DB9A008D72EC /* ViewModel */,
+				810DDFFE27F1DA86008D72EC /* Service */,
+				810DDFFB27F1DA55008D72EC /* Model */,
 				819F8D3527EDD137002F408B /* View */,
 			);
 			path = Login;
@@ -197,6 +258,8 @@
 		819F8D4C27EE022D002F408B /* ForgotPassword */ = {
 			isa = PBXGroup;
 			children = (
+				810DE00827F1E7CB008D72EC /* ViewModel */,
+				810DE00527F1E36E008D72EC /* Service */,
 				819F8D4D27EE023E002F408B /* View */,
 			);
 			path = ForgotPassword;
@@ -254,7 +317,7 @@
 		819F8D5D27EE1120002F408B /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				819F8D5E27EE112E002F408B /* SessionState.swift */,
+				819F8D5E27EE112E002F408B /* SessionService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -338,18 +401,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				810DE00027F1DA91008D72EC /* LoginService.swift in Sources */,
 				819F8D4B27EE0168002F408B /* HomeView.swift in Sources */,
 				819F8D3E27EDD6BA002F408B /* InputPasswordView.swift in Sources */,
 				818B882B27E8A95E0091FED1 /* LoginView.swift in Sources */,
 				8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */,
 				819F8D5527EE0870002F408B /* RegistrationService.swift in Sources */,
 				819F8D4727EDFEF4002F408B /* CloseModifier.swift in Sources */,
-				819F8D5F27EE112E002F408B /* SessionState.swift in Sources */,
+				819F8D5F27EE112E002F408B /* SessionService.swift in Sources */,
+				810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */,
 				819F8D4527EDDFBB002F408B /* RegisterView.swift in Sources */,
+				810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */,
 				819F8D3C27EDD55E002F408B /* Preview.swift in Sources */,
+				810DE00727F1E37F008D72EC /* ForgotPasswordService.swift in Sources */,
 				819F8D4127EDD8CA002F408B /* ButtonView.swift in Sources */,
 				819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */,
 				819F8D5227EE0828002F408B /* RegistrationDetails.swift in Sources */,
+				810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */,
 				819F8D4F27EE024D002F408B /* ForgotPasswordView.swift in Sources */,
 				819F8D5C27EE10F5002F408B /* SessionUserDetails.swift in Sources */,
 				819F8D3927EDD264002F408B /* InputTextFieldView.swift in Sources */,

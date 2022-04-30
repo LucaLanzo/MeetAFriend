@@ -26,17 +26,19 @@ final class RegistrationServiceImpl: RegistrationService {
                 Auth.auth()
                     .createUser(withEmail: details.email,
                                 password: details.password) { res, error in
+                        
                         if let err = error {
                             // if error, push so we can subscribe to it
                             promise(.failure(err))
+                        
                         } else {
                             if let uid = res?.user.uid {
                                 let values = [RegistrationKeys.firstName.rawValue: details.firstName,
                                               RegistrationKeys.lastName.rawValue: details.lastName,
-                                              RegistrationKeys.age.rawValue: details.age] as [String: Any]
+                                              RegistrationKeys.age.rawValue: details.age] as [String : Any]
                                 
                                 // Update user with these values in firebase
-                                Database.database()
+                                Database.database(url: "https://meet-a-friend-1b475-default-rtdb.europe-west1.firebasedatabase.app")
                                     .reference()
                                     .child("users")
                                     .child(uid)
