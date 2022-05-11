@@ -11,19 +11,20 @@ struct HomeView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     
     var body: some View {
+        // Text("First Name: \(sessionService.userDetails?.firstName ?? "N/A")")
+        // ButtonView(title: "Logout") {
+        //      sessionService.logout()
+        // }
+        
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 16) {
-                Text("First Name: \(sessionService.userDetails?.firstName ?? "N/A")")
+                
                 Text("Last Name: \(sessionService.userDetails?.lastName ?? "N/A")")
-                Text("Age: \(sessionService.userDetails?.age ?? "N/A")")
-            }
-            
-            ButtonView(title: "Logout") {
-                sessionService.logout()
+                Text("Age: \(sessionService.userDetails?.age ?? 18)")
             }
         }
         .padding(.horizontal, 16)
-        .navigationTitle("Main ContentView")
+        .navigationTitle("Meet a friend")
     }
 }
 

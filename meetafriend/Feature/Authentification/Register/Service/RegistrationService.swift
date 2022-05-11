@@ -5,7 +5,8 @@
 //  Created by Luca on 25.03.22.
 //
 import Combine
-import FirebaseDatabase
+import FirebaseFirestore
+import FirebaseCore
 import Firebase
 import Foundation
 
@@ -20,6 +21,8 @@ protocol RegistrationService {
 }
 
 final class RegistrationServiceImpl: RegistrationService {
+    let db = Firestore.firestore()
+    
     func register(with details: RegistrationDetails) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
@@ -33,24 +36,15 @@ final class RegistrationServiceImpl: RegistrationService {
                         
                         } else {
                             if let uid = res?.user.uid {
-                                let values = [RegistrationKeys.firstName.rawValue: details.firstName,
-                                              RegistrationKeys.lastName.rawValue: details.lastName,
-                                              RegistrationKeys.age.rawValue: details.age] as [String : Any]
-                                
-                                // Update user with these values in firebase
-                                Database.database(url: "https://meet-a-friend-1b475-default-rtdb.europe-west1.firebasedatabase.app")
-                                    .reference()
-                                    .child("users")
-                                    .child(uid)
-                                    .updateChildValues(values) { error, ref in
-                                        if let err = error {
-                                            // push error
-                                            promise(.failure(err))
-                                        } else {
-                                            // push success which is void
-                                            promise(.success(()))
-                                        }
+                                self.db.collection("users").document(uid).setData([
+                                    RegistrationKeys.firstName.rawValue: details.firstName,
+                                    RegistrationKeys.lastName.rawValue: details.lastName,
+                                    RegistrationKeys.age.rawValue: details.age
+                                ]) { err in
+                                    if let err = err {
+                                        print("Error adding document: \(err)")
                                     }
+                                }
                             } else {
                                 promise(.failure(NSError(domain: "Invalid User Id", code: 0, userInfo: nil)))
                             }

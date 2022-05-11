@@ -4,7 +4,7 @@
 //
 //  Created by Luca on 25.03.22.
 //
-
+ 
 import SwiftUI
 
 struct RegisterView: View {
@@ -17,6 +17,7 @@ struct RegisterView: View {
         NavigationView {
             VStack(spacing: 32) {
                 VStack(spacing: 16) {
+                    
                     InputTextFieldView(text: $vm.userDetails.email,
                                        placeholder: "Email",
                                        keyboardType: .emailAddress,
@@ -38,9 +39,9 @@ struct RegisterView: View {
                                        keyboardType: .namePhonePad,
                                        sfSymbol: nil)
                     
-                    InputTextFieldView(text: $vm.userDetails.age,
+                    InputNumberFieldView(text: $vm.userDetails.age,
                                        placeholder: "Age",
-                                       keyboardType: .namePhonePad,
+                                       keyboardType: .decimalPad,
                                        sfSymbol: nil)
                 }
                 

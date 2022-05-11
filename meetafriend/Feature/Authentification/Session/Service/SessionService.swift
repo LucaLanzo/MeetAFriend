@@ -9,7 +9,8 @@ import Combine
 import Foundation
 import FirebaseAuth
 import Firebase
-import FirebaseStorage
+import FirebaseFirestore
+import FirebaseCore
 
 enum SessionState {
     case loggedIn
@@ -25,6 +26,8 @@ protocol SessionService {
 final class SessionServiceImpl: ObservableObject, SessionService {
     @Published var state: SessionState = .loggedOut
     @Published var userDetails: SessionUserDetails?
+    
+    private let db = Firestore.firestore()
     
     private var handler: AuthStateDidChangeListenerHandle?
     
@@ -55,24 +58,28 @@ private extension SessionServiceImpl {
     
     // update user data
     func handleRefresh(with uid: String) {
-        Database.database(url: "https://meet-a-friend-1b475-default-rtdb.europe-west1.firebasedatabase.app")
-            .reference()
-            .child("users")
-            .child(uid)
-            .observe(.value) { [weak self] snapshot in
-                guard let self = self,
-                      let value = snapshot.value as? NSDictionary,
-                      let firstName = value[RegistrationKeys.firstName.rawValue] as? String,
-                      let lastName = value[RegistrationKeys.lastName.rawValue] as? String,
-                      let age = value[RegistrationKeys.age.rawValue] as? String else {
+        db.collection("users").document(uid)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
                     return
                 }
+                guard let data = document.data() else {
+                    print("Document data was empty.")
+                    return
+                }
+                let value = data as NSDictionary
+                let firstName = value[RegistrationKeys.firstName.rawValue] as? String
+                let lastName = value[RegistrationKeys.lastName.rawValue] as? String
+                let age = value[RegistrationKeys.age.rawValue] as? Int
                 
                 DispatchQueue.main.async {
-                    self.userDetails = SessionUserDetails(firstName: firstName,
-                                                          lastName: lastName,
-                                                          age: age)
+                    self.userDetails = SessionUserDetails(firstName: firstName ?? "N/A",
+                                                          lastName: lastName ?? "N/A",
+                                                          age: age ?? 18)
                 }
             }
+        
+        
     }
 }

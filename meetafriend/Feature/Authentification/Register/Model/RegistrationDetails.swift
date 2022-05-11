@@ -6,18 +6,18 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct RegistrationDetails {
     var email: String
     var password: String
     var firstName: String
     var lastName: String
-    // Should be int!!!
-    var age: String
+    var age: Int
 }
 
 extension RegistrationDetails {
     static var new: RegistrationDetails {
-        RegistrationDetails(email: "", password: "", firstName: "", lastName: "", age: "")
+        RegistrationDetails(email: "", password: "", firstName: "", lastName: "", age: 18)
     }
 }
