@@ -9,18 +9,18 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
+    @EnvironmentObject var locationService: LocationServiceImpl
     
     var body: some View {
-        // Text("First Name: \(sessionService.userDetails?.firstName ?? "N/A")")
-        // ButtonView(title: "Logout") {
-        //      sessionService.logout()
-        // }
+        
         
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 16) {
-                
-                Text("Last Name: \(sessionService.userDetails?.lastName ?? "N/A")")
-                Text("Age: \(sessionService.userDetails?.age ?? 18)")
+                Text("First Name: \(sessionService.userDetails?.firstName ?? "N/A")")
+                Text("Locations: \(locationService.locationDetails?)")
+                ButtonView(title: "Logout") {
+                    sessionService.logout()
+                }
             }
         }
         .padding(.horizontal, 16)

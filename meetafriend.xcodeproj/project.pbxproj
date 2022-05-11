@@ -33,6 +33,8 @@
 		819F8D5C27EE10F5002F408B /* SessionUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */; };
 		819F8D5F27EE112E002F408B /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5E27EE112E002F408B /* SessionService.swift */; };
 		81DDAB13282BDD79008DD4E9 /* InputNumberFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */; };
+		81DDAB1B282BE97A008DD4E9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDAB1A282BE97A008DD4E9 /* LocationService.swift */; };
+		81DDAB1D282BE9A0008DD4E9 /* LocationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDAB1C282BE9A0008DD4E9 /* LocationDetails.swift */; };
 		81FCD872282AC87900F74369 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 81FCD871282AC87900F74369 /* FirebaseAuth */; };
 		81FCD874282AC87900F74369 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 81FCD873282AC87900F74369 /* FirebaseDatabase */; };
 		81FCD876282AC87900F74369 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 81FCD875282AC87900F74369 /* FirebaseFirestore */; };
@@ -67,6 +69,8 @@
 		819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDetails.swift; sourceTree = "<group>"; };
 		819F8D5E27EE112E002F408B /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
 		81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumberFieldView.swift; sourceTree = "<group>"; };
+		81DDAB1A282BE97A008DD4E9 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		81DDAB1C282BE9A0008DD4E9 /* LocationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +305,8 @@
 		819F8D4827EE014C002F408B /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				81DDAB16282BE938008DD4E9 /* Service */,
+				81DDAB15282BE921008DD4E9 /* Model */,
 				819F8D4927EE0157002F408B /* View */,
 			);
 			path = Home;
@@ -377,6 +383,22 @@
 			isa = PBXGroup;
 			children = (
 				819F8D5E27EE112E002F408B /* SessionService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		81DDAB15282BE921008DD4E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81DDAB1C282BE9A0008DD4E9 /* LocationDetails.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		81DDAB16282BE938008DD4E9 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				81DDAB1A282BE97A008DD4E9 /* LocationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -475,8 +497,10 @@
 				819F8D4527EDDFBB002F408B /* RegisterView.swift in Sources */,
 				810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */,
 				81DDAB13282BDD79008DD4E9 /* InputNumberFieldView.swift in Sources */,
+				81DDAB1D282BE9A0008DD4E9 /* LocationDetails.swift in Sources */,
 				819F8D3C27EDD55E002F408B /* Preview.swift in Sources */,
 				810DE00727F1E37F008D72EC /* ForgotPasswordService.swift in Sources */,
+				81DDAB1B282BE97A008DD4E9 /* LocationService.swift in Sources */,
 				819F8D4127EDD8CA002F408B /* ButtonView.swift in Sources */,
 				819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */,
 				819F8D5227EE0828002F408B /* RegistrationDetails.swift in Sources */,
