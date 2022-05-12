@@ -14,6 +14,7 @@
 		810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */; };
 		8121E7F2282A6EFF00A08A34 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8121E7F1282A6EFF00A08A34 /* ChatService.swift */; };
 		8121E7F4282A6F4C00A08A34 /* ChatUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8121E7F3282A6F4C00A08A34 /* ChatUserDetails.swift */; };
+		8123F5C5282D0D4500F9F4FC /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 8123F5C4282D0D4500F9F4FC /* FirebaseFirestoreSwift */; };
 		8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */; };
 		8128C6DA27E84E9B00B8B9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */; };
 		8128C6DD27E84E9B00B8B9C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6DC27E84E9B00B8B9C9 /* Preview Assets.xcassets */; };
@@ -78,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8123F5C5282D0D4500F9F4FC /* FirebaseFirestoreSwift in Frameworks */,
 				81FCD874282AC87900F74369 /* FirebaseDatabase in Frameworks */,
 				81FCD878282AC87900F74369 /* FirebaseStorage in Frameworks */,
 				81FCD872282AC87900F74369 /* FirebaseAuth in Frameworks */,
@@ -424,6 +426,7 @@
 				81FCD873282AC87900F74369 /* FirebaseDatabase */,
 				81FCD875282AC87900F74369 /* FirebaseFirestore */,
 				81FCD877282AC87900F74369 /* FirebaseStorage */,
+				8123F5C4282D0D4500F9F4FC /* FirebaseFirestoreSwift */,
 			);
 			productName = meetafriend;
 			productReference = 8128C6D227E84E9700B8B9C9 /* meetafriend.app */;
@@ -455,6 +458,7 @@
 			mainGroup = 8128C6C927E84E9700B8B9C9;
 			packageReferences = (
 				81FCD870282AC87900F74369 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				8123F5C3282D0D4500F9F4FC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 8128C6D327E84E9700B8B9C9 /* Products */;
 			projectDirPath = "";
@@ -710,6 +714,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		8123F5C3282D0D4500F9F4FC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		81FCD870282AC87900F74369 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -721,6 +733,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8123F5C4282D0D4500F9F4FC /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8123F5C3282D0D4500F9F4FC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
 		81FCD871282AC87900F74369 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 81FCD870282AC87900F74369 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

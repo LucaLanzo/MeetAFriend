@@ -59,6 +59,7 @@ private extension SessionServiceImpl {
     
     // update user data
     func handleRefresh(with uid: String) {
+        // TODO: DONT LISTEN JUST GET
         db.collection("users").document(uid)
             .addSnapshotListener { documentSnapshot, error in
                 guard let document = documentSnapshot else {
@@ -80,7 +81,5 @@ private extension SessionServiceImpl {
                                                           age: age ?? 18)
                 }
             }
-        
-        
     }
 }
