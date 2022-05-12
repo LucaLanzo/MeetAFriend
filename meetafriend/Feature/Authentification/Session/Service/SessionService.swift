@@ -49,8 +49,10 @@ private extension SessionServiceImpl {
             .addStateDidChangeListener { [weak self] res, user in
                 // if user is nil, then logged out
                 guard let self = self else { return }
+                
                 // if not nil, logged in
                 self.state = user == nil ? .loggedOut : .loggedIn
+                
                 if let uid = user?.uid {
                     self.handleRefresh(with: uid)
                 }

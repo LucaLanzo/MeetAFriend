@@ -16,11 +16,12 @@ struct HomeView: View {
         
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 16) {
+                
                 Text("First Name: \(sessionService.userDetails?.firstName ?? "loading...")")
-                Text("Num Locations: \(locationService.locationDetails.count)")
+                Text("Num Locations: \(locationService.locations.count)")
                 Divider()
                 
-                ForEach(locationService.locationDetails) { location in
+                ForEach(locationService.locations) { location in
                     Text("Location Name: \(location.name)")
                     Text("Joined Users: \(location.joinedUsers.formatted())")
                    
@@ -46,6 +47,7 @@ struct HomeView_Previews: PreviewProvider {
         NavigationView {
             HomeView()
                 .environmentObject(SessionServiceImpl())
+                .environmentObject(LocationServiceImpl())
         }
     }
 }

@@ -29,9 +29,17 @@ struct meetafriendApp: App {
             NavigationView{
                 switch sessionService.state {
                 case .loggedIn:
-                    HomeView()
-                        .environmentObject(sessionService)
-                        .environmentObject(locationService)
+                    switch locationService.state {
+                    case .notJoined:
+                        HomeView()
+                            .environmentObject(sessionService)
+                            .environmentObject(locationService)
+                        
+                    case .joined:
+                        ChatView()
+                            .environmentObject(sessionService)
+                            .environmentObject(locationService)
+                    }
                     
                 case .loggedOut:
                     LoginView()

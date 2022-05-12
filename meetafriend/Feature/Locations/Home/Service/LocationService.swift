@@ -11,26 +11,26 @@ import Contacts
 import FirebaseFirestore
 import Firebase
 import FirebaseAuth
+import Combine
+import FirebaseCore
 
-enum LocationKeys: String {
-    case city
-    case coordinates
-    case country
-    case houseNumber
-    case joinedUsers
-    case name
-    case street
-    case zipCode
+enum LocationState {
+    case joined
+    case notJoined
 }
 
 protocol LocationService {
-    var locationDetails: [LocationDetails] { get }
+    var locations: [Location] { get }
+    var state: LocationState { get }
+    var joinedLocation: Location? { get }
     
     func joinLocation(lid: String)
 }
 
 final class LocationServiceImpl: ObservableObject, LocationService {
-    @Published var locationDetails: [LocationDetails] = []
+    @Published var locations: [Location] = []
+    @Published var state: LocationState = .notJoined
+    @Published var joinedLocation: Location?
     
     private let db = Firestore.firestore()
     
@@ -43,32 +43,13 @@ final class LocationServiceImpl: ObservableObject, LocationService {
     }
 }
 
+
 private extension LocationServiceImpl {
     // initially load data
     func loadLocations() {
         DispatchQueue.main.async {
             self.handleRefresh()
         }
-        
-        /*
-        db.collection("locations").getDocuments() { querySnapshot, error in
-            guard let documents = querySnapshot?.documents else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            
-            DispatchQueue.main.async {
-                for location in documents {
-                    let newLocation = LocationDetails(lid: location.documentID, data: location.data())
-                    // location can't be empty, because a QueryDocumentSnapshot will always return something
-                    self.locationDetails.append(newLocation!)
-                    
-                    // enable automatic location refresh
-                    self.handleRefresh()
-                }
-            }
-        }
-        */
     }
     
     // update data
@@ -82,22 +63,19 @@ private extension LocationServiceImpl {
             snapshot.documentChanges.forEach { diff in
                 switch(diff.type) {
                 case(.modified):
-                    let changedLocation = LocationDetails(lid: diff.document.documentID, data: diff.document.data())
+                    let changedLocation = Location(lid: diff.document.documentID, data: diff.document.data())
                     
-                    if let row = self.locationDetails.firstIndex(where: { $0.id ==
-                        diff.document.documentID}) { self.locationDetails[row] = changedLocation!
+                    if let location = self.locations.firstIndex(where: { $0.id ==
+                        diff.document.documentID}) { self.locations[location] = changedLocation!
                     }
                 case(.added):
-                    let newLocation = LocationDetails(lid: diff.document.documentID, data: diff.document.data())
+                    let newLocation = Location(lid: diff.document.documentID, data: diff.document.data())
                     
-                    self.locationDetails.append(newLocation!)
+                    self.locations.append(newLocation!)
                 case .removed:
                     print("\(diff.document.data()["name"] ?? "Nothing") has been deleted.")
                 }
             }
-            // let locations = documents.map { $0["name"]! }
-            // print("Current updated locations: \(locations)")
-            
         }
     }
     
@@ -106,6 +84,51 @@ private extension LocationServiceImpl {
         let uid = Auth.auth().currentUser
         if (uid == nil) { return }
         
-        print("User with id \(uid!.uid) joined location with id \(lid)")
+        let locationRef = db.collection("locations").document(lid)
+
+        // Add a new user id to the "joinedUsers" array field.
+        locationRef.updateData([
+            "joinedUsers": FieldValue.arrayUnion([uid!.uid])
+        ])
+        
+        updateJoinedLocation(with: lid)
+        
+        self.state = .joined
+    }
+    
+    
+    func updateJoinedLocation(with lid: String) {
+        db.collection("locations").document(lid).addSnapshotListener {
+            documentSnapshot, error in
+            guard let location = documentSnapshot else {
+                print("Error fetching snapshots: \(error!)")
+                return
+            }
+            
+            guard let data = location.data() else {
+                print("Document data was empty.")
+                return
+            }
+            
+            self.joinedLocation = Location(lid: location.documentID, data: data)
+        }
+    }
+}
+
+extension LocationServiceImpl {
+    func leaveLocation() {
+        let uid = Auth.auth().currentUser
+        if (uid == nil) { return }
+        
+        if self.joinedLocation?.id == "" { return }
+        let locationRef = db.collection("locations").document(self.joinedLocation!.id)
+        
+        // Add a new user id to the "joinedUsers" array field.
+        locationRef.updateData([
+            "joinedUsers": FieldValue.arrayRemove([uid!.uid])
+        ])
+        
+        self.joinedLocation = nil
+        self.state = .notJoined
     }
 }

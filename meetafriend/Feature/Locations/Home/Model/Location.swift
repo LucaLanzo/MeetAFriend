@@ -8,19 +8,19 @@
 import Foundation
 import FirebaseFirestore
 
-public class LocationDetails: Identifiable {
+public class Location: Identifiable {
     public var id: String
-    var name: String
+    public var name: String
     
-    var country: String
-    var city: String
-    var zipCode: Int
-    var street: String
-    var houseNumber: Int
+    public var country: String
+    public var city: String
+    public var zipCode: Int
+    public var street: String
+    public var houseNumber: Int
     
-    // var coordinates: [String: Any]
+    public var coordinates: [String]
 
-    var joinedUsers: [String]
+    public var joinedUsers: [String]
     
     init?(lid: String?, data: [String: Any]) {
         guard let id = lid else {
@@ -47,7 +47,7 @@ public class LocationDetails: Identifiable {
         self.zipCode = zipCode
         self.street = street
         self.houseNumber = houseNumber
-        // self.coordinates = coordinates
+        self.coordinates = ["", ""]
         self.joinedUsers = joinedUsers
     }
 }
