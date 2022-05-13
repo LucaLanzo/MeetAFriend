@@ -22,7 +22,7 @@ enum LocationState {
 protocol LocationService {
     var locations: [Location] { get }
     var state: LocationState { get }
-    var joinedLocation: Location? { get }
+    // var joinedLocation: Location? { get }
     
     func joinLocation(lid: String)
 }
@@ -30,7 +30,7 @@ protocol LocationService {
 final class LocationServiceImpl: ObservableObject, LocationService {
     @Published var locations: [Location] = []
     @Published var state: LocationState = .notJoined
-    @Published var joinedLocation: Location?
+    // @Published var joinedLocation: Location?
     
     private let db = Firestore.firestore()
     
@@ -91,12 +91,12 @@ private extension LocationServiceImpl {
             "joinedUsers": FieldValue.arrayUnion([uid!.uid])
         ])
         
-        updateJoinedLocation(with: lid)
+        // updateJoinedLocation(with: lid)
         
         self.state = .joined
     }
     
-    
+    /*
     func updateJoinedLocation(with lid: String) {
         db.collection("locations").document(lid).addSnapshotListener {
             documentSnapshot, error in
@@ -113,9 +113,11 @@ private extension LocationServiceImpl {
             self.joinedLocation = Location(lid: location.documentID, data: data)
         }
     }
+     */
 }
 
 extension LocationServiceImpl {
+    /*
     func leaveLocation() {
         let uid = Auth.auth().currentUser
         if (uid == nil) { return }
@@ -131,4 +133,5 @@ extension LocationServiceImpl {
         self.joinedLocation = nil
         self.state = .notJoined
     }
+    */
 }

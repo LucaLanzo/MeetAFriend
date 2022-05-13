@@ -34,6 +34,8 @@
 		819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */; };
 		819F8D5C27EE10F5002F408B /* SessionUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */; };
 		819F8D5F27EE112E002F408B /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5E27EE112E002F408B /* SessionService.swift */; };
+		81DB4293282E7F08003AAE7A /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DB4292282E7F08003AAE7A /* ChatMessageView.swift */; };
+		81DB4295282E9572003AAE7A /* ActiveUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DB4294282E9572003AAE7A /* ActiveUsersView.swift */; };
 		81DDAB13282BDD79008DD4E9 /* InputNumberFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */; };
 		81DDAB1B282BE97A008DD4E9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDAB1A282BE97A008DD4E9 /* LocationService.swift */; };
 		81DDAB1D282BE9A0008DD4E9 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDAB1C282BE9A0008DD4E9 /* Location.swift */; };
@@ -71,6 +73,8 @@
 		819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDetails.swift; sourceTree = "<group>"; };
 		819F8D5E27EE112E002F408B /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		81DB4292282E7F08003AAE7A /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
+		81DB4294282E9572003AAE7A /* ActiveUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveUsersView.swift; sourceTree = "<group>"; };
 		81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNumberFieldView.swift; sourceTree = "<group>"; };
 		81DDAB1A282BE97A008DD4E9 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		81DDAB1C282BE9A0008DD4E9 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -273,8 +277,10 @@
 			children = (
 				819F8D3827EDD264002F408B /* InputTextFieldView.swift */,
 				819F8D3D27EDD6BA002F408B /* InputPasswordView.swift */,
-				819F8D4027EDD8CA002F408B /* ButtonView.swift */,
 				81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */,
+				819F8D4027EDD8CA002F408B /* ButtonView.swift */,
+				81DB4292282E7F08003AAE7A /* ChatMessageView.swift */,
+				81DB4294282E9572003AAE7A /* ActiveUsersView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -499,9 +505,11 @@
 				8121B5EA282DB37700A87DA1 /* ChatView.swift in Sources */,
 				8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */,
 				819F8D5527EE0870002F408B /* RegistrationService.swift in Sources */,
+				81DB4293282E7F08003AAE7A /* ChatMessageView.swift in Sources */,
 				819F8D4727EDFEF4002F408B /* CloseModifier.swift in Sources */,
 				819F8D5F27EE112E002F408B /* SessionService.swift in Sources */,
 				810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */,
+				81DB4295282E9572003AAE7A /* ActiveUsersView.swift in Sources */,
 				819F8D4527EDDFBB002F408B /* RegisterView.swift in Sources */,
 				810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */,
 				81DDAB13282BDD79008DD4E9 /* InputNumberFieldView.swift in Sources */,
