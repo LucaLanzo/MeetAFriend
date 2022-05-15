@@ -1,5 +1,5 @@
 //
-//  ChatView.swift
+//  ChatOverviewView.swift
 //  meetafriend
 //
 //  Created by Luca on 12.05.22.
@@ -7,18 +7,24 @@
 
 import SwiftUI
 
-struct ChatView: View {
+struct ChatOverviewView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
+    @EnvironmentObject var chatOverviewService: ChatOverviewServiceImpl
     
     var body: some View {
         
         VStack(alignment: .leading) {
             // Menu Bar
             HStack {
-                Image(systemName: "rectangle.portrait.and.arrow.right")
-                    .font(.system(size: 20, weight: .bold))
-                    .foregroundColor(Color(.label))
+                Button(action: {
+                    locationService.leaveLocation()
+                }, label: {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(Color(.label))
+                        
+                })
                 
                 Spacer()
                 
@@ -49,8 +55,8 @@ struct ChatView: View {
             
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(0..<10, id: \.self) { num in
-                        ActiveUsersView(username: "Luca", age: String(23))
+                    ForEach(chatOverviewService.users) { user in
+                        ActiveUsersView(username: user.firstName, age: String(user.age))
                             .padding()
                     }
                 }
@@ -77,10 +83,10 @@ struct ChatView: View {
     }
 }
 
-struct ChatView_Previews: PreviewProvider {
+struct ChatOverviewView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ChatView()
+            ChatOverviewView()
                 .environmentObject(SessionServiceImpl())
                 .environmentObject(LocationServiceImpl())
         }

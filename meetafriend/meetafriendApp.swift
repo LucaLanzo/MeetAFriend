@@ -23,6 +23,7 @@ struct meetafriendApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sessionService = SessionServiceImpl()
     @StateObject var locationService = LocationServiceImpl()
+    @StateObject var chatOverviewService = ChatOverviewServiceImpl()
     
     var body: some Scene {
         WindowGroup {
@@ -36,9 +37,10 @@ struct meetafriendApp: App {
                             .environmentObject(locationService)
                         
                     case .joined:
-                        ChatView()
+                        ChatOverviewView()
                             .environmentObject(sessionService)
                             .environmentObject(locationService)
+                            .environmentObject(chatOverviewService)
                     }
                     
                 case .loggedOut:

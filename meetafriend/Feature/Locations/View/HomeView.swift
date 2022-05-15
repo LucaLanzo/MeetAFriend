@@ -26,7 +26,7 @@ struct HomeView: View {
                     Text("Joined Users: \(location.joinedUsers.formatted())")
                    
                     ButtonView(title: "Join Location") {
-                        locationService.joinLocation(lid: location.id)
+                        locationService.joinLocation(lid: location.id!)
                     }
                     
                     Divider()
