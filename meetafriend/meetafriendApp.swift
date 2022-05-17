@@ -25,6 +25,8 @@ struct meetafriendApp: App {
     @StateObject var locationService = LocationServiceImpl()
     @StateObject var chatOverviewService = ChatOverviewServiceImpl()
     
+    @ObservedObject var showMap: Bool
+    
     var body: some Scene {
         WindowGroup {
             NavigationView{
@@ -46,6 +48,19 @@ struct meetafriendApp: App {
                 case .loggedOut:
                     LoginView()
                 }
+            }
+            
+            NavigationView {
+                VStack {
+                    NavigationLink(destination: MapView(), isActive: $showMap) {
+                        MapView()
+                    }
+
+                    Button("Tap to show detail") {
+                        showMap = true
+                    }
+                }
+                .navigationTitle("Navigation")
             }
         }
     }

@@ -48,7 +48,7 @@ private extension ChatOverviewServiceImpl {
                 do {
                     self.userKeys = try document.data(as: Location.self).joinedUsers
                     
-                    self.loadUsers()
+                    self.loadUsers(uid: uid!.uid)
                     
                     break
                 } catch {
@@ -58,11 +58,13 @@ private extension ChatOverviewServiceImpl {
         }
     }
     
-    func loadUsers() {
-        // Extremely inefficient! MVP working, but needs refactoring badly
+    func loadUsers(uid: String) {
+        // TODO: Extremely inefficient! MVP working, but badly needs refactoring
         self.users = []
         
         for userKey in userKeys {
+            if userKey == uid { continue }
+            
             db.collection("users").document(userKey).getDocument(as: User.self) { result in
                 
                 switch result {

@@ -11,6 +11,7 @@ import FirebaseFirestoreSwift
 public class Location: Codable, Identifiable {
     @DocumentID public var id: String?
     public var name: String
+    public var subDescription: String
     
     public var country: String
     public var city: String

@@ -17,27 +17,40 @@ struct ActiveUsersView: View {
             Button {
                 isClicked.toggle()
             } label: {
-                VStack {
-                    Image(systemName: "person.fill")
-                        .font(.system(size: 32))
-                        .padding(8)
-                        .overlay(RoundedRectangle(cornerRadius: 44)
-                                    .stroke(Color(.label), lineWidth: 1))
-                    
-                    VStack(alignment: .leading) {
-                        Text(username)
-                            .font(.system(size: 28, weight: .bold))
-                        Text(age)
-                            .font(.system(size: 28, weight: .bold))
+                    ZStack {
+                        VStack {
+                            Text(username)
+                                .font(.system(size: 28, weight: .bold))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.leading)
+                            
+                            Text("\(age) years old")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.leading)
+                            
+                            Image(systemName: "message")
+                                .font(.system(size: 32))
+                                .padding(8)
+                                .frame(width: 60, height: 60)
+                                .foregroundColor(Color(.label))
+                                .background(.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 5)
+                        }
+                        .frame(width: 150, height: 170)
+                        .background(.black)
+                        .cornerRadius(15)
                         
-                        Image(systemName: "message")
+                        
+                        Image(systemName: "person.fill")
                             .font(.system(size: 32))
+                            .frame(width: 48, height: 48)
                             .padding(8)
+                            .overlay(RoundedRectangle(cornerRadius: 44)
+                                .stroke(Color(.black), lineWidth: 1))
+                            .offset(x: -20, y: -100)
                     }
-                    .frame(width: 120, height: 170)
-                    .background(.gray)
-                    
-                }
             }
             .buttonStyle(.plain)
         } else {
@@ -47,16 +60,17 @@ struct ActiveUsersView: View {
                 VStack {
                     Image(systemName: "person.fill")
                         .font(.system(size: 32))
+                        .frame(width: 48, height: 48)
                         .padding(8)
                         .overlay(RoundedRectangle(cornerRadius: 44)
-                                    .stroke(Color(.label), lineWidth: 1))
+                            .stroke(Color(.black), lineWidth: 1))
                     
                     VStack {
                         Text(username)
                             .font(.system(size: 28, weight: .bold))
                             .rotationEffect(.degrees(-90))
                             .fixedSize()
-                            .frame(width: 20, height: 110)
+                            .frame(width: 20, height: 140)
                     }
                     .frame(width: 40)
                 }

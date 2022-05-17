@@ -22,8 +22,11 @@ struct ChatOverviewView: View {
                 }, label: {
                     Image(systemName: "rectangle.portrait.and.arrow.right")
                         .font(.system(size: 20, weight: .bold))
+                        .frame(width: 48, height: 48)
                         .foregroundColor(Color(.label))
-                        
+                        .background(.white)
+                        .clipShape(Circle())
+                        .shadow(radius: 5)
                 })
                 
                 Spacer()
@@ -32,23 +35,33 @@ struct ChatOverviewView: View {
                     Text("You're at")
                         .multilineTextAlignment(.center)
                     Text("Kult")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
                         .multilineTextAlignment(.center)
+                        
                 }
+                
                 Spacer()
                 
                 Image(systemName: "")
                     .font(.system(size: 32))
+                    .frame(width: 18, height: 18)
                     .padding(15)
                     .overlay(RoundedRectangle(cornerRadius: 44)
                     .stroke(Color(.label), lineWidth: 1))
             }
-            .padding([.leading, .trailing])
+            .padding()
+            .background(.yellow)
+            .cornerRadius(15)
+            
             
             
             // Active
             VStack(alignment: .leading, spacing: 16) {
                 Text("Active")
                     .font(.title)
+                    .fontWeight(.bold)
             }
             .padding([.leading, .trailing])
     
@@ -63,23 +76,29 @@ struct ChatOverviewView: View {
             }
             .padding([.leading, .trailing])
             
+            
+            
+            
             // Messages
             VStack(alignment: .leading, spacing: 16) {
                 Text("Messages")
                     .font(.title)
+                    .fontWeight(.bold)
             }
             .padding([.leading, .trailing])
             
             
-            VStack() {
-                ScrollView {
-                    ForEach(0..<10, id: \.self) { num in
-                        ChatMessageView(username: "Luca", message: "Test message", time: "3m")
-                    }
+            
+            ScrollView {
+                ChatMessageView(username: "Luca", message: "Test message", time: "3m", read: false)
+                ForEach(0..<10, id: \.self) { num in
+                    ChatMessageView(username: "Luca", message: "Test message", time: "3m", read: true)
                 }
             }
+            
         }
         .navigationBarHidden(true)
+        .padding([.leading, .trailing], 10)
     }
 }
 
@@ -89,6 +108,7 @@ struct ChatOverviewView_Previews: PreviewProvider {
             ChatOverviewView()
                 .environmentObject(SessionServiceImpl())
                 .environmentObject(LocationServiceImpl())
+                .environmentObject(ChatOverviewServiceImpl())
         }
         .previewInterfaceOrientation(.portrait)
     }
