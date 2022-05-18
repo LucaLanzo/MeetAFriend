@@ -22,6 +22,8 @@ struct InputTextFieldView: View {
                    minHeight: 44)
             .padding(.leading, sfSymbol == nil ? textFieldLeading / 2 : textFieldLeading)
             .keyboardType(keyboardType)
+            .autocapitalization(UITextAutocapitalizationType.none)
+            .disableAutocorrection(true)
             .background(
                 
                 ZStack(alignment: .leading) {

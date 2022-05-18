@@ -15,6 +15,11 @@
 		8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */; };
 		8128C6DA27E84E9B00B8B9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */; };
 		8128C6DD27E84E9B00B8B9C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6DC27E84E9B00B8B9C9 /* Preview Assets.xcassets */; };
+		816FAEBA283458D800CE5EA6 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FAEB9283458D800CE5EA6 /* MapViewModel.swift */; };
+		816FAEBE2834608900CE5EA6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FAEBD2834608900CE5EA6 /* ImagePicker.swift */; };
+		816FAEC428346EF900CE5EA6 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FAEC328346EF900CE5EA6 /* ChatView.swift */; };
+		816FAEC62834710D00CE5EA6 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FAEC52834710D00CE5EA6 /* ChatService.swift */; };
+		816FAEC82834749F00CE5EA6 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816FAEC72834749F00CE5EA6 /* Message.swift */; };
 		8175DB3227E8D60600745AAC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8175DB3127E8D60600745AAC /* GoogleService-Info.plist */; };
 		818B882B27E8A95E0091FED1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 818B882A27E8A95E0091FED1 /* LoginView.swift */; };
 		819F8D3927EDD264002F408B /* InputTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D3827EDD264002F408B /* InputTextFieldView.swift */; };
@@ -56,6 +61,12 @@
 		8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meetafriendApp.swift; sourceTree = "<group>"; };
 		8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8128C6DC27E84E9B00B8B9C9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		816FAEB82834368500CE5EA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		816FAEB9283458D800CE5EA6 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		816FAEBD2834608900CE5EA6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		816FAEC328346EF900CE5EA6 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		816FAEC52834710D00CE5EA6 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		816FAEC72834749F00CE5EA6 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		8175DB3127E8D60600745AAC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		818B882A27E8A95E0091FED1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		819F8D3827EDD264002F408B /* InputTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldView.swift; sourceTree = "<group>"; };
@@ -192,6 +203,7 @@
 		8128C6D427E84E9700B8B9C9 /* meetafriend */ = {
 			isa = PBXGroup;
 			children = (
+				816FAEB82834368500CE5EA6 /* Info.plist */,
 				819F8D3627EDD209002F408B /* Base */,
 				819F8D3327EDD129002F408B /* Feature */,
 				8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */,
@@ -210,10 +222,61 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		816FAEBB283458DC00CE5EA6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				816FAEB9283458D800CE5EA6 /* MapViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		816FAEBC283458E000CE5EA6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				81D149702833E1B3008BC73C /* MapView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		816FAEBF28346ED800CE5EA6 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				816FAEC128346EE900CE5EA6 /* Service */,
+				816FAEC9283474A200CE5EA6 /* Model */,
+				816FAEC028346EE500CE5EA6 /* View */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		816FAEC028346EE500CE5EA6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				816FAEC328346EF900CE5EA6 /* ChatView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		816FAEC128346EE900CE5EA6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				816FAEC52834710D00CE5EA6 /* ChatService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		816FAEC9283474A200CE5EA6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				816FAEC72834749F00CE5EA6 /* Message.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8178CDBB282A60AB00BF42CF /* Chat */ = {
 			isa = PBXGroup;
 			children = (
 				81B4F3A72831B14A0005EFFF /* ChatOverview */,
+				816FAEBF28346ED800CE5EA6 /* Chat */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -303,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				819F8D4427EDDFBB002F408B /* RegisterView.swift */,
+				816FAEBD2834608900CE5EA6 /* ImagePicker.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -405,7 +469,8 @@
 		81D1496F2833E1A5008BC73C /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				81D149702833E1B3008BC73C /* MapView.swift */,
+				816FAEBB283458DC00CE5EA6 /* ViewModel */,
+				816FAEBC283458E000CE5EA6 /* View */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -506,11 +571,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				816FAEBA283458D800CE5EA6 /* MapViewModel.swift in Sources */,
 				810DE00027F1DA91008D72EC /* LoginService.swift in Sources */,
 				819F8D4B27EE0168002F408B /* HomeView.swift in Sources */,
 				819F8D3E27EDD6BA002F408B /* InputPasswordView.swift in Sources */,
+				816FAEC428346EF900CE5EA6 /* ChatView.swift in Sources */,
 				81B4F3A92831B18D0005EFFF /* ChatOverviewView.swift in Sources */,
 				818B882B27E8A95E0091FED1 /* LoginView.swift in Sources */,
+				816FAEC62834710D00CE5EA6 /* ChatService.swift in Sources */,
 				8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */,
 				819F8D5527EE0870002F408B /* RegistrationService.swift in Sources */,
 				81D149712833E1B3008BC73C /* MapView.swift in Sources */,
@@ -518,6 +586,7 @@
 				819F8D4727EDFEF4002F408B /* CloseModifier.swift in Sources */,
 				819F8D5F27EE112E002F408B /* SessionService.swift in Sources */,
 				810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */,
+				816FAEBE2834608900CE5EA6 /* ImagePicker.swift in Sources */,
 				81DB4295282E9572003AAE7A /* ActiveUsersView.swift in Sources */,
 				819F8D4527EDDFBB002F408B /* RegisterView.swift in Sources */,
 				810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */,
@@ -529,6 +598,7 @@
 				81DDAB1B282BE97A008DD4E9 /* LocationService.swift in Sources */,
 				81B4F3AD2831B6CB0005EFFF /* User.swift in Sources */,
 				819F8D4127EDD8CA002F408B /* ButtonView.swift in Sources */,
+				816FAEC82834749F00CE5EA6 /* Message.swift in Sources */,
 				819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */,
 				819F8D5227EE0828002F408B /* RegistrationDetails.swift in Sources */,
 				810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */,
@@ -667,6 +737,8 @@
 				DEVELOPMENT_TEAM = 2TXP37FB43;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = meetafriend/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "meet a friend needs your location to check which locations are near you. The location will never be saved outside of your phone.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -696,6 +768,8 @@
 				DEVELOPMENT_TEAM = 2TXP37FB43;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = meetafriend/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "meet a friend needs your location to check which locations are near you. The location will never be saved outside of your phone.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

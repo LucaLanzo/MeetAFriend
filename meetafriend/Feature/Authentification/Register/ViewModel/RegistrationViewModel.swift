@@ -6,6 +6,7 @@
 //
 
 import Combine
+import SwiftUI
 import Foundation
 
 enum RegistrationState {
@@ -29,6 +30,7 @@ final class RegistrationViewModelImpl: ObservableObject, RegistrationViewModel {
     @Published var hasError: Bool = false
     @Published var state: RegistrationState = .na
     @Published var userDetails: RegistrationDetails = RegistrationDetails.new
+    @Published var image: UIImage?
     
     private var subscriptions = Set<AnyCancellable>()
     
@@ -39,7 +41,7 @@ final class RegistrationViewModelImpl: ObservableObject, RegistrationViewModel {
     
     func register() {
         service
-            .register(with: userDetails)
+            .register(with: userDetails, with: image)
             .sink { [weak self] res in
                 switch res {
                 case .failure(let error):

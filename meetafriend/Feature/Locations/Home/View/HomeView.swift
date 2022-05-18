@@ -28,19 +28,32 @@ struct HomeView: View {
                     .padding(.bottom, 15)
                 
                 HStack {
-                    SettingsButtonView(buttonName: "DM's", imageName: "message")
-                    Spacer()
-                    Button(action: {
-                        meetafriendApp.show
-                    }, label: {
-                        SettingsButtonView(buttonName: "Map", imageName: "map")
-                    })
+                    NavigationLink(destination: MapView()) {
+                        SettingsButtonView(buttonName: "DM's", imageName: "message")
+                    }
                     .buttonStyle(.plain)
                     
                     Spacer()
-                    SettingsButtonView(buttonName: "How to", imageName: "questionmark")
+                    
+                    NavigationLink(destination: MapView()) {
+                        SettingsButtonView(buttonName: "Map", imageName: "map")
+                    }
+                    .buttonStyle(.plain)
+                    
+                    
                     Spacer()
-                    SettingsButtonView(buttonName: "Setup", imageName: "gear")
+                    
+                    NavigationLink(destination: MapView()) {
+                        SettingsButtonView(buttonName: "How to", imageName: "questionmark")
+                    }
+                    .buttonStyle(.plain)
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: MapView()) {
+                        SettingsButtonView(buttonName: "Setup", imageName: "gear")
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             .padding([.top, .bottom], 16)
@@ -55,12 +68,10 @@ struct HomeView: View {
             
             
             
-            
-            
             VStack(alignment: .leading, spacing: 16) {
                 TabView {
-                    ForEach(0..<4) { _ in
-                        SwipeLocationsView(title: "Kult", subDescription: "Bar")
+                    ForEach(locationService.locations) { location in
+                        SwipeLocationsView(title: location.name, subDescription: location.subDescription)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))

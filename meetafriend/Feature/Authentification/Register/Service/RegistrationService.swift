@@ -7,7 +7,9 @@
 import Combine
 import FirebaseFirestore
 import FirebaseCore
+import FirebaseStorage
 import Firebase
+import SwiftUI
 import Foundation
 
 enum RegistrationKeys: String {
@@ -17,13 +19,14 @@ enum RegistrationKeys: String {
 }
 
 protocol RegistrationService {
-    func register(with details: RegistrationDetails) -> AnyPublisher<Void, Error>
+    func register(with details: RegistrationDetails, with image: UIImage?) -> AnyPublisher<Void, Error>
 }
 
 final class RegistrationServiceImpl: RegistrationService {
     let db = Firestore.firestore()
+    let storage = Storage.storage()
     
-    func register(with details: RegistrationDetails) -> AnyPublisher<Void, Error> {
+    func register(with details: RegistrationDetails, with image: UIImage?) -> AnyPublisher<Void, Error> {
         Deferred {
             Future { promise in
                 Auth.auth()
@@ -36,6 +39,7 @@ final class RegistrationServiceImpl: RegistrationService {
                         
                         } else {
                             if let uid = res?.user.uid {
+                                // put user data into firestore
                                 self.db.collection("users").document(uid).setData([
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.lastName.rawValue: details.lastName,
@@ -43,6 +47,28 @@ final class RegistrationServiceImpl: RegistrationService {
                                 ]) { err in
                                     if let err = err {
                                         print("Error adding document: \(err)")
+                                    }
+                                }
+                                
+                                
+                                // Persist image to storage
+                                let ref = self.storage.reference(withPath: uid)
+                                
+                                guard let imageData = image?.jpegData(compressionQuality: 0.5) else { return }
+                                
+                                ref.putData(imageData, metadata: nil) { metadata, err in
+                                    if let err = err {
+                                        print("Failed to push image to Storage: \(err)")
+                                        return
+                                    }
+
+                                    ref.downloadURL { url, err in
+                                        if err != nil {
+                                            print("Could not download image data")
+                                            return
+                                        }
+                                        
+                                        print("Successfully saved image under \(url?.absoluteString ?? "")")
                                     }
                                 }
                             } else {

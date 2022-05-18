@@ -28,7 +28,6 @@ protocol LocationService {
 final class LocationServiceImpl: ObservableObject, LocationService {
     @Published var locations: [Location] = []
     @Published var state: LocationState = .notJoined
-    // @Published var joinedLocation: Location?
     
     private let db = Firestore.firestore()
     

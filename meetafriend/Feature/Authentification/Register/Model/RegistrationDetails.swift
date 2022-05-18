@@ -5,9 +5,12 @@
 //  Created by Luca on 25.03.22.
 //
 
+import FirebaseFirestoreSwift
 import Foundation
 
-struct RegistrationDetails {
+struct RegistrationDetails: Codable {
+    @DocumentID public var id: String?
+    
     var email: String
     var password: String
     var firstName: String

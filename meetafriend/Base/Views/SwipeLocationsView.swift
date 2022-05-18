@@ -40,6 +40,7 @@ struct SwipeLocationsView: View {
                     .buttonStyle(.plain)
                     .background(.yellow)
                     .cornerRadius(15)
+                    .shadow(radius: 10)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -48,6 +49,7 @@ struct SwipeLocationsView: View {
         }
         .frame(maxWidth: .infinity)
         .navigationBarHidden(true)
+        .padding()
     }
 }
 

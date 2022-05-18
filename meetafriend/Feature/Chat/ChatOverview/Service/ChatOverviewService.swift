@@ -7,9 +7,8 @@
 
 import Foundation
 import FirebaseAuth
-import Firebase
 import FirebaseFirestoreSwift
-
+import Firebase
 
 enum ChatState {
     case joined
@@ -76,5 +75,9 @@ private extension ChatOverviewServiceImpl {
                 
             }
         }
+    }
+    
+    func startChat(uid: String) {
+        
     }
 }

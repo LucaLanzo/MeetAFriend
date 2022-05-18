@@ -66,10 +66,12 @@ private extension SessionServiceImpl {
             .addSnapshotListener { documentSnapshot, error in
                 guard let document = documentSnapshot else {
                     print("Error fetching document: \(error!)")
+                    self.state = .loggedOut
                     return
                 }
                 guard let data = document.data() else {
                     print("Document data was empty.")
+                    self.state = .loggedOut
                     return
                 }
                 let value = data as NSDictionary

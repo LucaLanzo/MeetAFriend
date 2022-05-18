@@ -24,8 +24,7 @@ struct meetafriendApp: App {
     @StateObject var sessionService = SessionServiceImpl()
     @StateObject var locationService = LocationServiceImpl()
     @StateObject var chatOverviewService = ChatOverviewServiceImpl()
-    
-    @ObservedObject var showMap: Bool
+    @StateObject var chatService = ChatServiceImpl()
     
     var body: some Scene {
         WindowGroup {
@@ -35,33 +34,19 @@ struct meetafriendApp: App {
                     switch locationService.state {
                     case .notJoined:
                         HomeView()
-                            .environmentObject(sessionService)
-                            .environmentObject(locationService)
                         
                     case .joined:
                         ChatOverviewView()
-                            .environmentObject(sessionService)
-                            .environmentObject(locationService)
-                            .environmentObject(chatOverviewService)
                     }
                     
                 case .loggedOut:
                     LoginView()
                 }
             }
-            
-            NavigationView {
-                VStack {
-                    NavigationLink(destination: MapView(), isActive: $showMap) {
-                        MapView()
-                    }
-
-                    Button("Tap to show detail") {
-                        showMap = true
-                    }
-                }
-                .navigationTitle("Navigation")
-            }
+            .environmentObject(sessionService)
+            .environmentObject(locationService)
+            .environmentObject(chatOverviewService)
+            .environmentObject(chatService)
         }
     }
 }

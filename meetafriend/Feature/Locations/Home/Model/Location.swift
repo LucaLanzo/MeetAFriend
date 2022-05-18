@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 public class Location: Codable, Identifiable {
@@ -19,7 +20,7 @@ public class Location: Codable, Identifiable {
     public var street: String
     public var houseNumber: Int
     
-    // public var coordinates: [String]
+    public var coordinates: GeoPoint
 
     public var joinedUsers: [String]
 }
