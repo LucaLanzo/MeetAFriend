@@ -16,6 +16,7 @@ enum RegistrationKeys: String {
     case firstName
     case lastName
     case age
+    case profilePictureURL
 }
 
 protocol RegistrationService {
@@ -39,22 +40,11 @@ final class RegistrationServiceImpl: RegistrationService {
                         
                         } else {
                             if let uid = res?.user.uid {
-                                // put user data into firestore
-                                self.db.collection("users").document(uid).setData([
-                                    RegistrationKeys.firstName.rawValue: details.firstName,
-                                    RegistrationKeys.lastName.rawValue: details.lastName,
-                                    RegistrationKeys.age.rawValue: details.age
-                                ]) { err in
-                                    if let err = err {
-                                        print("Error adding document: \(err)")
-                                    }
-                                }
-                                
-                                
                                 // Persist image to storage
                                 let ref = self.storage.reference(withPath: uid)
                                 
                                 guard let imageData = image?.jpegData(compressionQuality: 0.5) else { return }
+                                var profilePictureURL = ""
                                 
                                 ref.putData(imageData, metadata: nil) { metadata, err in
                                     if let err = err {
@@ -68,9 +58,25 @@ final class RegistrationServiceImpl: RegistrationService {
                                             return
                                         }
                                         
-                                        print("Successfully saved image under \(url?.absoluteString ?? "")")
+                                        if url?.absoluteString != nil {
+                                            print("Successfully saved image under \(url!.absoluteString)")
+                                            profilePictureURL = url!.absoluteString
+                                        }
                                     }
                                 }
+                                
+                                // put user data into firestore
+                                self.db.collection("users").document(uid).setData([
+                                    RegistrationKeys.firstName.rawValue: details.firstName,
+                                    RegistrationKeys.lastName.rawValue: details.lastName,
+                                    RegistrationKeys.age.rawValue: details.age,
+                                    RegistrationKeys.profilePictureURL.rawValue: profilePictureURL
+                                ]) { err in
+                                    if let err = err {
+                                        print("Error adding document: \(err)")
+                                    }
+                                }
+                                
                             } else {
                                 promise(.failure(NSError(domain: "Invalid User Id", code: 0, userInfo: nil)))
                             }

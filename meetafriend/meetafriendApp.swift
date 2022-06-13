@@ -25,6 +25,7 @@ struct meetafriendApp: App {
     @StateObject var locationService = LocationServiceImpl()
     @StateObject var chatOverviewService = ChatOverviewServiceImpl()
     @StateObject var chatService = ChatServiceImpl()
+    @StateObject var mapService = MapServiceImpl()
     
     var body: some Scene {
         WindowGroup {
@@ -36,9 +37,14 @@ struct meetafriendApp: App {
                         HomeView()
                         
                     case .joined:
-                        ChatOverviewView()
+                        switch chatOverviewService.state {
+                        case .notJoined:
+                            ChatOverviewView()
+                        
+                        case .joined:
+                            ChatView(name: chatService.user?.firstName ?? "", message: chatService.message)
+                        }
                     }
-                    
                 case .loggedOut:
                     LoginView()
                 }
@@ -47,6 +53,7 @@ struct meetafriendApp: App {
             .environmentObject(locationService)
             .environmentObject(chatOverviewService)
             .environmentObject(chatService)
+            .environmentObject(mapService)
         }
     }
 }

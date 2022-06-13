@@ -17,10 +17,13 @@ enum ChatState {
 
 protocol ChatOverviewService {
     var users: [User] { get }
+    var state: ChatState { get }
 }
 
 final class ChatOverviewServiceImpl: ObservableObject, ChatOverviewService {
     @Published var users: [User] = []
+    @Published var state: ChatState = .notJoined
+    
     private var userKeys: [String] = []
     
     private let db = Firestore.firestore()
@@ -58,7 +61,7 @@ private extension ChatOverviewServiceImpl {
     }
     
     func loadUsers(uid: String) {
-        // TODO: Extremely inefficient! MVP working, but badly needs refactoring
+        // TODO: Extremely inefficient! MVP working, but needs refactoring badly
         self.users = []
         
         for userKey in userKeys {
@@ -77,7 +80,32 @@ private extension ChatOverviewServiceImpl {
         }
     }
     
-    func startChat(uid: String) {
+    func startChat(withUser: String) {
+        let uid = Auth.auth().currentUser
+        if (uid == nil) { return }
+        
+        var localUser: User? = nil
+        
+        db.collection("users").document(uid!.uid).getDocument(as: User.self) { result in
+            
+            switch result {
+            case .success(let user):
+                localUser = user
+            case .failure(let error):
+                print("Error decoding user: \(error)")
+            }
+            
+        }
+        
+        localUser?.chatWith = withUser
+        
+        do {
+            try db.collection("users").document(uid!.uid).setData(from: localUser)
+        } catch let error {
+            print("Error updating starting Chat with user \(error)")
+        }
+        
+        self.state = .joined
         
     }
 }

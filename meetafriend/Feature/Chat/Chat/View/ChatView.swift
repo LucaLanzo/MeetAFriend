@@ -11,7 +11,6 @@ import SwiftUI
 
 struct ChatView: View {
     var name: String
-    @State var lastSeen: String
     @State var message: String
     @EnvironmentObject var chatService: ChatServiceImpl
     
@@ -36,9 +35,6 @@ struct ChatView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
-                    Text("Last seen \(lastSeen) minutes ago")
-                        .multilineTextAlignment(.center)
-                        .font(.footnote)
                 }
                 
                 Spacer()
@@ -75,6 +71,6 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(name: "Steffi", lastSeen: "2", message: "")
+        ChatView(name: "Steffi", message: "")
     }
 }

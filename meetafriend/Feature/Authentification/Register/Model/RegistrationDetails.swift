@@ -16,10 +16,11 @@ struct RegistrationDetails: Codable {
     var firstName: String
     var lastName: String
     var age: Int
+    var profilePictureURL: String
 }
 
 extension RegistrationDetails {
     static var new: RegistrationDetails {
-        RegistrationDetails(email: "", password: "", firstName: "", lastName: "", age: 18)
+        RegistrationDetails(email: "", password: "", firstName: "", lastName: "", age: 18, profilePictureURL: "")
     }
 }

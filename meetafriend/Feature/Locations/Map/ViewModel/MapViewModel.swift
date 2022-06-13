@@ -19,7 +19,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         span: MapDetails.startingZoom
     )
     
-    var locationManager: CLLocationManager?
+    var locationManager: CLLocationManager?	
     
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
@@ -47,7 +47,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         case .denied:
             print("You have denied this app location permission. Go into settings to change it.")
         case .authorizedAlways, .authorizedWhenInUse:
-            region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: MapDetails.startingZoom)
+            region = MKCoordinateRegion(center: locationManager.location?.coordinate ?? CLLocationCoordinate2D(), span: MapDetails.startingZoom)
         @unknown default:
             break
         }

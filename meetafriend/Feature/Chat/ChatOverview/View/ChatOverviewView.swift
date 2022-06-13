@@ -90,9 +90,8 @@ struct ChatOverviewView: View {
             
             
             ScrollView {
-                ChatMessageView(username: "Luca", message: "Test message", time: "3m", read: false)
-                ForEach(0..<10, id: \.self) { num in
-                    ChatMessageView(username: "Luca", message: "Test message", time: "3m", read: true)
+                ForEach(chatOverviewService.users) { user in
+                    ChatMessageView(username: user.firstName, message: "Test message", time: "3m", read: true)
                 }
             }
             

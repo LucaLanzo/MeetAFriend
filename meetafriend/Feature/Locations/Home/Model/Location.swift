@@ -10,6 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 public class Location: Codable, Identifiable {
+    
     @DocumentID public var id: String?
     public var name: String
     public var subDescription: String
@@ -23,5 +24,9 @@ public class Location: Codable, Identifiable {
     public var coordinates: GeoPoint
 
     public var joinedUsers: [String]
+    
+    public var locationPictureURL: String
+    
+    var closeTo: Bool = false
 }
 

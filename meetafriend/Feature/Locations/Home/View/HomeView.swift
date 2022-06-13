@@ -10,9 +10,9 @@ import SwiftUI
 struct HomeView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
+    @EnvironmentObject var mapService: MapServiceImpl
     
     var body: some View {
-        
         
         VStack {
             VStack(alignment: .leading) {
@@ -70,8 +70,8 @@ struct HomeView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 TabView {
-                    ForEach(locationService.locations) { location in
-                        SwipeLocationsView(title: location.name, subDescription: location.subDescription)
+                    ForEach(mapService.locations) { loc in
+                        SwipeLocationsView(title: loc.name, subDescription: loc.subDescription, locationProfileURL: loc.locationPictureURL)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
@@ -110,6 +110,7 @@ struct HomeView_Previews: PreviewProvider {
             HomeView()
                 .environmentObject(SessionServiceImpl())
                 .environmentObject(LocationServiceImpl())
+                .environmentObject(MapServiceImpl())
         }
     }
 }
