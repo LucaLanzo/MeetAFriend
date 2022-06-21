@@ -11,10 +11,16 @@ import SDWebImageSwiftUI
 struct SwipeLocationsView: View {
     @EnvironmentObject var mapService: MapServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
-    
+    @State var locationClose: Bool = false
+
     let title: String
     let subDescription: String
     let locationProfileURL: String
+    let locationID: String
+    
+    func getCloseTo() {
+        self.locationClose = mapService.locations.first(where: { $0.id == locationID })!.closeTo
+    }
     
     var body: some View {
         
@@ -43,19 +49,37 @@ struct SwipeLocationsView: View {
                     Spacer()
                     
                     VStack {
-                        NavigationLink(destination: MapView()) {
-                            ZStack {
-                                Text("show on map")
-                                    .fontWeight(.bold)
+                        if (!locationClose) {
+                            Button {
+                                locationService.joinLocation(lid: locationID)
+                            } label: {
+                                ZStack {
+                                    Text("Enter")
+                                        .fontWeight(.bold)
+                                }
+                                .padding([.leading, .trailing], 30)
+                                .padding([.top, .bottom], 10)
+                                .buttonStyle(.plain)
+                                .background(.white)
+                                .cornerRadius(25)
+                                .shadow(radius: 10)
                             }
-                            .padding([.leading, .trailing], 30)
-                            .padding([.top, .bottom], 10)
                             .buttonStyle(.plain)
-                            .background(.white)
-                            .cornerRadius(25)
-                            .shadow(radius: 10)
+                        } else {
+                            NavigationLink(destination: MapView()) {
+                                ZStack {
+                                    Text("show on map")
+                                        .fontWeight(.bold)
+                                }
+                                .padding([.leading, .trailing], 30)
+                                .padding([.top, .bottom], 10)
+                                .buttonStyle(.plain)
+                                .background(.white)
+                                .cornerRadius(25)
+                                .shadow(radius: 10)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.bottom, 35)
@@ -68,6 +92,7 @@ struct SwipeLocationsView: View {
         .frame(maxWidth: .infinity)
         .navigationBarHidden(true)
         .padding()
+        .onAppear{ getCloseTo() }
     }
 }
 
@@ -75,7 +100,7 @@ struct SwipeLocationsView: View {
 
 struct SwipeLocationsView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeLocationsView(title: "Kult", subDescription: "Bar", locationProfileURL: "https://firebasestorage.googleapis.com/v0/b/meet-a-friend-1b475.appspot.com/o/mtfllcrbrNqqiknl0FfO.jpg?alt=media&token=0111c1ae-bb29-47a5-97df-f43cfd86a35d")
+        SwipeLocationsView(title: "Kult", subDescription: "Bar",  locationProfileURL: "https://firebasestorage.googleapis.com/v0/b/meet-a-friend-1b475.appspot.com/o/mtfllcrbrNqqiknl0FfO.jpg?alt=media&token=0111c1ae-bb29-47a5-97df-f43cfd86a35d", locationID: "bla")
             .environmentObject(MapServiceImpl())
             .environmentObject(LocationServiceImpl())
     }

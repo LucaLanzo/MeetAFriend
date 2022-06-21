@@ -12,8 +12,15 @@ import Foundation
 public class Message: Codable, Identifiable {
     @DocumentID public var id: String?
     
-    public var from: String
-    public var to: String
-    public var message: String
-    public var time: Timestamp
+    public var fromId: String
+    public var toId: String
+    public var text: String
+    public var timestamp: Timestamp
+    
+    init(fromId: String, toId: String, text: String) {
+        self.fromId = fromId
+        self.toId = toId
+        self.text = text
+        self.timestamp = Timestamp()
+    }
 }

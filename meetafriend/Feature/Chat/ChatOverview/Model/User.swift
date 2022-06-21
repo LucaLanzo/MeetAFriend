@@ -14,5 +14,4 @@ public class User: Codable, Identifiable {
     public var firstName: String
     public var lastName: String
     public var age: Int
-    public var chatWith: String
 }

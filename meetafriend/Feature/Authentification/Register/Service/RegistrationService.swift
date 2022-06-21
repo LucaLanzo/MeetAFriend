@@ -17,6 +17,7 @@ enum RegistrationKeys: String {
     case lastName
     case age
     case profilePictureURL
+    case chatWith
 }
 
 protocol RegistrationService {

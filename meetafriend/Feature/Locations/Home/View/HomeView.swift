@@ -71,7 +71,7 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 16) {
                 TabView {
                     ForEach(mapService.locations) { loc in
-                        SwipeLocationsView(title: loc.name, subDescription: loc.subDescription, locationProfileURL: loc.locationPictureURL)
+                        SwipeLocationsView(title: loc.name, subDescription: loc.subDescription, locationProfileURL: loc.locationPictureURL, locationID: loc.id!)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))

@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Firebase
 
@@ -19,7 +20,7 @@ enum LocationState {
 protocol LocationService {
     var locations: [Location] { get }
     var state: LocationState { get }
-    // var joinedLocation: Location? { get }
+    var joinedLocation: Location? { get }
     
     func joinLocation(lid: String)
 }
@@ -27,6 +28,7 @@ protocol LocationService {
 final class LocationServiceImpl: ObservableObject, LocationService {
     @Published var locations: [Location] = []
     @Published var state: LocationState = .notJoined
+    @Published var joinedLocation: Location?
     
     private let db = Firestore.firestore()
     
@@ -99,12 +101,14 @@ private extension LocationServiceImpl {
             for user in location.joinedUsers {
                 if user == uid!.uid {
                     self.state = .joined
+                    self.joinedLocation = location
                     return
                 }
             }
         }
         
         self.state = .notJoined
+        self.joinedLocation = nil
     }
     
     
@@ -119,9 +123,16 @@ private extension LocationServiceImpl {
             "joinedUsers": FieldValue.arrayUnion([uid!.uid])
         ])
         
-        // updateJoinedLocation(with: lid)
-        
         self.state = .joined
+        locationRef.getDocument(as: Location.self) { result in
+            switch(result) {
+            case .success(let location):
+                self.joinedLocation = location
+            case .failure(let error):
+                print("LocationService: Failed getting joinedLocation \(error)")
+                self.joinedLocation = nil
+            }
+        }
     }
 }
 
@@ -150,6 +161,7 @@ extension LocationServiceImpl {
         ])
         
         self.state = .notJoined
+        self.joinedLocation = nil
     }
     
 }

@@ -13,13 +13,15 @@ import FirebaseFirestoreSwift
 
 protocol MapService {
     var locations: [Location] { get }
+    var mapViewModel: MapViewModel { get }
 }
 
 final class MapServiceImpl: ObservableObject, MapService {
     @Published var locations: [Location] = []
+    @Published var mapViewModel = MapViewModel()
     
     private let updateInterval = 60.0
-    private var mapViewModel = MapViewModel()
+    
     private weak var timer: Timer?
     private let db = Firestore.firestore()
     
@@ -81,8 +83,9 @@ private extension MapServiceImpl {
                     
                     let distanceToLocation = self!.distanceToLocation(lat1: lat1, lon1: lon1, lat2: lat2, lon2: lon2)
                     
-                    if (distanceToLocation < 30.0) {
+                    if (distanceToLocation < 10000.0) {
                         loc.closeTo = true
+                        
                     } else {
                         loc.closeTo = false
                     }

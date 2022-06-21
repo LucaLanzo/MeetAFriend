@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ChatOverviewView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
@@ -34,22 +35,40 @@ struct ChatOverviewView: View {
                 VStack {
                     Text("You're at")
                         .multilineTextAlignment(.center)
-                    Text("Kult")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                        
+                    if let location = locationService.joinedLocation {
+                        Text(location.name)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                    } else {
+                        Text("a location")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                    }
                 }
                 
                 Spacer()
                 
-                Image(systemName: "")
-                    .font(.system(size: 32))
-                    .frame(width: 18, height: 18)
-                    .padding(15)
-                    .overlay(RoundedRectangle(cornerRadius: 44)
-                    .stroke(Color(.label), lineWidth: 1))
+                
+                if let location = locationService.joinedLocation {
+                    WebImage(url: URL(string: location.locationPictureURL))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 48, height: 48)
+                            .clipped()
+                            .cornerRadius(50)
+                            .overlay(RoundedRectangle(cornerRadius: 50))
+                } else {
+                    Image(systemName: "")
+                        .font(.system(size: 32))
+                        .frame(width: 18, height: 18)
+                        .padding(15)
+                        .overlay(RoundedRectangle(cornerRadius: 44)
+                        .stroke(Color(.label), lineWidth: 1))
+                }
             }
             .padding()
             .background(.yellow)
@@ -78,7 +97,6 @@ struct ChatOverviewView: View {
             
             
             
-            
             // Messages
             VStack(alignment: .leading, spacing: 16) {
                 Text("Messages")
@@ -91,7 +109,10 @@ struct ChatOverviewView: View {
             
             ScrollView {
                 ForEach(chatOverviewService.users) { user in
-                    ChatMessageView(username: user.firstName, message: "Test message", time: "3m", read: true)
+                    NavigationLink(destination: ChatView(chatUser: user)) {
+                        ChatMessageView(username: user.firstName, message: "Test message", time: "3m", read: true)
+                    }
+                    .buttonStyle(.plain)
                 }
             }
             

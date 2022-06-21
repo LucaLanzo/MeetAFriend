@@ -45,7 +45,7 @@ struct MapView: View {
             }
             .edgesIgnoringSafeArea(.all)
             
-            NavigationLink(destination: HomeView()) {
+            /*NavigationLink(destination: HomeView()) {
                 Image(systemName: "chevron.backward.circle")
                     .resizable()
                     .frame(width: 48, height: 48)
@@ -56,7 +56,7 @@ struct MapView: View {
             .transition(.move(edge: .trailing))
             .offset(x: 5, y: 40)
             .edgesIgnoringSafeArea(.all)
-            
+            */
             
             
             if (isClicked) {
@@ -66,7 +66,7 @@ struct MapView: View {
             }
             
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(false)
         .frame(maxWidth: .infinity) //, maxHeight: .infinity)
     }
 }

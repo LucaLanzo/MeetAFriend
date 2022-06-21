@@ -35,15 +35,10 @@ struct meetafriendApp: App {
                     switch locationService.state {
                     case .notJoined:
                         HomeView()
+                            .environmentObject(mapService)
                         
                     case .joined:
-                        switch chatOverviewService.state {
-                        case .notJoined:
-                            ChatOverviewView()
-                        
-                        case .joined:
-                            ChatView(name: chatService.user?.firstName ?? "", message: chatService.message)
-                        }
+                        ChatOverviewView()
                     }
                 case .loggedOut:
                     LoginView()

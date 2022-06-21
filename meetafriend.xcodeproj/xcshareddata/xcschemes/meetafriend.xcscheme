@@ -52,15 +52,15 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-_UIConstraintBasedLayoutLogUnsatisfiable NO"
-            isEnabled = "YES">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "-noFIRDebugEnabled&#9;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-noFIRAnalyticsDebugEnabled"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-_UIConstraintBasedLayoutLogUnsatisfiable NO"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
