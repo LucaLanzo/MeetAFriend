@@ -12,17 +12,19 @@ import FirebaseFirestoreSwift
 
 
 protocol MapService {
-    var locations: [Location] { get }
     var mapViewModel: MapViewModel { get }
+    var closeTo: [String] { get }
 }
 
 final class MapServiceImpl: ObservableObject, MapService {
-    @Published var locations: [Location] = []
     @Published var mapViewModel = MapViewModel()
+    @Published var closeTo: [String] = []
     
-    private let updateInterval = 60.0
+    private var locations: [Location] = []
     
+    private let updateInterval = 5.0
     private weak var timer: Timer?
+    
     private let db = Firestore.firestore()
     
     init() {
@@ -83,13 +85,21 @@ private extension MapServiceImpl {
                     
                     let distanceToLocation = self!.distanceToLocation(lat1: lat1, lon1: lon1, lat2: lat2, lon2: lon2)
                     
-                    if (distanceToLocation < 10000.0) {
-                        loc.closeTo = true
-                        
+                    if (distanceToLocation < 30.0) {
+                        if !self!.closeTo.contains(where: { $0 == loc.id }) {
+                            self!.closeTo.append(loc.id!)
+                        }
                     } else {
-                        loc.closeTo = false
+                        if let index = self!.closeTo.firstIndex(where: { $0 == loc.id }) {
+                            self!.closeTo.remove(at: index)
+                        }
                     }
                 }
+                
+                print("closeTo:")
+                self!.closeTo.forEach({ loc in
+                    print(loc)
+                })
             } else {
                 print("MapService: No locations found")
             }

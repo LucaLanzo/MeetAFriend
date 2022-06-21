@@ -18,11 +18,6 @@ struct ChatView: View {
         self.chatUser = chatUser
     }
     
-    func setChatUser() {
-        self.chatService.chatUser = chatUser
-        self.chatService.fetchMessages()
-        print("Chat View: Set chat user to: \(chatUser?.firstName ?? "No user found")")
-    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -36,7 +31,15 @@ struct ChatView: View {
         }
         .navigationBarHidden(true)
         .padding([.leading, .trailing], 10)
-        .onAppear{ setChatUser() }
+        .onAppear{
+            self.chatService.chatUser = chatUser
+            self.chatService.fetchMessages()
+            print("ChatView opened connection")
+        }
+        .onDisappear{
+            self.chatService.closeFetchMessage()
+            print("ChatView closed connection")
+        }
     }
     
     

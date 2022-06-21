@@ -25,6 +25,7 @@ final class ChatServiceImpl: ObservableObject, ChatService {
     @Published var messages: [Message] = []
     
     private var lid: String = ""
+    private var openConnection: ListenerRegistration?
     
     private let db = Firestore.firestore()
     
@@ -52,6 +53,7 @@ private extension ChatServiceImpl {
         }
     }
 }
+
 
 extension ChatServiceImpl {
     func sendMessage() {
@@ -94,26 +96,45 @@ extension ChatServiceImpl {
     }
     
     func fetchMessages() {
+        self.messages.removeAll()
+        
         guard let fromId = Auth.auth().currentUser?.uid else { return }
         
         guard let toId = chatUser?.id else { return }
         
-        db.collection("locations").document(lid).collection("messages").document(fromId).collection(toId).order(by: "timestamp").addSnapshotListener { querySnapshot, error in
-                if let error = error {
-                    print("ChatService couldn't fetchMessages \(error)")
-                    return
-                }
-
-                querySnapshot?.documentChanges.forEach({ change in
-                    if change.type == .added {
-                        do {
-                            let data = try change.document.data(as: Message.self)
-                            self.messages.append(data)
-                        } catch {
-                            print(error)
-                        }
-                    }
-                })
+        self.openConnection = db.collection("locations").document(lid).collection("messages").document(fromId).collection(toId).order(by: "timestamp").addSnapshotListener { querySnapshot, error in
+            if let error = error {
+                print("ChatService couldn't fetchMessages \(error)")
+                return
             }
+
+            querySnapshot?.documentChanges.forEach({ change in
+                if change.type == .added {
+                    do {
+                        let data = try change.document.data(as: Message.self)
+                        self.messages.append(data)
+                    } catch {
+                        print(error)
+                    }
+                }
+                
+                if change.type == .removed {
+                    if let message = self.messages.firstIndex(where: { $0.id ==
+                        change.document.documentID}) {
+                        self.messages.remove(at: message)
+                    }
+                }
+            })
+        }
+    }
+    
+    func closeFetchMessage() {
+        guard self.openConnection != nil else {
+            return
+        }
+        
+        self.openConnection?.remove()
+        
+        print("ChatService: Closed connection to messages")
     }
 }

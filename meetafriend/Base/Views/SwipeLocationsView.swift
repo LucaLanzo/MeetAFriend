@@ -9,37 +9,29 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct SwipeLocationsView: View {
-    @EnvironmentObject var mapService: MapServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
-    @State var locationClose: Bool = false
-
-    let title: String
-    let subDescription: String
-    let locationProfileURL: String
-    let locationID: String
+    @EnvironmentObject var mapService: MapServiceImpl
     
-    func getCloseTo() {
-        self.locationClose = mapService.locations.first(where: { $0.id == locationID })!.closeTo
-    }
+    let location: Location?
     
     var body: some View {
         
         ZStack(alignment: .leading) {
             ZStack(alignment: .leading) {
                 // Background Image
-                WebImage(url: URL(string: locationProfileURL))
+                WebImage(url: URL(string: location?.locationPictureURL ?? ""))
                     .resizable()
                     .blur(radius: 2)
                     .background(.gray)
                 
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
-                        Text(title)
+                        Text(location?.name ?? "Name")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                         
-                        Text(subDescription)
+                        Text(location?.subDescription ?? "Sub Description")
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                         
@@ -49,12 +41,12 @@ struct SwipeLocationsView: View {
                     Spacer()
                     
                     VStack {
-                        if (!locationClose) {
+                        if (mapService.closeTo.contains(where: { $0 == (location?.id ?? "") })) {
                             Button {
-                                locationService.joinLocation(lid: locationID)
+                                locationService.joinLocation(lid: location?.id ?? "")
                             } label: {
                                 ZStack {
-                                    Text("Enter")
+                                    Text("enter")
                                         .fontWeight(.bold)
                                 }
                                 .padding([.leading, .trailing], 30)
@@ -92,7 +84,6 @@ struct SwipeLocationsView: View {
         .frame(maxWidth: .infinity)
         .navigationBarHidden(true)
         .padding()
-        .onAppear{ getCloseTo() }
     }
 }
 
@@ -100,7 +91,7 @@ struct SwipeLocationsView: View {
 
 struct SwipeLocationsView_Previews: PreviewProvider {
     static var previews: some View {
-        SwipeLocationsView(title: "Kult", subDescription: "Bar",  locationProfileURL: "https://firebasestorage.googleapis.com/v0/b/meet-a-friend-1b475.appspot.com/o/mtfllcrbrNqqiknl0FfO.jpg?alt=media&token=0111c1ae-bb29-47a5-97df-f43cfd86a35d", locationID: "bla")
+        SwipeLocationsView(location: nil)
             .environmentObject(MapServiceImpl())
             .environmentObject(LocationServiceImpl())
     }

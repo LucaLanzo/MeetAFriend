@@ -28,10 +28,10 @@ struct HomeView: View {
                     .padding(.bottom, 15)
                 
                 HStack {
-                    NavigationLink(destination: MapView()) {
+                    //NavigationLink() {
                         SettingsButtonView(buttonName: "DM's", imageName: "message")
-                    }
-                    .buttonStyle(.plain)
+                    //}
+                    //.buttonStyle(.plain)
                     
                     Spacer()
                     
@@ -43,17 +43,17 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: MapView()) {
+                    //NavigationLink() {
                         SettingsButtonView(buttonName: "How to", imageName: "questionmark")
-                    }
-                    .buttonStyle(.plain)
+                   // }
+                    //.buttonStyle(.plain)
                     
                     Spacer()
                     
-                    NavigationLink(destination: MapView()) {
+                    //NavigationLink() {
                         SettingsButtonView(buttonName: "Setup", imageName: "gear")
-                    }
-                    .buttonStyle(.plain)
+                    //}
+                    //.buttonStyle(.plain)
                 }
             }
             .padding([.top, .bottom], 16)
@@ -70,8 +70,8 @@ struct HomeView: View {
             
             VStack(alignment: .leading, spacing: 16) {
                 TabView {
-                    ForEach(mapService.locations) { loc in
-                        SwipeLocationsView(title: loc.name, subDescription: loc.subDescription, locationProfileURL: loc.locationPictureURL, locationID: loc.id!)
+                    ForEach(locationService.locations) { location in
+                        SwipeLocationsView(location: location)
                     }
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))

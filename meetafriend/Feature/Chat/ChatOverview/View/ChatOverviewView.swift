@@ -85,16 +85,27 @@ struct ChatOverviewView: View {
             .padding([.leading, .trailing])
     
             
-            ScrollView(.horizontal) {
-                HStack {
-                    ForEach(chatOverviewService.users) { user in
-                        ActiveUsersView(username: user.firstName, age: String(user.age))
-                            .padding()
+            
+            if (chatOverviewService.users.count == 0) {
+                VStack(alignment: .center) {
+                    Text("No active users")
+                        .font(.title2)
+                    Text("at this location")
+                        .font(.title2)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 150)
+                .padding([.leading, .trailing])
+            } else {
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(chatOverviewService.users) { user in
+                            ActiveUsersView(username: user.firstName, age: String(user.age))
+                                .padding()
+                        }
                     }
                 }
+                .padding([.leading, .trailing])
             }
-            .padding([.leading, .trailing])
-            
             
             
             // Messages
