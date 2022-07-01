@@ -20,7 +20,7 @@ enum LocationState {
 protocol LocationService {
     var locations: [Location] { get }
     var state: LocationState { get }
-    var joinedLocation: Location? { get }
+    var joinedLocation: String? { get }
     
     func joinLocation(lid: String)
 }
@@ -28,7 +28,7 @@ protocol LocationService {
 final class LocationServiceImpl: ObservableObject, LocationService {
     @Published var locations: [Location] = []
     @Published var state: LocationState = .notJoined
-    @Published var joinedLocation: Location?
+    @Published var joinedLocation: String?
     
     private let db = Firestore.firestore()
     
@@ -88,6 +88,7 @@ private extension LocationServiceImpl {
             
             if checkForJoin {
                 self.checkIfJoined()
+                checkForJoin = false
             }
         }
     }
@@ -101,7 +102,7 @@ private extension LocationServiceImpl {
             for user in location.joinedUsers {
                 if user == uid!.uid {
                     self.state = .joined
-                    self.joinedLocation = location
+                    self.joinedLocation = location.id!
                     return
                 }
             }
@@ -116,6 +117,8 @@ private extension LocationServiceImpl {
         let uid = Auth.auth().currentUser
         if (uid == nil) { return }
         
+        self.joinedLocation = lid
+        
         let locationRef = db.collection("locations").document(lid)
 
         // Add a new user id to the "joinedUsers" array field.
@@ -124,15 +127,6 @@ private extension LocationServiceImpl {
         ])
         
         self.state = .joined
-        locationRef.getDocument(as: Location.self) { result in
-            switch(result) {
-            case .success(let location):
-                self.joinedLocation = location
-            case .failure(let error):
-                print("LocationService: Failed getting joinedLocation \(error)")
-                self.joinedLocation = nil
-            }
-        }
     }
 }
 

@@ -16,13 +16,13 @@ struct MapLocationDot: View {
     var body: some View {
        
         WebImage(url: URL(string: locationProfileURL))
-                .resizable()
-                .scaledToFill()
-                .frame(width: 48, height: 48)
-                .clipped()
-                .cornerRadius(50)
-                .overlay(RoundedRectangle(cornerRadius: 50)
-                    .stroke(Color(.yellow), lineWidth: 2)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 48, height: 48)
+            .clipped()
+            .cornerRadius(50)
+            .overlay(RoundedRectangle(cornerRadius: 50)
+                .stroke(Color(.yellow), lineWidth: 2)
             )
         
         

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import SDWebImageSwiftUI
 
 
 struct ChatView: View {
@@ -31,14 +32,10 @@ struct ChatView: View {
         }
         .navigationBarHidden(true)
         .padding([.leading, .trailing], 10)
-        .onAppear{
+        .onAppear {
             self.chatService.chatUser = chatUser
-            self.chatService.fetchMessages()
+            self.chatService.checkForNewChat(newUserChat: chatUser!)
             print("ChatView opened connection")
-        }
-        .onDisappear{
-            self.chatService.closeFetchMessage()
-            print("ChatView closed connection")
         }
     }
     
@@ -47,13 +44,17 @@ struct ChatView: View {
         // Menu Bar
         HStack {
             NavigationLink(destination: ChatOverviewView()) {
-                Image(systemName: "chevron.backward.circle.fill")
-                    .resizable()
-                    .foregroundColor(.white)
-                    .frame(width: 48, height: 48)
-                    .shadow(radius: 8)
+                Image(systemName: "chevron.backward")
+                    .renderingMode(.original)
+                    .font(.system(size: 25, weight: .bold))
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(Color(.label))
+                    .background(.white)
+                    .clipShape(Circle())
+                    .shadow(radius: 5)
             }
             .buttonStyle(.plain)
+            
             
             Spacer()
             
@@ -67,12 +68,13 @@ struct ChatView: View {
             
             Spacer()
             
-            Image(systemName: "")
-                .font(.system(size: 32))
-                .frame(width: 18, height: 18)
-                .padding(15)
-                .overlay(RoundedRectangle(cornerRadius: 44)
-                .stroke(Color(.label), lineWidth: 1))
+            WebImage(url: URL(string: chatUser?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
+                .resizable()
+                .scaledToFill()
+                .frame(width: 48, height: 48)
+                .clipped()
+                .cornerRadius(50)
+            
         }
         .padding()
         .background(.yellow)
@@ -120,45 +122,32 @@ struct ChatView: View {
     
     
     private var chatBottomBar: some View {
-        HStack(spacing: 16) {
-            Image(systemName: "photo.on.rectangle")
+        HStack(alignment: .center, spacing: 16) {
+            Image(systemName: "face.smiling")
                 .font(.system(size: 24))
                 .foregroundColor(Color(.white))
-            ZStack {
-                //DescriptionPlaceholder()
-                TextEditor(text: $chatService.text)
-                    .background(Color.gray)
-                    .opacity(chatService.text.isEmpty ? 0.5 : 1)
-            }
-            .frame(height: 30)
+            
+            // DescriptionPlaceholder
+            TextField("Type a message", text: $chatService.text)
+                .frame(height: 40)
+                .foregroundColor(.white)
+                .padding(.leading, 5)
             
             Button {
                 chatService.sendMessage()
             } label: {
-                Text("Send")
+                Image(systemName: "paperplane")
+                    .font(.system(size: 24))
                     .foregroundColor(.white)
+                    .padding(5)
             }
-            .padding(.horizontal)
-            .background(Color.gray)
+            .buttonStyle(.plain)
+            
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
         .background(Color.gray)
-        .cornerRadius(15)
-    }
-    
-    
-    private struct DescriptionPlaceholder: View {
-        var body: some View {
-            HStack {
-                Text("Description")
-                    .foregroundColor(.white)
-                    .font(.system(size: 17))
-                    .padding(.leading, 5)
-                    .padding(.top, -4)
-                Spacer()
-            }
-        }
+        .cornerRadius(20)
     }
 }
 

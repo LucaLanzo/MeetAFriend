@@ -18,12 +18,11 @@ struct MapView: View {
     @EnvironmentObject var locationService: LocationServiceImpl
     @EnvironmentObject var mapService: MapServiceImpl
     
-    @StateObject var mapViewModel = MapViewModel()
     @State var isClicked = false
     
     var body: some View {
         ZStack(alignment: .topLeading) {
-            Map(coordinateRegion: $mapViewModel.region, interactionModes: .all, showsUserLocation: true, annotationItems: locationService.locations) { location in
+            Map(coordinateRegion: $mapService.mapViewModel.region, interactionModes: .all, showsUserLocation: true, annotationItems: locationService.locations) { location in
                 MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates.latitude, longitude: location.coordinates.longitude)) {
                     
                     Button {
@@ -40,9 +39,6 @@ struct MapView: View {
                 
             }
             .accentColor(Color(.yellow))
-            .onAppear {
-                mapViewModel.checkIfLocationServicesIsEnabled()
-            }
             .edgesIgnoringSafeArea(.all)
             
             /*NavigationLink(destination: HomeView()) {

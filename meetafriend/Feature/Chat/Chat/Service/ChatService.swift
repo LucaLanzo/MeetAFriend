@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseAuth
 import Firebase
-import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
@@ -25,7 +24,10 @@ final class ChatServiceImpl: ObservableObject, ChatService {
     @Published var messages: [Message] = []
     
     private var lid: String = ""
-    private var openConnection: ListenerRegistration?
+    private var initial: Bool = true
+    private var locationChange: Bool = false
+    private var oldUserId: String = ""
+    private var joinedMessageListener: ListenerRegistration?
     
     private let db = Firestore.firestore()
     
@@ -35,7 +37,7 @@ final class ChatServiceImpl: ObservableObject, ChatService {
 }
 
 
-private extension ChatServiceImpl {
+extension ChatServiceImpl {
     func getLocation() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -46,63 +48,169 @@ private extension ChatServiceImpl {
             }
             
             for document in snapshot.documents {
-                self.lid = document.documentID
-                self.fetchMessages()
+                let lid = document.documentID
+                
+                if (self.lid == "") {
+                    self.lid = lid
+                    
+                    print("Location initial")
+                    
+                    self.initial = true
+                } else if (self.lid != "" && self.lid != lid) {
+                    self.lid = lid
+                    
+                    print("Location change")
+                    
+                    self.locationChange = true
+                }
+                
                 break
             }
         }
     }
-}
-
-
-extension ChatServiceImpl {
+    
     func sendMessage() {
         guard let fromId = Auth.auth().currentUser?.uid else { return }
-        
         guard let toId = chatUser?.id else { return }
-        
-        let text = self.text
 
-        let document = db.collection("locations").document(lid).collection("messages")
-            .document(fromId)
-            .collection(toId)
-            .document()
-
-        let message = ["fromId": fromId, "toId": toId, "text": text, "timestamp": Timestamp()] as [String : Any]
+        var chatId = ""
+        let chatSearch = db.collection("locations").document(lid).collection("chats").whereField("users", arrayContainsAny: ["\(fromId)\(toId)", "\(toId)\(fromId)"])
         
-        document.setData(message) { error in
-            if let error = error {
-                print("ChatService \(error)")
+        chatSearch.getDocuments { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("ChatService: Error getting chat")
                 return
             }
-
-            print("Successfully saved current user sending message")
-            self.text = ""
-        }
-
-        let recipientDocument = db.collection("locations").document(lid).collection("messages")
-            .document(toId)
-            .collection(fromId)
-            .document()
-        
-        recipientDocument.setData(message) { error in
-            if let error = error {
-                print(error)
-                return
+            
+            if snapshot.documents.count == 0 {
+                let newChat = self.db.collection("locations").document(self.lid).collection("chats").document()
+                
+                let data = ["users": ["\(fromId)\(toId)"]] as [String : Any]
+                
+                newChat.setData(data) { error in
+                    if let error = error {
+                        print("ChatService: error setting new Chat \(error)")
+                        return
+                    }
+                    
+                    chatId = newChat.documentID
+                    self.sendMessageData(chatId: chatId)
+                }
+                
+                chatId = newChat.documentID
+            } else {
+                for document in snapshot.documents {
+                    chatId = document.documentID
+                    
+                    self.sendMessageData(chatId: chatId)
+                    return
+                }
             }
-
-            print("Recipient saved message as well")
         }
     }
     
-    func fetchMessages() {
-        self.messages.removeAll()
-        
+    func sendMessageData(chatId: String) {
         guard let fromId = Auth.auth().currentUser?.uid else { return }
+        guard let toId = chatUser?.id else { return }
+        let text = self.text
         
+        let newMessage = db.collection("locations").document(lid).collection("chats").document(chatId).collection("messages").document()
+
+        let data = ["fromId": fromId, "toId": toId, "text": text, "timestamp": Timestamp()] as [String : Any]
+        
+        newMessage.setData(data) { error in
+            if let error = error {
+                print("ChatService: Error sending new message \(error)")
+                return
+            }
+            
+            print("ChatService: Successfully saved new message")
+            
+            self.text = ""
+        }
+    }
+
+    
+    func checkForNewChat(newUserChat: User) {
+        if (initial) {
+            print("Check initial - fetch")
+            self.initial = false
+            
+            self.fetchMessages()
+            
+            return
+        }
+        
+        if (locationChange) {
+            print("Check change - close - fetch")
+            self.locationChange = false
+            
+            self.closeListenForMessages()
+            self.fetchMessages()
+            
+            return
+        }
+        
+        if (oldUserId != newUserChat.id!) {
+            print("Check user change - close - fetch")
+            oldUserId = newUserChat.id!
+            
+            self.closeListenForMessages()
+            self.fetchMessages()
+            
+            return
+        }
+        
+        print("Check no change")
+    }
+    
+}
+
+private extension ChatServiceImpl {
+    
+    func fetchMessages() {        
+        guard let fromId = Auth.auth().currentUser?.uid else { return }
         guard let toId = chatUser?.id else { return }
         
-        self.openConnection = db.collection("locations").document(lid).collection("messages").document(fromId).collection(toId).order(by: "timestamp").addSnapshotListener { querySnapshot, error in
+        var chatId = ""
+        
+        let chatSearch = db.collection("locations").document(lid).collection("chats").whereField("users", arrayContainsAny: ["\(fromId)\(toId)", "\(toId)\(fromId)"])
+            
+        chatSearch.getDocuments { querySnapshot, error in
+            guard let snapshot = querySnapshot else {
+                print("ChatService: Error getting chat")
+                return
+            }
+            
+            if snapshot.documents.count == 0 {
+                let newChat = self.db.collection("locations").document(self.lid).collection("chats").document()
+                
+                let data = ["users": ["\(fromId)\(toId)"]] as [String : Any]
+                
+                newChat.setData(data) { error in
+                    if let error = error {
+                        print("ChatService: error setting new Chat \(error)")
+                        return
+                    }
+                    
+                    self.fetchMessages(chatId: chatId)
+                }
+                
+                chatId = newChat.documentID
+            } else {
+                for document in snapshot.documents {
+                    chatId = document.documentID
+                    
+                    self.fetchMessages(chatId: chatId)
+                    
+                    return
+                }
+            }
+        }
+    }
+    
+    func fetchMessages(chatId: String) {
+        self.joinedMessageListener = db.collection("locations").document(lid).collection("chats").document(chatId).collection("messages").order(by: "timestamp").addSnapshotListener { querySnapshot, error in
             if let error = error {
                 print("ChatService couldn't fetchMessages \(error)")
                 return
@@ -128,13 +236,13 @@ extension ChatServiceImpl {
         }
     }
     
-    func closeFetchMessage() {
-        guard self.openConnection != nil else {
-            return
+    
+    func closeListenForMessages() {
+        if (self.joinedMessageListener != nil) {
+            self.joinedMessageListener!.remove()
         }
         
-        self.openConnection?.remove()
-        
-        print("ChatService: Closed connection to messages")
+        self.messages.removeAll()
     }
+    
 }

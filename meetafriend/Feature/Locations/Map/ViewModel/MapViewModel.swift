@@ -24,7 +24,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     func checkIfLocationServicesIsEnabled() {
         if CLLocationManager.locationServicesEnabled() {
             locationManager = CLLocationManager()
-            locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager?.desiredAccuracy = kCLLocationAccuracyHundredMeters
             
             // set delegate
             locationManager!.delegate = self

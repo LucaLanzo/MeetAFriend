@@ -41,41 +41,57 @@ final class RegistrationServiceImpl: RegistrationService {
                         
                         } else {
                             if let uid = res?.user.uid {
-                                // Persist image to storage
-                                let ref = self.storage.reference(withPath: uid)
-                                
-                                guard let imageData = image?.jpegData(compressionQuality: 0.5) else { return }
-                                var profilePictureURL = ""
-                                
-                                ref.putData(imageData, metadata: nil) { metadata, err in
-                                    if let err = err {
-                                        print("Failed to push image to Storage: \(err)")
-                                        return
-                                    }
-
-                                    ref.downloadURL { url, err in
-                                        if err != nil {
-                                            print("Could not download image data")
-                                            return
-                                        }
-                                        
-                                        if url?.absoluteString != nil {
-                                            print("Successfully saved image under \(url!.absoluteString)")
-                                            profilePictureURL = url!.absoluteString
-                                        }
-                                    }
-                                }
                                 
                                 // put user data into firestore
                                 self.db.collection("users").document(uid).setData([
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.lastName.rawValue: details.lastName,
                                     RegistrationKeys.age.rawValue: details.age,
-                                    RegistrationKeys.profilePictureURL.rawValue: profilePictureURL,
+                                    RegistrationKeys.profilePictureURL.rawValue: "",
                                     RegistrationKeys.closeTo.rawValue: details.closeTo
                                 ]) { err in
                                     if let err = err {
                                         print("Error adding document: \(err)")
+                                    } else {
+                        
+                                        // Persist image to storage
+                                        if (image != nil) {
+                                            let data = image!.jpegData(compressionQuality: 0.5)!
+                                            
+                                            // set upload path
+                                            let filePath = uid
+                                            let metaData = StorageMetadata()
+                                            metaData.contentType = "image/jpg"
+                                            
+                                            self.storage.reference().child(filePath).putData(data, metadata: metaData) { metaData, error in
+                                                if let error = error {
+                                                    print("Registration Service error while uploading picture \(error.localizedDescription)")
+                                                    return
+                                                } else {
+                                                    
+                                                    self.storage.reference().child(filePath).downloadURL { url, error in
+                                                        if let error = error {
+                                                            print("Registration Service error while downloading picture URL \(error.localizedDescription)")
+                                                            return
+                                                        } else {
+                                                        
+                                                            if let urlString = url?.absoluteString {
+                                                                print("RegistrationService image url \(urlString)")
+                                                                
+                                                                self.db.collection("users").document(uid).updateData([
+                                                                    "profilePictureURL": urlString
+                                                                ])
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                            
+                                            
+                                            
+                                        }
                                     }
                                 }
                                 
@@ -88,5 +104,11 @@ final class RegistrationServiceImpl: RegistrationService {
         }
         .receive(on: RunLoop.main)
         .eraseToAnyPublisher()
+    }
+    
+    func updateProfilePicture(uid: String) {
+        
+        
+        
     }
 }

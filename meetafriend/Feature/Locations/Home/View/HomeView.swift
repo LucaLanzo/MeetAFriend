@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
-    @EnvironmentObject var mapService: MapServiceImpl
     
     var body: some View {
         
@@ -108,9 +106,7 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             HomeView()
-                .environmentObject(SessionServiceImpl())
                 .environmentObject(LocationServiceImpl())
-                .environmentObject(MapServiceImpl())
         }
     }
 }

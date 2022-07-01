@@ -5,33 +5,40 @@
 //  Created by Luca on 13.05.22.
 //
 
+import Foundation
+import Firebase
+import FirebaseFirestoreSwift
 import SwiftUI
+import SDWebImageSwiftUI
+
 
 struct ChatMessageView: View {
-    let username: String
-    var message: String
-    var time: String
     
-    @State var read = false
+    let user: User
+    let message: String
+    let time: Int
+    
+    @State var read = true
     
     var body: some View {
         if (read) {
             HStack() {
-                Image(systemName: "person.fill")
-                    .font(.system(size: 32))
-                    .padding(8)
-                    .overlay(RoundedRectangle(cornerRadius: 44)
-                                .stroke(Color(.label), lineWidth: 1))
+                WebImage(url: URL(string: user.profilePictureURL))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 48, height: 48)
+                    .clipped()
+                    .cornerRadius(50)
 
 
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(username)
+                        Text(user.firstName)
                             .font(.system(size: 16, weight: .bold))
                         
                         Spacer()
                         
-                        Text(time)
+                        Text(String(time))
                             .font(.system(size: 14, weight: .semibold))
                     }
                     Text(message)
@@ -46,21 +53,22 @@ struct ChatMessageView: View {
         } else {
             ZStack {
                 HStack() {
-                    Image(systemName: "person.fill")
-                        .font(.system(size: 32))
-                        .padding(8)
-                        .overlay(RoundedRectangle(cornerRadius: 44)
-                                    .stroke(Color(.label), lineWidth: 1))
+                    WebImage(url: URL(string: user.profilePictureURL))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .clipped()
+                        .cornerRadius(50)
 
 
                     VStack(alignment: .leading) {
                         HStack {
-                            Text(username)
+                            Text(user.firstName)
                                 .font(.system(size: 16, weight: .bold))
                             
                             Spacer()
                             
-                            Text(time)
+                            Text(String(time))
                                 .font(.system(size: 14, weight: .semibold))
                         }
                         Text(message)
@@ -82,15 +90,3 @@ struct ChatMessageView: View {
     }
 }
 
-struct ChatMessageView_Previews: PreviewProvider {
-    static var previews: some View {
-        VStack() {
-            ScrollView {
-                ChatMessageView(username: "Luca", message: "Test message", time: "3m", read: false)
-                ForEach(0..<10, id: \.self) { num in
-                    ChatMessageView(username: "Luca", message: "Test message", time: "3m", read: true)
-                }
-            }
-        }
-    }
-}

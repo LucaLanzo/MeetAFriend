@@ -69,13 +69,24 @@ private extension MapServiceImpl {
         }
         
         listenToVicinity()
+        
+        
     }
     
     func listenToVicinity() {
-        timer?.invalidate()   // just in case you had existing `Timer`, `invalidate` it before we lose our reference to it
+        timer?.invalidate()   // just in case there is existing `Timer`, `invalidate` it before we lose our reference to it
+        
         timer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { [weak self] _ in
             if (self!.locations.count != 0) {
                 for loc in self!.locations {
+                    
+                    if !self!.closeTo.contains(where: { $0 == loc.id }) {
+                        self!.closeTo.append(loc.id!)
+                    }
+                    
+                    continue
+                    
+                    if (self!.mapViewModel.locationManager!.location == nil) { continue }
                     
                     let lat1 = loc.coordinates.latitude
                     let lat2 = self!.mapViewModel.locationManager!.location!.coordinate.latitude
@@ -85,7 +96,9 @@ private extension MapServiceImpl {
                     
                     let distanceToLocation = self!.distanceToLocation(lat1: lat1, lon1: lon1, lat2: lat2, lon2: lon2)
                     
-                    if (distanceToLocation < 30.0) {
+                    
+                    /*
+                    if (distanceToLocation < 100.0) {
                         if !self!.closeTo.contains(where: { $0 == loc.id }) {
                             self!.closeTo.append(loc.id!)
                         }
@@ -94,12 +107,14 @@ private extension MapServiceImpl {
                             self!.closeTo.remove(at: index)
                         }
                     }
+                     */
                 }
-                
+                /*
                 print("closeTo:")
                 self!.closeTo.forEach({ loc in
                     print(loc)
                 })
+                 */
             } else {
                 print("MapService: No locations found")
             }

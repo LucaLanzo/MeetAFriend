@@ -9,7 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ChatOverviewView: View {
-    @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
     @EnvironmentObject var chatOverviewService: ChatOverviewServiceImpl
     
@@ -35,40 +34,24 @@ struct ChatOverviewView: View {
                 VStack {
                     Text("You're at")
                         .multilineTextAlignment(.center)
-                    if let location = locationService.joinedLocation {
-                        Text(location.name)
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                    } else {
-                        Text("a location")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                    }
+                    
+                    Text("\(chatOverviewService.location?.name ?? "")")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                    
                 }
                 
                 Spacer()
                 
+                WebImage(url: URL(string: chatOverviewService.location?.locationPictureURL ?? ""))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 48, height: 48)
+                        .clipped()
+                        .cornerRadius(50)
                 
-                if let location = locationService.joinedLocation {
-                    WebImage(url: URL(string: location.locationPictureURL))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 48, height: 48)
-                            .clipped()
-                            .cornerRadius(50)
-                            .overlay(RoundedRectangle(cornerRadius: 50))
-                } else {
-                    Image(systemName: "")
-                        .font(.system(size: 32))
-                        .frame(width: 18, height: 18)
-                        .padding(15)
-                        .overlay(RoundedRectangle(cornerRadius: 44)
-                        .stroke(Color(.label), lineWidth: 1))
-                }
             }
             .padding()
             .background(.yellow)
@@ -99,7 +82,7 @@ struct ChatOverviewView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(chatOverviewService.users) { user in
-                            ActiveUsersView(username: user.firstName, age: String(user.age))
+                            ActiveUsersView(user: user)
                                 .padding()
                         }
                     }
@@ -119,25 +102,29 @@ struct ChatOverviewView: View {
             
             
             ScrollView {
-                ForEach(chatOverviewService.users) { user in
-                    NavigationLink(destination: ChatView(chatUser: user)) {
-                        ChatMessageView(username: user.firstName, message: "Test message", time: "3m", read: true)
+                /*
+                ForEach(chatOverviewService.recentMessages) { message in
+                    NavigationLink(destination: ChatView(chatUser: user, lid: chatOverviewService.location?.id)) {
+                        ChatMessageView(user: User, message: message, time: message.timestamp)
                     }
                     .buttonStyle(.plain)
                 }
+                 */
             }
-            
         }
         .navigationBarHidden(true)
         .padding([.leading, .trailing], 10)
+        .onAppear {
+            self.chatOverviewService.getJoinedLocation()
+        }
     }
+        
 }
 
 struct ChatOverviewView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             ChatOverviewView()
-                .environmentObject(SessionServiceImpl())
                 .environmentObject(LocationServiceImpl())
                 .environmentObject(ChatOverviewServiceImpl())
         }

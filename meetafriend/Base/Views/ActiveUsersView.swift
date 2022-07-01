@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ActiveUsersView: View {
-    let username: String
-    let age: String
-    @State var isClicked = false
+    @State var isClicked = true
+    
+    var user: User?
     
     var body: some View {
         if isClicked {
@@ -19,12 +20,12 @@ struct ActiveUsersView: View {
             } label: {
                     ZStack {
                         VStack {
-                            Text(username)
+                            Text(user?.firstName ?? "First Name")
                                 .font(.system(size: 28, weight: .bold))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
                             
-                            Text("\(age) years old")
+                            Text("\(user?.age ?? 20) years old")
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
@@ -42,13 +43,12 @@ struct ActiveUsersView: View {
                         .background(.black)
                         .cornerRadius(15)
                         
-                        
-                        Image(systemName: "person.fill")
-                            .font(.system(size: 32))
+                        WebImage(url: URL(string: user?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
+                            .resizable()
+                            .scaledToFill()
                             .frame(width: 48, height: 48)
-                            .padding(8)
-                            .overlay(RoundedRectangle(cornerRadius: 44)
-                                .stroke(Color(.black), lineWidth: 1))
+                            .clipped()
+                            .cornerRadius(50)
                             .offset(x: -20, y: -100)
                     }
             }
@@ -58,15 +58,15 @@ struct ActiveUsersView: View {
                 isClicked.toggle()
             } label: {
                 VStack {
-                    Image(systemName: "person.fill")
-                        .font(.system(size: 32))
+                    WebImage(url: URL(string: user?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
+                        .resizable()
+                        .scaledToFill()
                         .frame(width: 48, height: 48)
-                        .padding(8)
-                        .overlay(RoundedRectangle(cornerRadius: 44)
-                            .stroke(Color(.black), lineWidth: 1))
+                        .clipped()
+                        .cornerRadius(50)
                     
                     VStack {
-                        Text(username)
+                        Text(user?.firstName ?? "First Name")
                             .font(.system(size: 28, weight: .bold))
                             .rotationEffect(.degrees(-90))
                             .fixedSize()
@@ -82,6 +82,6 @@ struct ActiveUsersView: View {
 
 struct ActiveUsersView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveUsersView(username: "Luca", age: String(23))
+        ActiveUsersView(user: nil)
     }
 }
