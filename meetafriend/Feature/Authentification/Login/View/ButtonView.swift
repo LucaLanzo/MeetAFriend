@@ -17,7 +17,7 @@ struct ButtonView: View {
     let border: Color
     let handler: Actionhandler
     
-    private let cornerRadius: CGFloat = 10
+    private let cornerRadius: CGFloat = 20
     
     internal init(title: String,
                   background: Color = .blue,

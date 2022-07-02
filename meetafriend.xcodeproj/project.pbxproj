@@ -12,6 +12,7 @@
 		810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00227F1DBA6008D72EC /* LoginViewModel.swift */; };
 		810DE00727F1E37F008D72EC /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */; };
 		810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */; };
+		810E9C402870E08C00C2B28E /* IntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810E9C3F2870E08C00C2B28E /* IntroductionView.swift */; };
 		8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */; };
 		8128C6DA27E84E9B00B8B9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */; };
 		8128C6DD27E84E9B00B8B9C9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6DC27E84E9B00B8B9C9 /* Preview Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		810DE00227F1DBA6008D72EC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
 		810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		810E9C3F2870E08C00C2B28E /* IntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionView.swift; sourceTree = "<group>"; };
 		8128C6D227E84E9700B8B9C9 /* meetafriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meetafriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meetafriendApp.swift; sourceTree = "<group>"; };
 		8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -168,6 +170,22 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		810E9C3D2870E02B00C2B28E /* Introduction */ = {
+			isa = PBXGroup;
+			children = (
+				810E9C3E2870E08000C2B28E /* View */,
+			);
+			path = Introduction;
+			sourceTree = "<group>";
+		};
+		810E9C3E2870E08000C2B28E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				810E9C3F2870E08C00C2B28E /* IntroductionView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		8121E7ED282A6EA400A08A34 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,6 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				81B4F3A82831B18D0005EFFF /* ChatOverviewView.swift */,
+				81DB4292282E7F08003AAE7A /* ChatMessageView.swift */,
+				81DB4294282E9572003AAE7A /* ActiveUsersView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -250,6 +270,8 @@
 			isa = PBXGroup;
 			children = (
 				81D149702833E1B3008BC73C /* MapView.swift */,
+				818B89D42857C30000E5EB79 /* MapLocationInfo.swift */,
+				8159ACA32857B32600B2E5F8 /* MapLocationDot.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -309,6 +331,7 @@
 		819F8D3327EDD129002F408B /* Feature */ = {
 			isa = PBXGroup;
 			children = (
+				810E9C3D2870E02B00C2B28E /* Introduction */,
 				810DE00427F1E35A008D72EC /* Authentification */,
 				8178CDBC282A60B200BF42CF /* Locations */,
 				8178CDBB282A60AB00BF42CF /* Chat */,
@@ -331,6 +354,10 @@
 			isa = PBXGroup;
 			children = (
 				818B882A27E8A95E0091FED1 /* LoginView.swift */,
+				819F8D3827EDD264002F408B /* InputTextFieldView.swift */,
+				819F8D3D27EDD6BA002F408B /* InputPasswordView.swift */,
+				81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */,
+				819F8D4027EDD8CA002F408B /* ButtonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -347,15 +374,6 @@
 		819F8D3727EDD218002F408B /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				819F8D3827EDD264002F408B /* InputTextFieldView.swift */,
-				819F8D3D27EDD6BA002F408B /* InputPasswordView.swift */,
-				81DDAB12282BDD79008DD4E9 /* InputNumberFieldView.swift */,
-				819F8D4027EDD8CA002F408B /* ButtonView.swift */,
-				81D1496A2833D631008BC73C /* SwipeLocationsView.swift */,
-				81DB4292282E7F08003AAE7A /* ChatMessageView.swift */,
-				81DB4294282E9572003AAE7A /* ActiveUsersView.swift */,
-				8159ACA32857B32600B2E5F8 /* MapLocationDot.swift */,
-				818B89D42857C30000E5EB79 /* MapLocationInfo.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -393,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				819F8D4A27EE0168002F408B /* HomeView.swift */,
+				81D1496A2833D631008BC73C /* SwipeLocationsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -596,6 +615,7 @@
 				810DE00027F1DA91008D72EC /* LoginService.swift in Sources */,
 				819F8D4B27EE0168002F408B /* HomeView.swift in Sources */,
 				819F8D3E27EDD6BA002F408B /* InputPasswordView.swift in Sources */,
+				810E9C402870E08C00C2B28E /* IntroductionView.swift in Sources */,
 				816FAEC428346EF900CE5EA6 /* ChatView.swift in Sources */,
 				81B4F3A92831B18D0005EFFF /* ChatOverviewView.swift in Sources */,
 				818B882B27E8A95E0091FED1 /* LoginView.swift in Sources */,

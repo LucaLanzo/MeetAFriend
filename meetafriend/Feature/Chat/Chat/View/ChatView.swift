@@ -42,18 +42,11 @@ struct ChatView: View {
         }
     }
     
-    
     private var menuBar: some View {
         // Menu Bar
         HStack {
             NavigationLink(destination: ChatOverviewView()) {
-                Image(systemName: "chevron.backward")
-                    .font(.system(size: 20, weight: .bold))
-                    .frame(width: 48, height: 48)
-                    .foregroundColor(Color(.label))
-                    .background(.white)
-                    .clipShape(Circle())
-                    .shadow(radius: 7)
+                backButton
             }
             .buttonStyle(.plain)
             
@@ -85,6 +78,15 @@ struct ChatView: View {
         
     }
     
+    private var backButton: some View {
+        Image(systemName: "chevron.backward")
+            .font(.system(size: 20, weight: .bold))
+            .frame(width: 48, height: 48)
+            .foregroundColor(Color(.label))
+            .background(.white)
+            .clipShape(Circle())
+            .shadow(radius: 7)
+    }
     
     private var messagesView: some View {
         VStack {
@@ -157,8 +159,10 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
-        ChatView(chatUser: nil)
-            .environmentObject(ChatServiceImpl())
-            .environmentObject(LocationServiceImpl())
+        NavigationView {
+            ChatView(chatUser: nil)
+                .environmentObject(ChatServiceImpl())
+                .environmentObject(LocationServiceImpl())
+        }
     }
 }
