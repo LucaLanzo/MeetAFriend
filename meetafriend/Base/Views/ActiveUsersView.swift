@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ActiveUsersView: View {
-    @State var isClicked = true
+    @State var isClicked = false
     
     var user: User?
     
@@ -29,15 +29,18 @@ struct ActiveUsersView: View {
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.leading)
-                            
-                            Image(systemName: "message")
-                                .font(.system(size: 32))
-                                .padding(8)
-                                .frame(width: 60, height: 60)
-                                .foregroundColor(Color(.label))
-                                .background(.white)
-                                .clipShape(Circle())
-                                .shadow(radius: 5)
+                        
+                            NavigationLink(destination: ChatView(chatUser: user)) {
+                                Image(systemName: "message")
+                                    .font(.system(size: 32))
+                                    .padding(8)
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color(.label))
+                                    .background(.white)
+                                    .clipShape(Circle())
+                                    .shadow(radius: 5)
+                            }
+                            .buttonStyle(.plain)
                         }
                         .frame(width: 150, height: 170)
                         .background(.black)
@@ -46,11 +49,17 @@ struct ActiveUsersView: View {
                         WebImage(url: URL(string: user?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 48, height: 48)
+                            .frame(width: 70, height: 70)
                             .clipped()
                             .cornerRadius(50)
-                            .offset(x: -20, y: -100)
+                            .overlay(RoundedRectangle(cornerRadius: 50)
+                                .stroke(Color(.black), lineWidth: 1)
+                            )
+                            .offset(x: -20, y: -103)
+                            
+                            
                     }
+                    .padding(.top, 55)
             }
             .buttonStyle(.plain)
         } else {
@@ -61,9 +70,12 @@ struct ActiveUsersView: View {
                     WebImage(url: URL(string: user?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 48, height: 48)
+                        .frame(width: 70, height: 70)
                         .clipped()
                         .cornerRadius(50)
+                        .overlay(RoundedRectangle(cornerRadius: 50)
+                            .stroke(Color(.black), lineWidth: 1)
+                        )
                     
                     VStack {
                         Text(user?.firstName ?? "First Name")

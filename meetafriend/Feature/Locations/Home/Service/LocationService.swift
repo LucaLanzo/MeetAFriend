@@ -87,6 +87,7 @@ private extension LocationServiceImpl {
             }
             
             if checkForJoin {
+                print("Locationservice check for join!")
                 self.checkIfJoined()
                 checkForJoin = false
             }
@@ -126,7 +127,9 @@ private extension LocationServiceImpl {
             "joinedUsers": FieldValue.arrayUnion([uid!.uid])
         ])
         
-        self.state = .joined
+        if (self.state != .joined) {
+            self.state = .joined
+        }
     }
 }
 

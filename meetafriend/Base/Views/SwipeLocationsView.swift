@@ -35,6 +35,31 @@ struct SwipeLocationsView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.white)
                         
+                        if location?.joinedUsers.count ?? 0 > 1 {
+                            
+                            Text("\(location?.joinedUsers.count ?? 1) people active")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.top)
+                            
+                        } else if location?.joinedUsers.count ?? 0 == 1 {
+                            
+                            Text("\(location?.joinedUsers.count ?? 10) person active")
+                                .font(.title3)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.top)
+                        
+                        } else {
+                            
+                            Text("No one is here yet")
+                                .font(.title3) 
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding(.top)
+                        
+                        }
                     }
                     .padding(40)
                     

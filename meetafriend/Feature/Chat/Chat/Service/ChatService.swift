@@ -24,9 +24,6 @@ final class ChatServiceImpl: ObservableObject, ChatService {
     @Published var messages: [Message] = []
     
     private var lid: String = ""
-    private var initial: Bool = true
-    private var locationChange: Bool = false
-    private var oldUserId: String = ""
     private var joinedMessageListener: ListenerRegistration?
     
     private let db = Firestore.firestore()
@@ -48,22 +45,8 @@ extension ChatServiceImpl {
             }
             
             for document in snapshot.documents {
-                let lid = document.documentID
-                
-                if (self.lid == "") {
-                    self.lid = lid
-                    
-                    print("Location initial")
-                    
-                    self.initial = true
-                } else if (self.lid != "" && self.lid != lid) {
-                    self.lid = lid
-                    
-                    print("Location change")
-                    
-                    self.locationChange = true
-                }
-                
+                self.lid = document.documentID
+                                
                 break
             }
         }
@@ -85,7 +68,7 @@ extension ChatServiceImpl {
             if snapshot.documents.count == 0 {
                 let newChat = self.db.collection("locations").document(self.lid).collection("chats").document()
                 
-                let data = ["users": ["\(fromId)\(toId)"]] as [String : Any]
+                let data = ["users": ["\(fromId)\(toId)", fromId, toId]] as [String : Any]
                 
                 newChat.setData(data) { error in
                     if let error = error {
@@ -124,44 +107,21 @@ extension ChatServiceImpl {
                 return
             }
             
-            print("ChatService: Successfully saved new message")
-            
             self.text = ""
         }
     }
 
     
-    func checkForNewChat(newUserChat: User) {
-        if (initial) {
-            print("Check initial - fetch")
-            self.initial = false
-            
-            self.fetchMessages()
-            
-            return
+    func startNewChat() {
+        self.fetchMessages()
+    }
+    
+    func closeListenForMessages() {
+        if (self.joinedMessageListener != nil) {
+            self.joinedMessageListener!.remove()
         }
         
-        if (locationChange) {
-            print("Check change - close - fetch")
-            self.locationChange = false
-            
-            self.closeListenForMessages()
-            self.fetchMessages()
-            
-            return
-        }
-        
-        if (oldUserId != newUserChat.id!) {
-            print("Check user change - close - fetch")
-            oldUserId = newUserChat.id!
-            
-            self.closeListenForMessages()
-            self.fetchMessages()
-            
-            return
-        }
-        
-        print("Check no change")
+        self.messages.removeAll()
     }
     
 }
@@ -185,7 +145,7 @@ private extension ChatServiceImpl {
             if snapshot.documents.count == 0 {
                 let newChat = self.db.collection("locations").document(self.lid).collection("chats").document()
                 
-                let data = ["users": ["\(fromId)\(toId)"]] as [String : Any]
+                let data = ["users": ["\(fromId)\(toId)", fromId, toId]] as [String : Any]
                 
                 newChat.setData(data) { error in
                     if let error = error {
@@ -220,6 +180,12 @@ private extension ChatServiceImpl {
                 if change.type == .added {
                     do {
                         let data = try change.document.data(as: Message.self)
+                        
+                        if let message = self.messages.firstIndex(where: { $0.id ==
+                            change.document.documentID}) {
+                            self.messages.remove(at: message)
+                        }
+                        
                         self.messages.append(data)
                     } catch {
                         print(error)
@@ -236,13 +202,6 @@ private extension ChatServiceImpl {
         }
     }
     
-    
-    func closeListenForMessages() {
-        if (self.joinedMessageListener != nil) {
-            self.joinedMessageListener!.remove()
-        }
-        
-        self.messages.removeAll()
-    }
+   
     
 }

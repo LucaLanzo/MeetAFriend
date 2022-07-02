@@ -26,7 +26,7 @@ struct ChatOverviewView: View {
                         .foregroundColor(Color(.label))
                         .background(.white)
                         .clipShape(Circle())
-                        .shadow(radius: 5)
+                        .shadow(radius: 7)
                 })
                 
                 Spacer()
@@ -51,11 +51,15 @@ struct ChatOverviewView: View {
                         .frame(width: 48, height: 48)
                         .clipped()
                         .cornerRadius(50)
+                        .shadow(radius: 7)
+                        .overlay(RoundedRectangle(cornerRadius: 50)
+                            .stroke(Color(.black), lineWidth: 1)
+                        )
                 
             }
             .padding()
             .background(.yellow)
-            .cornerRadius(15)
+            .cornerRadius(20)
             
             
             
@@ -65,19 +69,29 @@ struct ChatOverviewView: View {
                     .font(.title)
                     .fontWeight(.bold)
             }
-            .padding([.leading, .trailing])
-    
+            .padding([.leading, .trailing, .top])
             
             
             if (chatOverviewService.users.count == 0) {
                 VStack(alignment: .center) {
-                    Text("No active users")
-                        .font(.title2)
-                    Text("at this location")
-                        .font(.title2)
+                    VStack() {
+                        Text("Hm, no one is")
+                            .font(.title2)
+                        Text("here right now...")
+                            .font(.title2)
+                        Image(systemName: "eyes")
+                            .padding()
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 20,
+                                             style: .continuous)
+                            .stroke(Color.gray)
+                            .padding(-15)
+                    )
                 }
-                .frame(maxWidth: .infinity, maxHeight: 150)
+                .frame(maxWidth: .infinity, maxHeight: 180)
                 .padding([.leading, .trailing])
+                
             } else {
                 ScrollView(.horizontal) {
                     HStack {
@@ -97,20 +111,44 @@ struct ChatOverviewView: View {
                     .font(.title)
                     .fontWeight(.bold)
             }
-            .padding([.leading, .trailing])
+            .padding([.leading, .trailing, .top])
             
-            
-            
-            ScrollView {
-                /*
-                ForEach(chatOverviewService.recentMessages) { message in
-                    NavigationLink(destination: ChatView(chatUser: user, lid: chatOverviewService.location?.id)) {
-                        ChatMessageView(user: User, message: message, time: message.timestamp)
+            if (chatOverviewService.recentMessages.count == 0) {
+                
+                VStack(alignment: .center) {
+                    VStack() {
+                        Text("No active chats")
+                            .font(.title2)
+                        Text("start chatting now!")
+                            .font(.title2)
+                        Image(systemName: "scribble.variable")
+                            .padding()
                     }
-                    .buttonStyle(.plain)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20,
+                                             style: .continuous)
+                            .stroke(Color.gray)
+                            .padding(-15)
+                    )
                 }
-                 */
+                .frame(maxWidth: .infinity, maxHeight: 180)
+                .padding([.leading, .trailing])
+                
+                Spacer()
+            } else {
+                ScrollView {
+                    
+                    ForEach(chatOverviewService.recentMessages) { recentMessage in
+                        NavigationLink(destination: ChatView(chatUser: recentMessage.chatUser)) {
+                            ChatMessageView(recentMessage: recentMessage)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    
+                }
             }
+            
+            
         }
         .navigationBarHidden(true)
         .padding([.leading, .trailing], 10)

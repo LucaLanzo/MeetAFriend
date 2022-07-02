@@ -9,8 +9,9 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-public class Location: Codable, Identifiable, ObservableObject {
+public struct Location: Codable, Identifiable {
     @DocumentID public var id: String?
+    
     public var name: String
     public var subDescription: String
     

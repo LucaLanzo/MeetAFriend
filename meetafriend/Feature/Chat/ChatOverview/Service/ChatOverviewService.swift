@@ -11,23 +11,39 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 import Firebase
 
+public struct RecentMessage: Identifiable {
+    public var id: String?
+    var chatUser: User
+    var messageFromId: String
+    var recentMessage: Message
+    var fromSelf: Bool
+    
+    init (_ chatUserId: String, _ chatUser: User, _ messageFromId: String, _ recentMessage: Message, _ fromSelf: Bool) {
+        self.id = chatUserId
+        self.chatUser = chatUser
+        self.messageFromId = messageFromId
+        self.recentMessage = recentMessage
+        self.fromSelf = fromSelf
+    }
+}
 
 protocol ChatOverviewService {
     var users: [User] { get }
     var location: Location? { get }
+    var recentMessages: [RecentMessage] { get }
 }
 
 final class ChatOverviewServiceImpl: ObservableObject, ChatOverviewService {
     @Published var users: [User] = []
     @Published var location: Location? = nil
-    @Published var messages: [(String, Message)] = []
+    @Published var recentMessages: [RecentMessage] = []
     
     private var lid: String = ""
     private var userKeys: [String] = []
     
     private let db = Firestore.firestore()
     private var joinedLocationListener: ListenerRegistration?
-    private var recentMessagesListener: ListenerRegistration?
+    private var joinedLocationRecentMessagesListener: ListenerRegistration?
 }
 
 
@@ -89,15 +105,58 @@ private extension ChatOverviewServiceImpl {
                 print(error)
             }
         }
-    }
-    
-    func closeListenForUsers() {
-        if (self.joinedLocationListener != nil) {
-            self.joinedLocationListener!.remove()
-        }
         
-        self.users.removeAll()
-        self.userKeys.removeAll()
+        self.joinedLocationRecentMessagesListener = db.collection("locations").document(self.location!.id!).collection("chats").whereField("users", arrayContains: uid).addSnapshotListener { querySnapshot, error in
+            guard let chats = querySnapshot else {
+                print("ChatOverviewService: Error fetching chats.")
+                return
+            }
+            print("RM: Found \(chats.count) chats.")
+            
+            for chat in chats.documents {
+                chat.reference.collection("messages").order(by: "timestamp", descending: true).addSnapshotListener { querySnapshotMessages, errorMessages in
+                    guard let messages = querySnapshotMessages else {
+                        print("ChatOverviewService: Error fetching messages in chats.")
+                        return
+                    }
+                    
+                    for message in messages.documents {
+                        do {
+                            let message = try message.data(as: Message.self)
+                            
+                            
+                            let userId: String
+                            
+                            if message.toId == uid {
+                                userId = message.fromId
+                            } else {
+                                userId = message.toId
+                            }
+                            
+                            let fromSelf = message.fromId == uid
+                            
+                            self.db.collection("users").document(userId).getDocument(as: User.self) { result in
+                                switch result {
+                                case .success(let user):
+                                    // clear previous recent message
+                                    if let recentMessageIndex = self.recentMessages.firstIndex(where: { $0.id == user.id! }) {
+                                        self.recentMessages.remove(at: recentMessageIndex)
+                                    }
+                                    self.recentMessages.insert(RecentMessage(user.id!, user, message.fromId, message, fromSelf), at: 0)
+                                    
+                                case .failure(let error):
+                                    print("ChatOverviewService: Error finding recent message user: \(error)")
+                                }
+                            }
+                        } catch {
+                            print("ChatOverviewService: Error decoding firebase response to Message. \(error)")
+                        }
+                        
+                        break
+                    }
+                }
+            }
+        }
     }
     
     func loadUsers(uid: String) {
@@ -110,7 +169,6 @@ private extension ChatOverviewServiceImpl {
                 
                 switch result {
                 case .success(let user):
-                    print("ChatOverviewService: found user \(user.firstName)")
                     self.users.append(user)
                 case .failure(let error):
                     print("Error decoding user: \(error)")
@@ -118,6 +176,20 @@ private extension ChatOverviewServiceImpl {
                 
             }
         }
+    }
+    
+    func closeListenForUsers() {
+        if (self.joinedLocationListener != nil) {
+            self.joinedLocationListener!.remove()
+        }
+        
+        if (self.joinedLocationRecentMessagesListener != nil) {
+            self.joinedLocationRecentMessagesListener!.remove()
+        }
+        
+        self.users.removeAll()
+        self.userKeys.removeAll()
+        self.recentMessages.removeAll()
     }
 }
 

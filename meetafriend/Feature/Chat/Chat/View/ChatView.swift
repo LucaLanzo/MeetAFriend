@@ -12,6 +12,7 @@ import SDWebImageSwiftUI
 
 struct ChatView: View {
     @EnvironmentObject var chatService: ChatServiceImpl
+    @EnvironmentObject var locationService: LocationServiceImpl
     
     let chatUser: User?
         
@@ -33,9 +34,11 @@ struct ChatView: View {
         .navigationBarHidden(true)
         .padding([.leading, .trailing], 10)
         .onAppear {
-            self.chatService.chatUser = chatUser
-            self.chatService.checkForNewChat(newUserChat: chatUser!)
-            print("ChatView opened connection")
+            self.chatService.chatUser = chatUser	
+            self.chatService.startNewChat()
+        }
+        .onDisappear {
+            self.chatService.closeListenForMessages()
         }
     }
     
@@ -45,13 +48,12 @@ struct ChatView: View {
         HStack {
             NavigationLink(destination: ChatOverviewView()) {
                 Image(systemName: "chevron.backward")
-                    .renderingMode(.original)
-                    .font(.system(size: 25, weight: .bold))
-                    .frame(width: 50, height: 50)
+                    .font(.system(size: 20, weight: .bold))
+                    .frame(width: 48, height: 48)
                     .foregroundColor(Color(.label))
                     .background(.white)
                     .clipShape(Circle())
-                    .shadow(radius: 5)
+                    .shadow(radius: 7)
             }
             .buttonStyle(.plain)
             
@@ -59,11 +61,12 @@ struct ChatView: View {
             Spacer()
             
             VStack {
-                Text(chatUser?.firstName ?? "Placeholder")
+                Text(chatUser?.firstName ?? "Name")
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
+                
             }
             
             Spacer()
@@ -78,7 +81,7 @@ struct ChatView: View {
         }
         .padding()
         .background(.yellow)
-        .cornerRadius(15)
+        .cornerRadius(20)
         
     }
     
@@ -127,14 +130,15 @@ struct ChatView: View {
                 .font(.system(size: 24))
                 .foregroundColor(Color(.white))
             
-            // DescriptionPlaceholder
             TextField("Type a message", text: $chatService.text)
                 .frame(height: 40)
                 .foregroundColor(.white)
                 .padding(.leading, 5)
             
             Button {
-                chatService.sendMessage()
+                if (!chatService.text.isEmpty) {
+                    chatService.sendMessage()
+                }
             } label: {
                 Image(systemName: "paperplane")
                     .font(.system(size: 24))
@@ -155,5 +159,6 @@ struct ChatView_Previews: PreviewProvider {
     static var previews: some View {
         ChatView(chatUser: nil)
             .environmentObject(ChatServiceImpl())
+            .environmentObject(LocationServiceImpl())
     }
 }
