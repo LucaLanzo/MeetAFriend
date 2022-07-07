@@ -14,11 +14,13 @@ import FirebaseFirestoreSwift
 protocol MapService {
     var mapViewModel: MapViewModel { get }
     var closeTo: [String] { get }
+    var listenStarted: Bool { get }
 }
 
 final class MapServiceImpl: ObservableObject, MapService {
     @Published var mapViewModel = MapViewModel()
     @Published var closeTo: [String] = []
+    @Published var listenStarted: Bool = false
     
     private var locations: [Location] = []
     
@@ -29,12 +31,10 @@ final class MapServiceImpl: ObservableObject, MapService {
     
     init() {
         mapViewModel.checkIfLocationServicesIsEnabled()
-        getCoordinates()
     }
 }
 
-
-private extension MapServiceImpl {
+extension MapServiceImpl {
     func getCoordinates() {
         db.collection("locations").addSnapshotListener() { querySnapshot, err in
             querySnapshot?.documentChanges.forEach{ change in
@@ -67,11 +67,31 @@ private extension MapServiceImpl {
                 }
             }
         }
-        
         listenToVicinity()
-        
-        
+        self.listenStarted = true
     }
+    
+    func startDemoMode() {
+        print("Starting demo mode, stop timer, add all locations close to")
+        
+        self.timer?.invalidate()
+        self.closeTo.removeAll()
+        
+        for loc in self.locations {
+            self.closeTo.append(loc.id!)
+        }
+    }
+    
+    func stopDemoMode() {
+        print("Stopping demo mode, remove all close to, start listen")
+        
+        self.closeTo.removeAll()
+        
+        self.listenToVicinity()
+    }
+}
+
+private extension MapServiceImpl {
     
     func listenToVicinity() {
         timer?.invalidate()   // just in case there is existing `Timer`, `invalidate` it before we lose our reference to it
@@ -79,13 +99,6 @@ private extension MapServiceImpl {
         timer = Timer.scheduledTimer(withTimeInterval: updateInterval, repeats: true) { [weak self] _ in
             if (self!.locations.count != 0) {
                 for loc in self!.locations {
-                    
-                    if !self!.closeTo.contains(where: { $0 == loc.id }) {
-                        self!.closeTo.append(loc.id!)
-                    }
-                    
-                    continue
-                    
                     if (self!.mapViewModel.locationManager!.location == nil) { continue }
                     
                     let lat1 = loc.coordinates.latitude
@@ -96,8 +109,6 @@ private extension MapServiceImpl {
                     
                     let distanceToLocation = self!.distanceToLocation(lat1: lat1, lon1: lon1, lat2: lat2, lon2: lon2)
                     
-                    
-                    /*
                     if (distanceToLocation < 100.0) {
                         if !self!.closeTo.contains(where: { $0 == loc.id }) {
                             self!.closeTo.append(loc.id!)
@@ -107,14 +118,12 @@ private extension MapServiceImpl {
                             self!.closeTo.remove(at: index)
                         }
                     }
-                     */
                 }
-                /*
+                
                 print("closeTo:")
                 self!.closeTo.forEach({ loc in
                     print(loc)
                 })
-                 */
             } else {
                 print("MapService: No locations found")
             }
@@ -140,3 +149,5 @@ private extension MapServiceImpl {
         return earthRadiusKm * c * 1000.0
     }
 }
+
+

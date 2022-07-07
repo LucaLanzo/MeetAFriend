@@ -78,11 +78,15 @@ private extension SessionServiceImpl {
                 let firstName = value[RegistrationKeys.firstName.rawValue] as? String
                 let lastName = value[RegistrationKeys.lastName.rawValue] as? String
                 let age = value[RegistrationKeys.age.rawValue] as? Int
+                let profilePictureURL = value[RegistrationKeys.profilePictureURL.rawValue] as? String
+                let closeTo = value[RegistrationKeys.closeTo.rawValue] as? Bool
                 
                 DispatchQueue.main.async {
                     self.userDetails = SessionUserDetails(firstName: firstName ?? "N/A",
                                                           lastName: lastName ?? "N/A",
-                                                          age: age ?? 18)
+                                                          age: age ?? 18,
+                                                          profilePictureURL: profilePictureURL ?? "",
+                                                          closeTo: closeTo ?? false)
                 }
             }
     }

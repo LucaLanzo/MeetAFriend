@@ -19,7 +19,6 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct meetafriendApp: App {
-    
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var sessionService = SessionServiceImpl()
     @StateObject var locationService = LocationServiceImpl()
@@ -29,9 +28,10 @@ struct meetafriendApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView{
+            NavigationView {
                 switch sessionService.state {
                 case .loggedIn:
+                    
                     switch locationService.state {
                     case .notJoined:
                         HomeView()
@@ -40,7 +40,7 @@ struct meetafriendApp: App {
                         ChatOverviewView()
                     }
                 case .loggedOut:
-                    LoginView()
+                    IntroductionView()
                 }
             }
             .environmentObject(sessionService)

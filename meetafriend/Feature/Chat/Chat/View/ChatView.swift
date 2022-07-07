@@ -11,6 +11,7 @@ import SDWebImageSwiftUI
 
 
 struct ChatView: View {
+    @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var chatService: ChatServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
     
@@ -33,6 +34,12 @@ struct ChatView: View {
         }
         .navigationBarHidden(true)
         .padding([.leading, .trailing], 10)
+        .gesture(
+            TapGesture()
+                .onEnded { _ in
+                    hideKeyboard()
+                }
+        )
         .onAppear {
             self.chatService.chatUser = chatUser	
             self.chatService.startNewChat()
@@ -40,6 +47,7 @@ struct ChatView: View {
         .onDisappear {
             self.chatService.closeListenForMessages()
         }
+        
     }
     
     private var menuBar: some View {
@@ -99,6 +107,15 @@ struct ChatView: View {
                                 HStack {
                                     Text(message.text)
                                         .foregroundColor(.white)
+                                        .shadow(radius: 7)
+                                    
+                                    WebImage(url: URL(string: sessionService.userDetails?.profilePictureURL ?? ""))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 20, height: 20)
+                                            .clipped()
+                                            .cornerRadius(50)
+                                            .shadow(radius: 7)
                                 }
                                 .padding(10)
                                 .background(Color.gray)
@@ -109,6 +126,15 @@ struct ChatView: View {
                                 HStack {
                                     Text(message.text)
                                         .foregroundColor(.white)
+                                        .shadow(radius: 7)
+                                    
+                                    WebImage(url: URL(string: chatUser?.profilePictureURL ?? ""))
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 20, height: 20)
+                                            .clipped()
+                                            .cornerRadius(50)
+                                            .shadow(radius: 7)
                                 }
                                 .padding(10)
                                 .background(Color.yellow)
@@ -163,6 +189,7 @@ struct ChatView_Previews: PreviewProvider {
             ChatView(chatUser: nil)
                 .environmentObject(ChatServiceImpl())
                 .environmentObject(LocationServiceImpl())
+                .environmentObject(SessionServiceImpl())
         }
     }
 }

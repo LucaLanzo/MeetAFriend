@@ -8,7 +8,10 @@
 import Foundation
 
 struct SessionUserDetails {
-    let firstName: String
-    let lastName: String
-    let age: Int
+    var firstName: String
+    var lastName: String
+    var age: Int
+    var profilePictureURL: String
+    var closeTo: Bool
+
 }

@@ -21,6 +21,7 @@ protocol LocationService {
     var locations: [Location] { get }
     var state: LocationState { get }
     var joinedLocation: String? { get }
+    var listenStarted: Bool { get }
     
     func joinLocation(lid: String)
 }
@@ -29,12 +30,9 @@ final class LocationServiceImpl: ObservableObject, LocationService {
     @Published var locations: [Location] = []
     @Published var state: LocationState = .notJoined
     @Published var joinedLocation: String?
+    @Published var listenStarted: Bool = false
     
     private let db = Firestore.firestore()
-    
-    init() {
-        loadLocations()
-    }
     
     func joinLocation(lid: String) {
         joinLocation(with: lid)
@@ -42,13 +40,8 @@ final class LocationServiceImpl: ObservableObject, LocationService {
 }
 
 
+
 private extension LocationServiceImpl {
-    // initially load data
-    func loadLocations() {
-        self.handleRefresh()
-        self.checkIfJoined()
-    }
-    
     // update data
     func handleRefresh() {
         // TODO: REMOVE LISTENER ONCE FINISHED
@@ -134,6 +127,13 @@ private extension LocationServiceImpl {
 }
 
 extension LocationServiceImpl {
+    
+    // initially load data
+    func loadLocations() {
+        self.handleRefresh()
+        self.checkIfJoined()
+        self.listenStarted = true
+    }
     
     func leaveLocation() {
         let uid = Auth.auth().currentUser

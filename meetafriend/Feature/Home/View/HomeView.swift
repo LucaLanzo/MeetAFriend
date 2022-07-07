@@ -8,7 +8,15 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
+    @EnvironmentObject var mapService: MapServiceImpl
+    
+    @State var showAlert: Bool = false
+    @State var showAlert2: Bool = false
+    @State var showAlert3: Bool = false
+    @State var demoStarted: Bool = false
+    
     
     var body: some View {
         
@@ -26,12 +34,19 @@ struct HomeView: View {
                     .padding(.bottom, 15)
                 
                 HStack {
-                    //NavigationLink() {
+                    Button {
+                        showAlert = true
+                    } label: {
                         SettingsButtonView(buttonName: "DM's", imageName: "message")
-                    //}
-                    //.buttonStyle(.plain)
+                    }
+                    .buttonStyle(.plain)
+                    .alert("Feature coming soon!", isPresented: $showAlert) {
+                                Button("Nice!", role: .cancel) { }
+                        }
+                    
                     
                     Spacer()
+                    
                     
                     NavigationLink(destination: MapView()) {
                         SettingsButtonView(buttonName: "Map", imageName: "map")
@@ -41,17 +56,43 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    //NavigationLink() {
-                        SettingsButtonView(buttonName: "How to", imageName: "questionmark")
-                   // }
-                    //.buttonStyle(.plain)
+                    /*
+                    Button {
+                       showAlert3 = true
+                    } label: {SettingsButtonView(buttonName: "Demo", imageName: "questionmark")
+                    }
+                    .buttonStyle(.plain)
+                    .alert("Karsten's demo mode: Alle locations joinbar. Have fun!", isPresented: $showAlert2) {
+                     Pack das in den map service der soll checken ob demo ja nein
+                            if (!demoStarted) {
+                                Button("Start Demo Mode") {
+                                    mapService.startDemoMode()
+                                    demoStarted = true
+                                }
+                            } else {
+                                Button("Stop Demo Mode") {
+                                    mapService.stopDemoMode()
+                                    demoStarted = false
+                                }
+                            }
+                        }
                     
                     Spacer()
+                   
                     
-                    //NavigationLink() {
-                        SettingsButtonView(buttonName: "Setup", imageName: "gear")
-                    //}
-                    //.buttonStyle(.plain)
+                    Button {
+                        showAlert2 = true
+                    } label: {
+                        SettingsButtonView(buttonName: "Logout", imageName: "rectangle.portrait.and.arrow.right")
+                    }
+                    .buttonStyle(.plain)
+                    .alert("Are you sure you want to log out?", isPresented: $showAlert2) {
+                            Button("No", role: .cancel) { }
+                            Button("Yes") {
+                                sessionService.state = .loggedOut
+                            }
+                        }
+                     */
                 }
             }
             .padding([.top, .bottom], 16)
@@ -80,6 +121,14 @@ struct HomeView: View {
         }
         .navigationBarHidden(true)
         .padding([.leading, .trailing, .bottom], 10)
+        .onAppear {
+            if (!locationService.listenStarted) {
+                locationService.loadLocations()
+            }
+            if (!mapService.listenStarted) {
+                mapService.getCoordinates()
+            }
+        }
     }
 }
 
@@ -107,6 +156,8 @@ struct HomeView_Previews: PreviewProvider {
         NavigationView {
             HomeView()
                 .environmentObject(LocationServiceImpl())
+                .environmentObject(SessionServiceImpl())
+                .environmentObject(MapServiceImpl())
         }
     }
 }

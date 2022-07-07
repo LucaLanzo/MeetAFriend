@@ -10,8 +10,6 @@
 		810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */; };
 		810DE00027F1DA91008D72EC /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DDFFF27F1DA91008D72EC /* LoginService.swift */; };
 		810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00227F1DBA6008D72EC /* LoginViewModel.swift */; };
-		810DE00727F1E37F008D72EC /* ForgotPasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */; };
-		810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */; };
 		810E9C402870E08C00C2B28E /* IntroductionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810E9C3F2870E08C00C2B28E /* IntroductionView.swift */; };
 		8128C6D627E84E9700B8B9C9 /* meetafriendApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */; };
 		8128C6DA27E84E9B00B8B9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8128C6D927E84E9B00B8B9C9 /* Assets.xcassets */; };
@@ -31,10 +29,8 @@
 		819F8D3C27EDD55E002F408B /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D3B27EDD55E002F408B /* Preview.swift */; };
 		819F8D3E27EDD6BA002F408B /* InputPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D3D27EDD6BA002F408B /* InputPasswordView.swift */; };
 		819F8D4127EDD8CA002F408B /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D4027EDD8CA002F408B /* ButtonView.swift */; };
-		819F8D4527EDDFBB002F408B /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D4427EDDFBB002F408B /* RegisterView.swift */; };
 		819F8D4727EDFEF4002F408B /* CloseModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D4627EDFEF4002F408B /* CloseModifier.swift */; };
 		819F8D4B27EE0168002F408B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D4A27EE0168002F408B /* HomeView.swift */; };
-		819F8D4F27EE024D002F408B /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D4E27EE024D002F408B /* ForgotPasswordView.swift */; };
 		819F8D5227EE0828002F408B /* RegistrationDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5127EE0828002F408B /* RegistrationDetails.swift */; };
 		819F8D5527EE0870002F408B /* RegistrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5427EE0870002F408B /* RegistrationService.swift */; };
 		819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */; };
@@ -60,8 +56,6 @@
 		810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		810DDFFF27F1DA91008D72EC /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		810DE00227F1DBA6008D72EC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordService.swift; sourceTree = "<group>"; };
-		810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		810E9C3F2870E08C00C2B28E /* IntroductionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroductionView.swift; sourceTree = "<group>"; };
 		8128C6D227E84E9700B8B9C9 /* meetafriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = meetafriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8128C6D527E84E9700B8B9C9 /* meetafriendApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = meetafriendApp.swift; sourceTree = "<group>"; };
@@ -82,10 +76,8 @@
 		819F8D3B27EDD55E002F408B /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		819F8D3D27EDD6BA002F408B /* InputPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputPasswordView.swift; sourceTree = "<group>"; };
 		819F8D4027EDD8CA002F408B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
-		819F8D4427EDDFBB002F408B /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		819F8D4627EDFEF4002F408B /* CloseModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseModifier.swift; sourceTree = "<group>"; };
 		819F8D4A27EE0168002F408B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		819F8D4E27EE024D002F408B /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		819F8D5127EE0828002F408B /* RegistrationDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationDetails.swift; sourceTree = "<group>"; };
 		819F8D5427EE0870002F408B /* RegistrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationService.swift; sourceTree = "<group>"; };
 		819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
@@ -147,27 +139,10 @@
 			isa = PBXGroup;
 			children = (
 				819F8D5927EE10D9002F408B /* Session */,
-				819F8D4C27EE022D002F408B /* ForgotPassword */,
 				819F8D4227EDDF70002F408B /* Register */,
 				819F8D3427EDD132002F408B /* Login */,
 			);
 			path = Authentification;
-			sourceTree = "<group>";
-		};
-		810DE00527F1E36E008D72EC /* Service */ = {
-			isa = PBXGroup;
-			children = (
-				810DE00627F1E37F008D72EC /* ForgotPasswordService.swift */,
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		810DE00827F1E7CB008D72EC /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				810DE00927F1E7DB008D72EC /* ForgotPasswordViewModel.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		810E9C3D2870E02B00C2B28E /* Introduction */ = {
@@ -319,13 +294,14 @@
 			path = Chat;
 			sourceTree = "<group>";
 		};
-		8178CDBC282A60B200BF42CF /* Locations */ = {
+		8178CDBC282A60B200BF42CF /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				81D1496F2833E1A5008BC73C /* Map */,
-				81D1496E2833E189008BC73C /* Home */,
+				81DDAB16282BE938008DD4E9 /* Service */,
+				81DDAB15282BE921008DD4E9 /* Model */,
+				819F8D4927EE0157002F408B /* View */,
 			);
-			path = Locations;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		819F8D3327EDD129002F408B /* Feature */ = {
@@ -333,7 +309,8 @@
 			children = (
 				810E9C3D2870E02B00C2B28E /* Introduction */,
 				810DE00427F1E35A008D72EC /* Authentification */,
-				8178CDBC282A60B200BF42CF /* Locations */,
+				81D1496F2833E1A5008BC73C /* Map */,
+				8178CDBC282A60B200BF42CF /* Home */,
 				8178CDBB282A60AB00BF42CF /* Chat */,
 			);
 			path = Feature;
@@ -401,7 +378,6 @@
 		819F8D4327EDDF82002F408B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				819F8D4427EDDFBB002F408B /* RegisterView.swift */,
 				816FAEBD2834608900CE5EA6 /* ImagePicker.swift */,
 			);
 			path = View;
@@ -412,24 +388,6 @@
 			children = (
 				819F8D4A27EE0168002F408B /* HomeView.swift */,
 				81D1496A2833D631008BC73C /* SwipeLocationsView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		819F8D4C27EE022D002F408B /* ForgotPassword */ = {
-			isa = PBXGroup;
-			children = (
-				810DE00827F1E7CB008D72EC /* ViewModel */,
-				810DE00527F1E36E008D72EC /* Service */,
-				819F8D4D27EE023E002F408B /* View */,
-			);
-			path = ForgotPassword;
-			sourceTree = "<group>";
-		};
-		819F8D4D27EE023E002F408B /* View */ = {
-			isa = PBXGroup;
-			children = (
-				819F8D4E27EE024D002F408B /* ForgotPasswordView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -491,16 +449,6 @@
 				8121E7F0282A6EBC00A08A34 /* View */,
 			);
 			path = ChatOverview;
-			sourceTree = "<group>";
-		};
-		81D1496E2833E189008BC73C /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				81DDAB16282BE938008DD4E9 /* Service */,
-				81DDAB15282BE921008DD4E9 /* Model */,
-				819F8D4927EE0157002F408B /* View */,
-			);
-			path = Home;
 			sourceTree = "<group>";
 		};
 		81D1496F2833E1A5008BC73C /* Map */ = {
@@ -629,7 +577,6 @@
 				810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */,
 				816FAEBE2834608900CE5EA6 /* ImagePicker.swift in Sources */,
 				81DB4295282E9572003AAE7A /* ActiveUsersView.swift in Sources */,
-				819F8D4527EDDFBB002F408B /* RegisterView.swift in Sources */,
 				81B8796C28648EFA0062D87D /* ChatOverviewService.swift in Sources */,
 				810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */,
 				8159ACA42857B32600B2E5F8 /* MapLocationDot.swift in Sources */,
@@ -637,7 +584,6 @@
 				81DDAB1D282BE9A0008DD4E9 /* Location.swift in Sources */,
 				819F8D3C27EDD55E002F408B /* Preview.swift in Sources */,
 				818B89D52857C30000E5EB79 /* MapLocationInfo.swift in Sources */,
-				810DE00727F1E37F008D72EC /* ForgotPasswordService.swift in Sources */,
 				81DDAB1B282BE97A008DD4E9 /* LocationService.swift in Sources */,
 				81B4F3AD2831B6CB0005EFFF /* User.swift in Sources */,
 				8159AC9F285780FE00B2E5F8 /* MapService.swift in Sources */,
@@ -645,8 +591,6 @@
 				816FAEC82834749F00CE5EA6 /* Message.swift in Sources */,
 				819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */,
 				819F8D5227EE0828002F408B /* RegistrationDetails.swift in Sources */,
-				810DE00A27F1E7DB008D72EC /* ForgotPasswordViewModel.swift in Sources */,
-				819F8D4F27EE024D002F408B /* ForgotPasswordView.swift in Sources */,
 				819F8D5C27EE10F5002F408B /* SessionUserDetails.swift in Sources */,
 				819F8D3927EDD264002F408B /* InputTextFieldView.swift in Sources */,
 				81D1496B2833D631008BC73C /* SwipeLocationsView.swift in Sources */,
