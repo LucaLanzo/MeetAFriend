@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct LoginView: View {
-    
     @StateObject private var registerService = RegistrationViewModelImpl(
         service: RegistrationServiceImpl()
     )
@@ -29,6 +28,8 @@ struct LoginView: View {
             
             logOrReg
             
+            Spacer()
+            
             if (!showRegistration) {
                 logView
                 Spacer()
@@ -38,7 +39,6 @@ struct LoginView: View {
                 Spacer()
                 regButton
             }
-            
         }
         .navigationBarHidden(true)
         .padding(.horizontal, 10)
@@ -53,7 +53,7 @@ struct LoginView: View {
                              message: Text("Something went wrong"))
             }
         })
-        alert(isPresented: $registerService.hasError,
+        .alert(isPresented: $registerService.hasError,
               content: {
             if case .failed(let error) = registerService.state {
                 return Alert(title: Text("Error"),
@@ -71,7 +71,6 @@ struct LoginView: View {
                 }
         )
     }
-    
     
     
     private var logo: some View {

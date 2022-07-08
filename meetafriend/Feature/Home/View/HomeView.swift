@@ -15,7 +15,6 @@ struct HomeView: View {
     @State var showAlert: Bool = false
     @State var showAlert2: Bool = false
     @State var showAlert3: Bool = false
-    @State var demoStarted: Bool = false
     
     
     var body: some View {
@@ -56,30 +55,28 @@ struct HomeView: View {
                     
                     Spacer()
                     
-                    /*
+                    
+                    
                     Button {
                        showAlert3 = true
                     } label: {SettingsButtonView(buttonName: "Demo", imageName: "questionmark")
                     }
                     .buttonStyle(.plain)
-                    .alert("Karsten's demo mode: Alle locations joinbar. Have fun!", isPresented: $showAlert2) {
-                     Pack das in den map service der soll checken ob demo ja nein
-                            if (!demoStarted) {
+                    .alert("Karsten's demo mode:\nAll locations joinable. Have fun!", isPresented: $showAlert3) {
+                        if (!mapService.demoStarted) {
                                 Button("Start Demo Mode") {
                                     mapService.startDemoMode()
-                                    demoStarted = true
                                 }
                             } else {
                                 Button("Stop Demo Mode") {
                                     mapService.stopDemoMode()
-                                    demoStarted = false
                                 }
                             }
                         }
                     
                     Spacer()
                    
-                    
+                     
                     Button {
                         showAlert2 = true
                     } label: {
@@ -89,10 +86,9 @@ struct HomeView: View {
                     .alert("Are you sure you want to log out?", isPresented: $showAlert2) {
                             Button("No", role: .cancel) { }
                             Button("Yes") {
-                                sessionService.state = .loggedOut
+                                sessionService.logout()
                             }
                         }
-                     */
                 }
             }
             .padding([.top, .bottom], 16)

@@ -15,12 +15,14 @@ protocol MapService {
     var mapViewModel: MapViewModel { get }
     var closeTo: [String] { get }
     var listenStarted: Bool { get }
+    var demoStarted: Bool { get }
 }
 
 final class MapServiceImpl: ObservableObject, MapService {
     @Published var mapViewModel = MapViewModel()
     @Published var closeTo: [String] = []
     @Published var listenStarted: Bool = false
+    @Published var demoStarted: Bool = false
     
     private var locations: [Location] = []
     
@@ -80,6 +82,8 @@ extension MapServiceImpl {
         for loc in self.locations {
             self.closeTo.append(loc.id!)
         }
+        
+        self.demoStarted = true
     }
     
     func stopDemoMode() {
@@ -88,6 +92,8 @@ extension MapServiceImpl {
         self.closeTo.removeAll()
         
         self.listenToVicinity()
+        
+        self.demoStarted = false
     }
 }
 
