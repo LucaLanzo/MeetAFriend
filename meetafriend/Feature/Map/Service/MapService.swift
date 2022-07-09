@@ -30,10 +30,6 @@ final class MapServiceImpl: ObservableObject, MapService {
     private weak var timer: Timer?
     
     private let db = Firestore.firestore()
-    
-    init() {
-        mapViewModel.checkIfLocationServicesIsEnabled()
-    }
 }
 
 extension MapServiceImpl {

@@ -23,6 +23,7 @@ struct LoginView: View {
     var body: some View {
         VStack(alignment: .leading) {
             logo
+                .shadow(radius: 5)
             
             Spacer()
             
@@ -32,12 +33,16 @@ struct LoginView: View {
             
             if (!showRegistration) {
                 logView
+                    .shadow(radius: 5)
                 Spacer()
                 logButton
+                    .shadow(radius: 5)
             } else {
                 regView
+                    .shadow(radius: 5)
                 Spacer()
                 regButton
+                    .shadow(radius: 5)
             }
         }
         .navigationBarHidden(true)
@@ -130,9 +135,10 @@ struct LoginView: View {
             HStack {
                 if (!showRegistration) {
                     Text("Login")
-                    .underline()
-                    .font(.title)
-                    .fontWeight(.bold)
+                        .underline()
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("MAFblack"))
                     
                     Spacer()
                     
@@ -140,10 +146,13 @@ struct LoginView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .opacity(0.5)
+                        .foregroundColor(Color("MAFblack"))
+                    
                 } else {
                     Text("Login")
-                    .font(.title)
-                    .fontWeight(.bold)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color("MAFblack"))
                     
                     Spacer()
                     
@@ -152,6 +161,7 @@ struct LoginView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .opacity(1)
+                        .foregroundColor(Color("MAFblack"))
                 }
                 
             }
@@ -189,7 +199,7 @@ struct LoginView: View {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 25, height: 25)
+                                .frame(width: 50, height: 50)
                                 .cornerRadius(64)
                         } else {
                             Image(systemName: "person.fill")

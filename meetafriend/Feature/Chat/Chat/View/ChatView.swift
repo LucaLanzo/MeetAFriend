@@ -12,15 +12,10 @@ import SDWebImageSwiftUI
 
 struct ChatView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
-    @EnvironmentObject var chatService: ChatServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
+    @StateObject var chatService: ChatService
     
-    let chatUser: User?
-        
-    init(chatUser: User?) {
-        self.chatUser = chatUser
-    }
-    
+    let chatUser: User
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -41,11 +36,8 @@ struct ChatView: View {
                 }
         )
         .onAppear {
-            self.chatService.chatUser = chatUser	
-            self.chatService.startNewChat()
-        }
-        .onDisappear {
-            self.chatService.closeListenForMessages()
+            print("Service: \(chatService.chatUser.firstName)")
+            print("UI: \(chatUser.firstName)")
         }
         
     }
@@ -62,17 +54,17 @@ struct ChatView: View {
             Spacer()
             
             VStack {
-                Text(chatUser?.firstName ?? "Name")
+                Text(chatUser.firstName)
                     .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("MAFwhite"))
                     .multilineTextAlignment(.center)
                 
             }
             
             Spacer()
             
-            WebImage(url: URL(string: chatUser?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
+            WebImage(url: URL(string: chatUser.profilePictureURL))
                 .resizable()
                 .scaledToFill()
                 .frame(width: 48, height: 48)
@@ -81,7 +73,7 @@ struct ChatView: View {
             
         }
         .padding()
-        .background(.yellow)
+        .background(Color("MAFyellow"))
         .cornerRadius(20)
         
     }
@@ -90,10 +82,10 @@ struct ChatView: View {
         Image(systemName: "chevron.backward")
             .font(.system(size: 20, weight: .bold))
             .frame(width: 48, height: 48)
-            .foregroundColor(Color(.label))
-            .background(.white)
+            .foregroundColor(Color("MAFblack"))
+            .background(Color("MAFwhite"))
             .clipShape(Circle())
-            .shadow(radius: 7)
+            .shadow(radius: 5)
     }
     
     private var messagesView: some View {
@@ -106,43 +98,45 @@ struct ChatView: View {
                                 Spacer()
                                 HStack {
                                     Text(message.text)
-                                        .foregroundColor(.white)
-                                        .shadow(radius: 7)
-                                    
-                                    WebImage(url: URL(string: sessionService.userDetails?.profilePictureURL ?? ""))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 20, height: 20)
-                                            .clipped()
-                                            .cornerRadius(50)
-                                            .shadow(radius: 7)
+                                        .foregroundColor(Color("MAFwhite"))
                                 }
                                 .padding(10)
-                                .background(Color.gray)
-                                .cornerRadius(8)
+                                .background(Color("MAFgray"))
+                                .cornerRadius(13, corners: [.topRight, .bottomLeft, .bottomRight])
+                                .shadow(radius: 2)
+                                
+                                WebImage(url: URL(string: sessionService.userDetails?.profilePictureURL ?? ""))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 30, height: 30)
+                                        .clipped()
+                                        .cornerRadius(50)
+                                        .shadow(radius: 2)
                             }
                         } else {
                             HStack {
+                                WebImage(url: URL(string: chatUser.profilePictureURL))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 30, height: 30)
+                                        .clipped()
+                                        .cornerRadius(50)
+                                        .shadow(radius: 2)
+                                
                                 HStack {
                                     Text(message.text)
-                                        .foregroundColor(.white)
-                                        .shadow(radius: 7)
-                                    
-                                    WebImage(url: URL(string: chatUser?.profilePictureURL ?? ""))
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 20, height: 20)
-                                            .clipped()
-                                            .cornerRadius(50)
-                                            .shadow(radius: 7)
+                                        .foregroundColor(Color("MAFwhite"))
                                 }
                                 .padding(10)
-                                .background(Color.yellow)
-                                .cornerRadius(8)
+                                .background(Color("MAFyellow"))
+                                .cornerRadius(13, corners: [.topLeft, .bottomLeft, .bottomRight])
+                                .shadow(radius: 2)
+                                
                                 Spacer()
                             }
                         }
                     }
+                    .padding(.horizontal, 20)
                 
                 }
                 
@@ -156,12 +150,11 @@ struct ChatView: View {
         HStack(alignment: .center, spacing: 16) {
             Image(systemName: "face.smiling")
                 .font(.system(size: 24))
-                .foregroundColor(Color(.white))
+                .foregroundColor(Color("MAFwhite"))
             
-            TextField("Type a message", text: $chatService.text)
-                .frame(height: 40)
-                .foregroundColor(.white)
-                .padding(.leading, 5)
+            InputMessageView(text: $chatService.text,
+                               placeholder: "Type a message",
+                               keyboardType: .default)
             
             Button {
                 if (!chatService.text.isEmpty) {
@@ -170,7 +163,7 @@ struct ChatView: View {
             } label: {
                 Image(systemName: "paperplane")
                     .font(.system(size: 24))
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("MAFwhite"))
                     .padding(5)
             }
             .buttonStyle(.plain)
@@ -178,18 +171,25 @@ struct ChatView: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
-        .background(Color.gray)
+        .background(Color("MAFgray"))
         .cornerRadius(20)
+        .shadow(radius: 7)
     }
 }
 
-struct ChatView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ChatView(chatUser: nil)
-                .environmentObject(ChatServiceImpl())
-                .environmentObject(LocationServiceImpl())
-                .environmentObject(SessionServiceImpl())
-        }
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
 }
+
+struct RoundedCorner: Shape {
+    var radius: CGFloat = .infinity
+    var corners: UIRectCorner = .allCorners
+
+    func path(in rect: CGRect) -> Path {
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        return Path(path.cgPath)
+    }
+}
+

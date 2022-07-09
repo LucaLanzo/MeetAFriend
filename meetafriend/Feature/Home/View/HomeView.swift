@@ -25,11 +25,12 @@ struct HomeView: View {
                 Text("Ready to meet new")
                     .font(.largeTitle)
                     .fontWeight(.bold)
+                    .foregroundColor(Color("MAFblack"))
                 
                 Text("Friends?")
                     .font(.largeTitle)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
+                    .foregroundColor(Color("MAFwhite"))
                     .padding(.bottom, 15)
                 
                 HStack {
@@ -64,11 +65,13 @@ struct HomeView: View {
                     .buttonStyle(.plain)
                     .alert("Karsten's demo mode:\nAll locations joinable. Have fun!", isPresented: $showAlert3) {
                         if (!mapService.demoStarted) {
-                                Button("Start Demo Mode") {
+                                Button("Cancel", role: .cancel) { }
+                                Button("Start") {
                                     mapService.startDemoMode()
                                 }
                             } else {
-                                Button("Stop Demo Mode") {
+                                Button("Cancel", role: .cancel) { }
+                                Button("Stop") {
                                     mapService.stopDemoMode()
                                 }
                             }
@@ -94,8 +97,8 @@ struct HomeView: View {
             .padding([.top, .bottom], 16)
             .padding([.leading, .trailing], 25)
             .frame(maxWidth: .infinity)
-            .background(.yellow)
-            .cornerRadius(15)
+            .background(Color("MAFyellow"))
+            .cornerRadius(20)
             
             
             
@@ -116,12 +119,13 @@ struct HomeView: View {
             }
         }
         .navigationBarHidden(true)
-        .padding([.leading, .trailing, .bottom], 10)
+        .padding(.horizontal, 8)
         .onAppear {
             if (!locationService.listenStarted) {
                 locationService.loadLocations()
             }
             if (!mapService.listenStarted) {
+                mapService.mapViewModel.checkIfLocationServicesIsEnabled()
                 mapService.getCoordinates()
             }
         }
@@ -135,12 +139,13 @@ struct SettingsButtonView: View {
     var body: some View {
         VStack {
             Text(buttonName)
+                .foregroundColor(Color("MAFblack"))
             
             Image(systemName: imageName)
                 .font(.system(size: 20, weight: .bold))
                 .frame(width: 48, height: 48)
-                .foregroundColor(Color(.label))
-                .background(.white)
+                .foregroundColor(Color("MAFblack"))
+                .background(Color("MAFwhite"))
                 .clipShape(Circle())
                 .shadow(radius: 5)
         }

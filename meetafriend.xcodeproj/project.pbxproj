@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81094BC52878A33300BC41F8 /* BottomPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81094BC42878A33300BC41F8 /* BottomPopupView.swift */; };
+		81094BC72878A45900BC41F8 /* CustomPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81094BC62878A45900BC41F8 /* CustomPopup.swift */; };
 		810DDFFD27F1DA6E008D72EC /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */; };
 		810DE00027F1DA91008D72EC /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DDFFF27F1DA91008D72EC /* LoginService.swift */; };
 		810DE00327F1DBA6008D72EC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810DE00227F1DBA6008D72EC /* LoginViewModel.swift */; };
@@ -36,6 +38,7 @@
 		819F8D5827EE0C5C002F408B /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */; };
 		819F8D5C27EE10F5002F408B /* SessionUserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */; };
 		819F8D5F27EE112E002F408B /* SessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819F8D5E27EE112E002F408B /* SessionService.swift */; };
+		81AF95852879FA7000ECC30D /* InputMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AF95842879FA7000ECC30D /* InputMessageView.swift */; };
 		81B4F3A92831B18D0005EFFF /* ChatOverviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B4F3A82831B18D0005EFFF /* ChatOverviewView.swift */; };
 		81B4F3AD2831B6CB0005EFFF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B4F3AC2831B6CB0005EFFF /* User.swift */; };
 		81B8796C28648EFA0062D87D /* ChatOverviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B8796B28648EF90062D87D /* ChatOverviewService.swift */; };
@@ -53,6 +56,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81094BC42878A33300BC41F8 /* BottomPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPopupView.swift; sourceTree = "<group>"; };
+		81094BC62878A45900BC41F8 /* CustomPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPopup.swift; sourceTree = "<group>"; };
 		810DDFFC27F1DA6E008D72EC /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
 		810DDFFF27F1DA91008D72EC /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		810DE00227F1DBA6008D72EC /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -83,6 +88,7 @@
 		819F8D5727EE0C5C002F408B /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		819F8D5B27EE10F5002F408B /* SessionUserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDetails.swift; sourceTree = "<group>"; };
 		819F8D5E27EE112E002F408B /* SessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionService.swift; sourceTree = "<group>"; };
+		81AF95842879FA7000ECC30D /* InputMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputMessageView.swift; sourceTree = "<group>"; };
 		81B4F3A82831B18D0005EFFF /* ChatOverviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOverviewView.swift; sourceTree = "<group>"; };
 		81B4F3AC2831B6CB0005EFFF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		81B8796B28648EF90062D87D /* ChatOverviewService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatOverviewService.swift; sourceTree = "<group>"; };
@@ -247,6 +253,8 @@
 				81D149702833E1B3008BC73C /* MapView.swift */,
 				818B89D42857C30000E5EB79 /* MapLocationInfo.swift */,
 				8159ACA32857B32600B2E5F8 /* MapLocationDot.swift */,
+				81094BC42878A33300BC41F8 /* BottomPopupView.swift */,
+				81094BC62878A45900BC41F8 /* CustomPopup.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				816FAEC328346EF900CE5EA6 /* ChatView.swift */,
+				81AF95842879FA7000ECC30D /* InputMessageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -560,9 +569,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				816FAEBA283458D800CE5EA6 /* MapViewModel.swift in Sources */,
+				81AF95852879FA7000ECC30D /* InputMessageView.swift in Sources */,
 				810DE00027F1DA91008D72EC /* LoginService.swift in Sources */,
 				819F8D4B27EE0168002F408B /* HomeView.swift in Sources */,
 				819F8D3E27EDD6BA002F408B /* InputPasswordView.swift in Sources */,
+				81094BC72878A45900BC41F8 /* CustomPopup.swift in Sources */,
 				810E9C402870E08C00C2B28E /* IntroductionView.swift in Sources */,
 				816FAEC428346EF900CE5EA6 /* ChatView.swift in Sources */,
 				81B4F3A92831B18D0005EFFF /* ChatOverviewView.swift in Sources */,
@@ -583,6 +594,7 @@
 				81DDAB13282BDD79008DD4E9 /* InputNumberFieldView.swift in Sources */,
 				81DDAB1D282BE9A0008DD4E9 /* Location.swift in Sources */,
 				819F8D3C27EDD55E002F408B /* Preview.swift in Sources */,
+				81094BC52878A33300BC41F8 /* BottomPopupView.swift in Sources */,
 				818B89D52857C30000E5EB79 /* MapLocationInfo.swift in Sources */,
 				81DDAB1B282BE97A008DD4E9 /* LocationService.swift in Sources */,
 				81B4F3AD2831B6CB0005EFFF /* User.swift in Sources */,
@@ -737,7 +749,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = luca.meetafriend;
+				PRODUCT_BUNDLE_IDENTIFIER = luca.meetafriend2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -768,7 +780,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = luca.meetafriend;
+				PRODUCT_BUNDLE_IDENTIFIER = luca.meetafriend2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

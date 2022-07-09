@@ -22,28 +22,28 @@ struct ActiveUsersView: View {
                         VStack {
                             Text(user?.firstName ?? "First Name")
                                 .font(.system(size: 28, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundColor(Color("MAFwhite"))
                                 .multilineTextAlignment(.leading)
                             
                             Text("\(user?.age ?? 20) years old")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(Color("MAFwhite"))
                                 .multilineTextAlignment(.leading)
                         
-                            NavigationLink(destination: ChatView(chatUser: user)) {
+                            NavigationLink(destination: ChatView(chatService: ChatService(user!), chatUser: user!)) {
                                 Image(systemName: "message")
                                     .font(.system(size: 32))
                                     .padding(8)
                                     .frame(width: 60, height: 60)
-                                    .foregroundColor(Color(.label))
-                                    .background(.white)
+                                    .foregroundColor(Color("MAFblack"))
+                                    .background(Color("MAFwhite"))
                                     .clipShape(Circle())
                                     .shadow(radius: 5)
                             }
                             .buttonStyle(.plain)
                         }
                         .frame(width: 150, height: 170)
-                        .background(.black)
+                        .background(Color("MAFblack"))
                         .cornerRadius(15)
                         
                         WebImage(url: URL(string: user?.profilePictureURL ?? "gs://meet-a-friend-1b475.appspot.com/6kjhC6xEsmfTnhf8Cd6edilCeNq1"))
@@ -52,9 +52,6 @@ struct ActiveUsersView: View {
                             .frame(width: 70, height: 70)
                             .clipped()
                             .cornerRadius(50)
-                            .overlay(RoundedRectangle(cornerRadius: 50)
-                                .stroke(Color(.black), lineWidth: 1)
-                            )
                             .offset(x: -20, y: -103)
                             
                             
@@ -73,13 +70,11 @@ struct ActiveUsersView: View {
                         .frame(width: 70, height: 70)
                         .clipped()
                         .cornerRadius(50)
-                        .overlay(RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color(.black), lineWidth: 1)
-                        )
                     
                     VStack {
                         Text(user?.firstName ?? "First Name")
-                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(Color("MAFblack"))
+                            .font(.system(size: 28))
                             .rotationEffect(.degrees(-90))
                             .fixedSize()
                             .frame(width: 20, height: 140)

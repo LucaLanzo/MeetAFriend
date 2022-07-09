@@ -11,15 +11,8 @@ import Firebase
 import FirebaseFirestoreSwift
 
 
-
-protocol ChatService {
-    var chatUser: User? { get }
-    var text: String { get }
-    var messages: [Message] { get }
-}
-
-final class ChatServiceImpl: ObservableObject, ChatService {
-    @Published var chatUser: User? = nil
+final class ChatService: ObservableObject{
+    @Published var chatUser: User
     @Published var text: String = ""
     @Published var messages: [Message] = []
     
@@ -28,33 +21,18 @@ final class ChatServiceImpl: ObservableObject, ChatService {
     
     private let db = Firestore.firestore()
     
-    init() {
-        getLocation()
+    init(_ chatUser: User, _ lid: String) {
+        self.chatUser = chatUser
+        self.lid = lid
+        fetchMessages()
     }
 }
 
 
-extension ChatServiceImpl {
-    func getLocation() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        db.collection("locations").whereField("joinedUsers", arrayContains: uid).addSnapshotListener() { querySnapshot, err in
-            guard let snapshot = querySnapshot else {
-                print("No joined Location found")
-                return
-            }
-            
-            for document in snapshot.documents {
-                self.lid = document.documentID
-                                
-                break
-            }
-        }
-    }
-    
+extension ChatService {
     func sendMessage() {
         guard let fromId = Auth.auth().currentUser?.uid else { return }
-        guard let toId = chatUser?.id else { return }
+        guard let toId = chatUser.id else { return }
 
         var chatId = ""
         let chatSearch = db.collection("locations").document(lid).collection("chats").whereField("users", arrayContainsAny: ["\(fromId)\(toId)", "\(toId)\(fromId)"])
@@ -91,46 +69,13 @@ extension ChatServiceImpl {
             }
         }
     }
-    
-    func sendMessageData(chatId: String) {
-        guard let fromId = Auth.auth().currentUser?.uid else { return }
-        guard let toId = chatUser?.id else { return }
-        let text = self.text
-        
-        let newMessage = db.collection("locations").document(lid).collection("chats").document(chatId).collection("messages").document()
-
-        let data = ["fromId": fromId, "toId": toId, "text": text, "timestamp": Timestamp()] as [String : Any]
-        
-        newMessage.setData(data) { error in
-            if let error = error {
-                print("ChatService: Error sending new message \(error)")
-                return
-            }
-            
-            self.text = ""
-        }
-    }
-
-    
-    func startNewChat() {
-        self.fetchMessages()
-    }
-    
-    func closeListenForMessages() {
-        if (self.joinedMessageListener != nil) {
-            self.joinedMessageListener!.remove()
-        }
-        
-        self.messages.removeAll()
-    }
-    
 }
 
-private extension ChatServiceImpl {
+private extension ChatService {
     
     func fetchMessages() {        
         guard let fromId = Auth.auth().currentUser?.uid else { return }
-        guard let toId = chatUser?.id else { return }
+        guard let toId = chatUser.id else { return }
         
         var chatId = ""
         
@@ -202,6 +147,23 @@ private extension ChatServiceImpl {
         }
     }
     
-   
+    func sendMessageData(chatId: String) {
+        guard let fromId = Auth.auth().currentUser?.uid else { return }
+        guard let toId = chatUser.id else { return }
+        let text = self.text
+        
+        let newMessage = db.collection("locations").document(lid).collection("chats").document(chatId).collection("messages").document()
+
+        let data = ["fromId": fromId, "toId": toId, "text": text, "timestamp": Timestamp()] as [String : Any]
+        
+        newMessage.setData(data) { error in
+            if let error = error {
+                print("ChatService: Error sending new message \(error)")
+                return
+            }
+            
+            self.text = ""
+        }
+    }    
     
 }

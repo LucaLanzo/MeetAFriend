@@ -15,5 +15,4 @@ public struct User: Codable, Identifiable {
     public var lastName: String
     public var age: Int
     public var profilePictureURL: String
-    public var closeTo: String
 }

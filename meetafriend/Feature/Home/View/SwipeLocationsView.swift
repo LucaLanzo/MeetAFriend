@@ -22,25 +22,25 @@ struct SwipeLocationsView: View {
                 WebImage(url: URL(string: location?.locationPictureURL ?? ""))
                     .resizable()
                     .blur(radius: 2)
-                    .background(.gray)
+                    .background(Color("MAFgray"))
                 
                 VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         Text(location?.name ?? "Name")
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("MAFwhite"))
                         
                         Text(location?.subDescription ?? "Sub Description")
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("MAFwhite"))
                         
                         if location?.joinedUsers.count ?? 0 > 1 {
                             
                             Text("\(location?.joinedUsers.count ?? 1) people active")
                                 .font(.title3)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color("MAFwhite"))
                                 .padding(.top)
                             
                         } else if location?.joinedUsers.count ?? 0 == 1 {
@@ -48,7 +48,7 @@ struct SwipeLocationsView: View {
                             Text("\(location?.joinedUsers.count ?? 10) person active")
                                 .font(.title3)
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color("MAFwhite"))
                                 .padding(.top)
                         
                         } else {
@@ -56,7 +56,7 @@ struct SwipeLocationsView: View {
                             Text("No one is here yet")
                                 .font(.title3) 
                                 .fontWeight(.bold)
-                                .foregroundColor(.white)
+                                .foregroundColor(Color("MAFwhite"))
                                 .padding(.top)
                         
                         }
@@ -77,7 +77,7 @@ struct SwipeLocationsView: View {
                                 .padding([.leading, .trailing], 30)
                                 .padding([.top, .bottom], 10)
                                 .buttonStyle(.plain)
-                                .background(.white)
+                                .background(Color("MAFwhite"))
                                 .cornerRadius(25)
                                 .shadow(radius: 10)
                             }

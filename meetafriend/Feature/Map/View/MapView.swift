@@ -26,20 +26,30 @@ struct MapView: View {
                 MapAnnotation(coordinate: CLLocationCoordinate2D(latitude: location.coordinates.latitude, longitude: location.coordinates.longitude)) {
                     
                     Button {
-                        isClicked.toggle()
-                        if (isClicked) {
-                            shownLocationName = location.name
-                            shownLocationSubDescription = location.subDescription
-                            shownLocationPictureURL = location.locationPictureURL
-                        }
+                        shownLocationName = location.name
+                        shownLocationSubDescription = location.subDescription
+                        shownLocationPictureURL = location.locationPictureURL
+                        
+                        isClicked = true
                     } label: {
                         MapLocationDot(locationProfileURL: location.locationPictureURL)
                     }
                 }
                 
             }
-            .accentColor(Color(.yellow))
+            .accentColor(Color("MAFyellow"))
             .edgesIgnoringSafeArea(.all)
+            .popup(isPresented: $isClicked) {
+                BottomPopupView {
+                    MapLocationInfo(title: shownLocationName, subDescription: shownLocationSubDescription, locationProfileURL: shownLocationPictureURL)
+                }
+            }
+            .gesture(
+                TapGesture()
+                    .onEnded { _ in
+                        if (isClicked) { isClicked = false }
+                    }
+            )
             
             /*NavigationLink(destination: HomeView()) {
                 Image(systemName: "chevron.backward.circle")
@@ -49,17 +59,7 @@ struct MapView: View {
                     .padding()
             }
             .buttonStyle(.plain)
-            .transition(.move(edge: .trailing))
-            .offset(x: 5, y: 40)
-            .edgesIgnoringSafeArea(.all)
             */
-            
-            
-            if (isClicked) {
-                ZStack(alignment: .bottom) {
-                    MapLocationInfo(title: shownLocationName, subDescription: shownLocationSubDescription, locationProfileURL: shownLocationPictureURL)
-                }
-            }
             
         }
         .navigationBarBackButtonHidden(false)

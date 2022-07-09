@@ -33,37 +33,41 @@ struct ChatMessageView: View {
                     .frame(width: 60, height: 60)
                     .clipped()
                     .cornerRadius(50)
-                    .overlay(RoundedRectangle(cornerRadius: 50)
-                        .stroke(Color(.black), lineWidth: 1)
-                    )
 
 
                 VStack(alignment: .leading) {
                     Text(user.firstName)
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: 16))
+                        .foregroundColor(Color("MAFblack"))
                     
                     HStack {
                         if (fromSelf) {
                             Image(systemName: "arrow.turn.down.right")
+                                .foregroundColor(Color("MAFblack"))
                         }
                         
                         Text(message.text)
                             .font(.system(size: 14))
-                            .foregroundColor(Color(.lightGray))
+                            .foregroundColor(Color("MAFblack"))
+                            .opacity(50)
+                            .truncationMode(.tail)
                     }
+                    .frame(maxWidth: 100)
                     
                 }
-                .padding(.leading, 5)
+                .padding(.leading, 10)
                     
                 
                 Spacer()
                 
                 
                 VStack(alignment: .trailing) {
-                    Text(message.timestamp.dateValue().formatted(date: .abbreviated, time: .omitted))
-                        .font(.system(size: 14, weight: .medium))
                     Text(message.timestamp.dateValue().formatted(date: .omitted, time: .shortened))
                         .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(Color("MAFblack"))
+                    Text(message.timestamp.dateValue().formatted(date: .abbreviated, time: .omitted))
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(Color("MAFblack"))
                 }
                 .padding(.leading, 5)
                 
@@ -79,40 +83,43 @@ struct ChatMessageView: View {
                         .frame(width: 60, height: 60)
                         .clipped()
                         .cornerRadius(50)
-                        .overlay(RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color(.black), lineWidth: 1)
-                        )
 
 
                     VStack(alignment: .leading) {
                         Text(user.firstName)
-                            .font(.system(size: 16, weight: .bold))
+                            .font(.system(size: 16))
+                            .foregroundColor(Color("MAFblack"))
                         
                         HStack {
                             Image(systemName: "arrow.turn.down.right")
+                                .foregroundColor(Color("MAFblack"))
                             
                             Text(message.text)
                                 .font(.system(size: 14))
-                                .foregroundColor(Color(.lightGray))
+                                .foregroundColor(Color("MAFgray"))
+                                .opacity(50)
+                                .truncationMode(.tail)
                         }
                         
                     }
-                    .padding(.leading, 5)
+                    .padding(.leading, 10)
                         
                     
                     Spacer()
                     
                     
                     VStack(alignment: .trailing) {
-                        Text(message.timestamp.dateValue().formatted(date: .abbreviated, time: .omitted))
-                            .font(.system(size: 14, weight: .medium))
                         Text(message.timestamp.dateValue().formatted(date: .omitted, time: .shortened))
                             .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(Color("MAFblack"))
+                        Text(message.timestamp.dateValue().formatted(date: .abbreviated, time: .omitted))
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(Color("MAFblack"))
                     }
                     .padding(.leading, 5)
                 }
                 .padding()
-                .background(.white)
+                .background(Color("MAFwhite"))
                 .cornerRadius(25)
                 .shadow(radius: 10)
             }

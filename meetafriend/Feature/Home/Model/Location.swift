@@ -26,7 +26,5 @@ public struct Location: Codable, Identifiable {
     public var joinedUsers: [String]
     
     public var locationPictureURL: String
-    
-    var closeTo: Bool = false
 }
 

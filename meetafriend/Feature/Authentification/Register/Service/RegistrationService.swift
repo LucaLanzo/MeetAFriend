@@ -17,7 +17,6 @@ enum RegistrationKeys: String {
     case lastName
     case age
     case profilePictureURL
-    case closeTo
 }
 
 protocol RegistrationService {
@@ -47,8 +46,7 @@ final class RegistrationServiceImpl: RegistrationService {
                                     RegistrationKeys.firstName.rawValue: details.firstName,
                                     RegistrationKeys.lastName.rawValue: details.lastName,
                                     RegistrationKeys.age.rawValue: details.age,
-                                    RegistrationKeys.profilePictureURL.rawValue: "",
-                                    RegistrationKeys.closeTo.rawValue: details.closeTo
+                                    RegistrationKeys.profilePictureURL.rawValue: ""
                                 ]) { err in
                                     if let err = err {
                                         print("Error adding document: \(err)")

@@ -22,7 +22,7 @@ struct MapLocationDot: View {
             .clipped()
             .cornerRadius(50)
             .overlay(RoundedRectangle(cornerRadius: 50)
-                .stroke(Color(.yellow), lineWidth: 2)
+                .stroke(Color("MAFyellow"), lineWidth: 2)
             )
         
         

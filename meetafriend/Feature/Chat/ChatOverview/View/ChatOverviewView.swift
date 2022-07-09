@@ -13,7 +13,6 @@ struct ChatOverviewView: View {
     @EnvironmentObject var chatOverviewService: ChatOverviewServiceImpl
     
     var body: some View {
-        
         VStack(alignment: .leading) {
             // Menu Bar
             HStack {
@@ -23,10 +22,10 @@ struct ChatOverviewView: View {
                     Image(systemName: "rectangle.portrait.and.arrow.right")
                         .font(.system(size: 20, weight: .bold))
                         .frame(width: 48, height: 48)
-                        .foregroundColor(Color(.label))
-                        .background(.white)
+                        .foregroundColor(Color("MAFblack"))
+                        .background(Color("MAFwhite"))
                         .clipShape(Circle())
-                        .shadow(radius: 7)
+                        .shadow(radius: 5)
                 })
                 
                 Spacer()
@@ -34,11 +33,12 @@ struct ChatOverviewView: View {
                 VStack {
                     Text("You're at")
                         .multilineTextAlignment(.center)
+                        .foregroundColor(Color("MAFblack"))
                     
                     Text("\(chatOverviewService.location?.name ?? "")")
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("MAFwhite"))
                         .multilineTextAlignment(.center)
                     
                 }
@@ -51,14 +51,11 @@ struct ChatOverviewView: View {
                         .frame(width: 48, height: 48)
                         .clipped()
                         .cornerRadius(50)
-                        .shadow(radius: 7)
-                        .overlay(RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color(.black), lineWidth: 1)
-                        )
+                        .shadow(radius: 5)
                 
             }
             .padding()
-            .background(.yellow)
+            .background(Color("MAFyellow"))
             .cornerRadius(20)
             
             
@@ -68,31 +65,12 @@ struct ChatOverviewView: View {
                 Text("Active")
                     .font(.title)
                     .fontWeight(.bold)
+                    .foregroundColor(Color("MAFblack"))
             }
             .padding([.leading, .trailing, .top])
             
             
-            if (chatOverviewService.users.count == 0) {
-                VStack(alignment: .center) {
-                    VStack() {
-                        Text("Hm, no one is")
-                            .font(.title2)
-                        Text("here right now...")
-                            .font(.title2)
-                        Image(systemName: "eyes")
-                            .padding()
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 20,
-                                             style: .continuous)
-                            .stroke(Color.gray)
-                            .padding(-15)
-                    )
-                }
-                .frame(maxWidth: .infinity, maxHeight: 180)
-                .padding([.leading, .trailing])
-                
-            } else {
+            if (chatOverviewService.users.count != 0) {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(chatOverviewService.users) { user in
@@ -102,6 +80,27 @@ struct ChatOverviewView: View {
                     }
                 }
                 .padding([.leading, .trailing])
+                
+            } else {
+                
+                VStack(alignment: .center) {
+                    VStack() {
+                        Text("Hm, no one is")
+                            .font(.title2)
+                            .foregroundColor(Color("MAFwhite"))
+                        Text("here right now...")
+                            .font(.title2)
+                            .foregroundColor(Color("MAFwhite"))
+                        Image(systemName: "eyes")
+                            .foregroundColor(Color("MAFwhite"))
+                            .padding()
+                    }
+                    .padding(20)
+                    .background(Color("MAFgray"))
+                    .cornerRadius(20)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 180)
+                .padding([.leading, .trailing])
             }
             
             
@@ -110,48 +109,53 @@ struct ChatOverviewView: View {
                 Text("Messages")
                     .font(.title)
                     .fontWeight(.bold)
+                    .foregroundColor(Color("MAFblack"))
             }
             .padding([.leading, .trailing, .top])
             
-            if (chatOverviewService.recentMessages.count == 0) {
+            if (chatOverviewService.recentMessages.count != 0) {
                 
-                VStack(alignment: .center) {
-                    VStack() {
-                        Text("No active chats")
-                            .font(.title2)
-                        Text("start chatting now!")
-                            .font(.title2)
-                        Image(systemName: "scribble.variable")
-                            .padding()
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 20,
-                                             style: .continuous)
-                            .stroke(Color.gray)
-                            .padding(-15)
-                    )
-                }
-                .frame(maxWidth: .infinity, maxHeight: 180)
-                .padding([.leading, .trailing])
-                
-                Spacer()
-            } else {
                 ScrollView {
                     
                     ForEach(chatOverviewService.recentMessages) { recentMessage in
-                        NavigationLink(destination: ChatView(chatUser: recentMessage.chatUser)) {
+                        NavigationLink(destination:
+                                        ChatView(chatService: ChatService(recentMessage.chatUser, chatOverviewService.location!.id!),
+                                                 chatUser: recentMessage.chatUser)) {
+                            
                             ChatMessageView(recentMessage: recentMessage)
                         }
                         .buttonStyle(.plain)
                     }
                     
                 }
+                    
+            } else {
+                VStack(alignment: .center) {
+                    VStack() {
+                        Text("No active chats")
+                            .font(.title2)
+                            .foregroundColor(Color("MAFwhite"))
+                        Text("start chatting now!")
+                            .font(.title2)
+                            .foregroundColor(Color("MAFwhite"))
+                        Image(systemName: "scribble.variable")
+                            .foregroundColor(Color("MAFwhite"))
+                            .padding()
+                    }
+                    .padding(20)
+                    .background(Color("MAFgray"))
+                    .cornerRadius(20)
+                }
+                .frame(maxWidth: .infinity, maxHeight: 180)
+                .padding([.leading, .trailing])
+                
+                Spacer()
             }
             
             
         }
         .navigationBarHidden(true)
-        .padding([.leading, .trailing], 10)
+        .padding(.horizontal, 8)
         .onAppear {
             self.chatOverviewService.getJoinedLocation()
         }
@@ -161,11 +165,8 @@ struct ChatOverviewView: View {
 
 struct ChatOverviewView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            ChatOverviewView()
-                .environmentObject(LocationServiceImpl())
-                .environmentObject(ChatOverviewServiceImpl())
-        }
-        .previewInterfaceOrientation(.portrait)
+        ChatOverviewView()
+            .environmentObject(LocationServiceImpl())
+            .environmentObject(ChatOverviewServiceImpl())
     }
 }

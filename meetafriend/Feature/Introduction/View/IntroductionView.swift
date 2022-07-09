@@ -61,11 +61,12 @@ struct GetStartedButtonView: View {
                 .fontWeight(.bold)
                 .padding(.vertical, 10)
                 .padding(.horizontal, 30)
-                .foregroundColor(.white)
+                .foregroundColor(Color("MAFwhite"))
                 .background(RoundedRectangle(cornerRadius: 25)
                     .foregroundColor(Color("MAFgray"))
                 )
         }
+        .shadow(radius: 5)
     }
 }
 

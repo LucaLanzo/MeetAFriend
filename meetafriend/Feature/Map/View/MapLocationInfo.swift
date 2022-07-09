@@ -26,7 +26,7 @@ struct MapLocationInfo: View {
                         .clipped()
                         .cornerRadius(50)
                         .overlay(RoundedRectangle(cornerRadius: 50)
-                            .stroke(Color(.yellow), lineWidth: 2)
+                            .stroke(Color("MAFyellow"), lineWidth: 2)
                         )
                     
                     Spacer()
@@ -35,11 +35,11 @@ struct MapLocationInfo: View {
                         Text(title)
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("MAFwhite"))
                         
                         Text(subDescription)
                             .fontWeight(.bold)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color("MAFwhite"))
                     }
                     
                 }
@@ -62,7 +62,7 @@ struct MapLocationInfo: View {
                         .padding([.leading, .trailing], 30)
                         .padding([.top, .bottom], 10)
                         .buttonStyle(.plain)
-                        .background(.white)
+                        .background(Color("MAFwhite"))
                         .cornerRadius(25)
                         .shadow(radius: 10)
                     } else {
@@ -74,7 +74,7 @@ struct MapLocationInfo: View {
                         .padding([.leading, .trailing], 30)
                         .padding([.top, .bottom], 10)
                         .buttonStyle(.plain)
-                        .background(.white)
+                        .background(Color("MAFwhite"))
                         .cornerRadius(25)
                         .shadow(radius: 10)
                     }
@@ -83,7 +83,7 @@ struct MapLocationInfo: View {
                 
             }
             .frame(maxWidth: .infinity, maxHeight: 180)
-            .background(.gray)
+            .background(Color("MAFgray"))
             .cornerRadius(30)
             
         }

@@ -23,7 +23,6 @@ struct meetafriendApp: App {
     @StateObject var sessionService = SessionServiceImpl()
     @StateObject var locationService = LocationServiceImpl()
     @StateObject var chatOverviewService = ChatOverviewServiceImpl()
-    @StateObject var chatService = ChatServiceImpl()
     @StateObject var mapService = MapServiceImpl()
     
     var body: some Scene {
@@ -46,7 +45,6 @@ struct meetafriendApp: App {
             .environmentObject(sessionService)
             .environmentObject(locationService)
             .environmentObject(chatOverviewService)
-            .environmentObject(chatService)
             .environmentObject(mapService)
         }
     }

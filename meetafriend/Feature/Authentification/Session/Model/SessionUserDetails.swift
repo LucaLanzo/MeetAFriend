@@ -12,6 +12,4 @@ struct SessionUserDetails {
     var lastName: String
     var age: Int
     var profilePictureURL: String
-    var closeTo: Bool
-
 }
