@@ -26,7 +26,7 @@ final class MapServiceImpl: ObservableObject, MapService {
     
     private var locations: [Location] = []
     
-    private let updateInterval = 5.0
+    private let updateInterval = 15.0
     private weak var timer: Timer?
     
     private let db = Firestore.firestore()

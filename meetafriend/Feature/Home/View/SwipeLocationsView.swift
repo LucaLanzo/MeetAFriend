@@ -31,6 +31,7 @@ struct SwipeLocationsView: View {
                             .fontWeight(.bold)
                             .foregroundColor(Color("MAFwhite"))
                         
+                        
                         Text(location?.subDescription ?? "Sub Description")
                             .fontWeight(.bold)
                             .foregroundColor(Color("MAFwhite"))
@@ -60,12 +61,39 @@ struct SwipeLocationsView: View {
                                 .padding(.top)
                         
                         }
+                        
+                        HStack {
+                            if (location?.joinedUsers.count ?? 6 > 5) {
+                                Text("**popular!**")
+                                    .foregroundColor(Color("MAFblack"))
+                            }
+                            
+                            Image(systemName: "person.3.sequence.fill")
+                                .frame(width: 7, height: 7)
+                                .foregroundColor(Color("MAFyellow"))
+                                .padding(.leading, 10)
+                                .padding(.trailing, 8)
+                        }
+                        .padding(.vertical, 8)
+                        .padding(.horizontal, 20)
+                        .background(Color("MAFwhite"))
+                        .cornerRadius(30)
                     }
                     .padding(40)
                     
                     Spacer()
                     
                     VStack {
+                        if (location?.privateParty ?? true) {
+                            Text("**private event**")
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 20)
+                                .foregroundColor(Color("MAFblack"))
+                                .background(Color("MAFwhite"))
+                                .cornerRadius(30)
+                                .padding(.top, 15)
+                        }
+                        
                         if (mapService.closeTo.contains(where: { $0 == (location?.id ?? "") })) {
                             Button {
                                 locationService.joinLocation(lid: location?.id ?? "")
@@ -105,6 +133,12 @@ struct SwipeLocationsView: View {
             }
             .cornerRadius(30)
             .frame(maxWidth: .infinity)
+            .overlay(location?.privateParty ?? true
+                     ? RoundedRectangle(cornerRadius: 38)
+                        .stroke(Color("MAFyellow"), lineWidth: 5)
+                        .padding(-6)
+                     : nil
+            )
         }
         .frame(maxWidth: .infinity)
         .navigationBarHidden(true)

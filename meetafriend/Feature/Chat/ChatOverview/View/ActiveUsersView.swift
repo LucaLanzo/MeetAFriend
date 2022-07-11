@@ -12,6 +12,7 @@ struct ActiveUsersView: View {
     @State var isClicked = false
     
     var user: User?
+    var lid: String
     
     var body: some View {
         if isClicked {
@@ -30,7 +31,7 @@ struct ActiveUsersView: View {
                                 .foregroundColor(Color("MAFwhite"))
                                 .multilineTextAlignment(.leading)
                         
-                            NavigationLink(destination: ChatView(chatService: ChatService(user!), chatUser: user!)) {
+                            NavigationLink(destination: ChatView(chatService: ChatService(user!, lid), chatUser: user!)) {
                                 Image(systemName: "message")
                                     .font(.system(size: 32))
                                     .padding(8)
@@ -89,6 +90,6 @@ struct ActiveUsersView: View {
 
 struct ActiveUsersView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiveUsersView(user: nil)
+        ActiveUsersView(user: nil, lid: "nil")
     }
 }

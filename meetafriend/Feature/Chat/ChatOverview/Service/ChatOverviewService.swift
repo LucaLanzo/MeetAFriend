@@ -40,6 +40,7 @@ final class ChatOverviewServiceImpl: ObservableObject, ChatOverviewService {
     
     private var lid: String = ""
     private var userKeys: [String] = []
+    private var firstRun: Bool = true
     
     private let db = Firestore.firestore()
     private var joinedLocationListener: ListenerRegistration?
@@ -155,6 +156,11 @@ private extension ChatOverviewServiceImpl {
                         break
                     }
                 }
+            }
+            
+            if (self.firstRun) {
+                self.recentMessages.reverse()
+                self.firstRun = false
             }
         }
     }

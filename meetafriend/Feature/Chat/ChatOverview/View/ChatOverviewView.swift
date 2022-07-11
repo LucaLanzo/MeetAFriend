@@ -74,7 +74,7 @@ struct ChatOverviewView: View {
                 ScrollView(.horizontal) {
                     HStack {
                         ForEach(chatOverviewService.users) { user in
-                            ActiveUsersView(user: user)
+                            ActiveUsersView(user: user, lid: chatOverviewService.location!.id!)
                                 .padding()
                         }
                     }
@@ -118,17 +118,20 @@ struct ChatOverviewView: View {
                 ScrollView {
                     
                     ForEach(chatOverviewService.recentMessages) { recentMessage in
-                        NavigationLink(destination:
+                        /* NavigationLink(destination:
                                         ChatView(chatService: ChatService(recentMessage.chatUser, chatOverviewService.location!.id!),
                                                  chatUser: recentMessage.chatUser)) {
                             
                             ChatMessageView(recentMessage: recentMessage)
                         }
                         .buttonStyle(.plain)
+                         */
+                        
+                        ChatMessageView(recentMessage: recentMessage)
                     }
                     
                 }
-                    
+                
             } else {
                 VStack(alignment: .center) {
                     VStack() {

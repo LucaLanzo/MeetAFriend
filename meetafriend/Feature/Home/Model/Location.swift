@@ -20,6 +20,7 @@ public struct Location: Codable, Identifiable {
     public var zipCode: Int
     public var street: String
     public var houseNumber: Int
+    public var privateParty: Bool
     
     public var coordinates: GeoPoint
 

@@ -52,7 +52,6 @@ struct ChatMessageView: View {
                             .opacity(50)
                             .truncationMode(.tail)
                     }
-                    .frame(maxWidth: 100)
                     
                 }
                 .padding(.leading, 10)
