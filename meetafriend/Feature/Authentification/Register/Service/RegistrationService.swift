@@ -55,7 +55,6 @@ final class RegistrationServiceImpl: RegistrationService {
                                         // Persist image to storage
                                         if (image != nil) {
                                             let data = image!.jpegData(compressionQuality: 0.5)!
-                                            
                                             // set upload path
                                             let filePath = uid
                                             let metaData = StorageMetadata()
@@ -80,15 +79,10 @@ final class RegistrationServiceImpl: RegistrationService {
                                                                     "profilePictureURL": urlString
                                                                 ])
                                                             }
-                                                            
                                                         }
                                                     }
-                                                    
                                                 }
                                             }
-                                            
-                                            
-                                            
                                         }
                                     }
                                 }

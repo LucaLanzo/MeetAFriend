@@ -48,18 +48,7 @@ struct LoginView: View {
         .navigationBarHidden(true)
         .padding(.horizontal, 10)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .alert(isPresented: $loginService.hasError,
-               content: {
-            if case .failed(let error) = loginService.state {
-                return Alert(title: Text("Error"),
-                             message: Text(error.localizedDescription))
-            } else {
-                return Alert(title: Text("Error"),
-                             message: Text("Something went wrong"))
-            }
-        })
-        .alert(isPresented: $registerService.hasError,
-              content: {
+        .alert(isPresented: $registerService.hasError, content: {
             if case .failed(let error) = registerService.state {
                 return Alert(title: Text("Error"),
                              message: Text(error.localizedDescription))
@@ -67,7 +56,15 @@ struct LoginView: View {
                 return Alert(title: Text("Error"),
                              message: Text("Something went wrong"))
             }
-            
+        })
+        .alert(isPresented: $loginService.hasError, content: {
+            if case .failed(let error) = loginService.state {
+                return Alert(title: Text("Error"),
+                             message: Text(error.localizedDescription))
+            } else {
+                return Alert(title: Text("Error"),
+                             message: Text("Something went wrong"))
+            }
         })
         .gesture(
             TapGesture()

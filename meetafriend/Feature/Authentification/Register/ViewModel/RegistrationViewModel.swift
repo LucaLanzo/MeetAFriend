@@ -21,6 +21,7 @@ protocol RegistrationViewModel {
     var service: RegistrationService { get }
     var state: RegistrationState { get }
     var userDetails: RegistrationDetails { get }
+    
     init(service: RegistrationService)
 }
 

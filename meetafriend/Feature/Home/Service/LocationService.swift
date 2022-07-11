@@ -33,6 +33,7 @@ final class LocationServiceImpl: ObservableObject, LocationService {
     @Published var listenStarted: Bool = false
     
     private let db = Firestore.firestore()
+    private var listener: ListenerRegistration?
     
     func joinLocation(lid: String) {
         joinLocation(with: lid)
@@ -44,9 +45,8 @@ final class LocationServiceImpl: ObservableObject, LocationService {
 private extension LocationServiceImpl {
     // update data
     func handleRefresh() {
-        // TODO: REMOVE LISTENER ONCE FINISHED
-        db.collection("locations").addSnapshotListener { querySnapshot, error in
-            // if it is the first time the app is started, check if still joined in location
+        listener = db.collection("locations").addSnapshotListener { querySnapshot, error in
+            // if it is the first time the app is started, check if still joined
             var checkForJoin: Bool = false
             self.locations.count == 0 ? (checkForJoin = true) : (checkForJoin = false)
             
@@ -133,6 +133,14 @@ extension LocationServiceImpl {
         self.handleRefresh()
         self.checkIfJoined()
         self.listenStarted = true
+    }
+    
+    func stopLoadingLocations() {
+        listener?.remove()
+        
+        self.listenStarted = false
+        self.locations.removeAll()
+        self.state = .notJoined
     }
     
     func leaveLocation() {

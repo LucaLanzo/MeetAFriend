@@ -152,7 +152,8 @@ private extension ChatService {
         guard let toId = chatUser.id else { return }
         let text = self.text
         
-        let newMessage = db.collection("locations").document(lid).collection("chats").document(chatId).collection("messages").document()
+        let newMessage = db.collection("locations").document(lid).collection("chats")
+                            .document(chatId).collection("messages").document()
 
         let data = ["fromId": fromId, "toId": toId, "text": text, "timestamp": Timestamp()] as [String : Any]
         
@@ -164,6 +165,5 @@ private extension ChatService {
             
             self.text = ""
         }
-    }    
-    
+    }
 }

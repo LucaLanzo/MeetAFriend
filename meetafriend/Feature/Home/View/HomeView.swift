@@ -11,6 +11,7 @@ struct HomeView: View {
     @EnvironmentObject var sessionService: SessionServiceImpl
     @EnvironmentObject var locationService: LocationServiceImpl
     @EnvironmentObject var mapService: MapServiceImpl
+    @EnvironmentObject var chatOverviewService: ChatOverviewServiceImpl
     
     @State var showAlert: Bool = false
     @State var showAlert2: Bool = false
@@ -18,7 +19,6 @@ struct HomeView: View {
     
     
     var body: some View {
-        
         VStack {
             VStack(alignment: .leading) {
                 
@@ -89,6 +89,8 @@ struct HomeView: View {
                     .alert("Are you sure you want to log out?", isPresented: $showAlert2) {
                             Button("No", role: .cancel) { }
                             Button("Yes") {
+                                chatOverviewService.closeListenForUsers()
+                                locationService.stopLoadingLocations()
                                 sessionService.logout()
                             }
                         }
@@ -159,6 +161,7 @@ struct HomeView_Previews: PreviewProvider {
                 .environmentObject(LocationServiceImpl())
                 .environmentObject(SessionServiceImpl())
                 .environmentObject(MapServiceImpl())
+                .environmentObject(ChatOverviewServiceImpl())
         }
     }
 }

@@ -38,7 +38,6 @@ final class ChatOverviewServiceImpl: ObservableObject, ChatOverviewService {
     @Published var location: Location? = nil
     @Published var recentMessages: [RecentMessage] = []
     
-    private var lid: String = ""
     private var userKeys: [String] = []
     private var firstRun: Bool = true
     
@@ -83,6 +82,20 @@ extension ChatOverviewServiceImpl {
                 }
             }
         }
+    }
+    
+    func closeListenForUsers() {
+        if (self.joinedLocationListener != nil) {
+            self.joinedLocationListener!.remove()
+        }
+        
+        if (self.joinedLocationRecentMessagesListener != nil) {
+            self.joinedLocationRecentMessagesListener!.remove()
+        }
+        
+        self.users.removeAll()
+        self.userKeys.removeAll()
+        self.recentMessages.removeAll()
     }
 }
 
@@ -184,18 +197,6 @@ private extension ChatOverviewServiceImpl {
         }
     }
     
-    func closeListenForUsers() {
-        if (self.joinedLocationListener != nil) {
-            self.joinedLocationListener!.remove()
-        }
-        
-        if (self.joinedLocationRecentMessagesListener != nil) {
-            self.joinedLocationRecentMessagesListener!.remove()
-        }
-        
-        self.users.removeAll()
-        self.userKeys.removeAll()
-        self.recentMessages.removeAll()
-    }
+    
 }
 

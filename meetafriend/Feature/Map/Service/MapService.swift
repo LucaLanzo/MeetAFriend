@@ -145,7 +145,8 @@ private extension MapServiceImpl {
         let lat1 = degreesToRadians(degrees: lat1)
         let lat2 = degreesToRadians(degrees: lat2)
 
-        let a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(lat1) * cos(lat2);
+        let a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2)
+                * sin(dLon/2) * cos(lat1) * cos(lat2);
         let c = 2 * atan2(sqrt(a), sqrt(1-a));
         
         return earthRadiusKm * c * 1000.0

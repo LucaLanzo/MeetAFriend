@@ -61,23 +61,25 @@ struct SwipeLocationsView: View {
                                 .padding(.top)
                         
                         }
-                        
-                        HStack {
-                            if (location?.joinedUsers.count ?? 6 > 5) {
-                                Text("**popular!**")
-                                    .foregroundColor(Color("MAFblack"))
+                        if (location?.joinedUsers.count ?? 6 > 4) {
+                            HStack {
+                                
+                                    Text("**popular!**")
+                                        .foregroundColor(Color("MAFblack"))
+                                
+                                
+                                    Image(systemName: "person.3.sequence.fill")
+                                        .frame(width: 7, height: 7)
+                                        .foregroundColor(Color("MAFyellow"))
+                                        .padding(.leading, 10)
+                                        .padding(.trailing, 8)
+                                
                             }
-                            
-                            Image(systemName: "person.3.sequence.fill")
-                                .frame(width: 7, height: 7)
-                                .foregroundColor(Color("MAFyellow"))
-                                .padding(.leading, 10)
-                                .padding(.trailing, 8)
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 20)
+                            .background(Color("MAFwhite"))
+                            .cornerRadius(30)
                         }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 20)
-                        .background(Color("MAFwhite"))
-                        .cornerRadius(30)
                     }
                     .padding(40)
                     
