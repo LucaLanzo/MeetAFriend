@@ -1,5 +1,12 @@
 # meet a friend
-A social, location-based iOS chat app using this proposed front end design mockup:
+A social, location-based iOS chat app. It was programmed using Swift and Google Firebase as a backend storage solution.
+
+## App presentation
+
+
+## Frontend Mockup
+A lot of time went into the design of the frontend. The mockup for the frontend can be seen here. 
+This was done before the programming of the app.
 
 ![PDF 1](https://user-images.githubusercontent.com/40578534/161431018-d8868896-c068-4bcc-858c-31a37c2f1019.png)
 ![PDF 2](https://user-images.githubusercontent.com/40578534/161431023-4a14d187-f279-47d9-b1e4-695ffaee2a3d.png)
