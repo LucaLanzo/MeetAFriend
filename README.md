@@ -1,7 +1,20 @@
 # meet a friend
 A social, location-based iOS chat app. It was programmed using Swift and Google Firebase as a backend storage solution.
 
+
 ## App presentation
+![PDF – Programming – 1](https://user-images.githubusercontent.com/40578534/196942567-0777b5f6-3f4b-4951-bbbb-e75b1201b8f9.png)
+![PDF – Programming – 2](https://user-images.githubusercontent.com/40578534/196942720-8a3feb62-5184-4496-a840-a8e747966058.png)
+![PDF – Programming – 3](https://user-images.githubusercontent.com/40578534/196942580-ce09f61c-2f07-4380-ab2a-bdc669645a16.png)
+![PDF – Programming – 4](https://user-images.githubusercontent.com/40578534/196942586-5a69eede-1a94-41fe-aa55-da55dae07840.png)
+![PDF – Programming – 5](https://user-images.githubusercontent.com/40578534/196942588-6a42b231-4e51-4438-91f8-194af2ccbec2.png)
+![PDF – Programming – 6 5](https://user-images.githubusercontent.com/40578534/196942595-d427da1b-7646-4d93-bf40-e4335c8feaab.png)
+![PDF – Programming – 6](https://user-images.githubusercontent.com/40578534/196942597-6b8f3dd8-5fa3-4f94-963a-01ce23c58e57.png)
+![PDF – Programming – 7](https://user-images.githubusercontent.com/40578534/196942599-cad5aabe-f18d-42a8-a07a-0a82adc178fa.png)
+![PDF – Programming – 8](https://user-images.githubusercontent.com/40578534/196942604-967554d8-fc1e-4f8e-927f-4edea0c7294f.png)
+![PDF – Programming – 18](https://user-images.githubusercontent.com/40578534/196942611-8d0679b1-e77a-4faf-a579-193cfa8aaad9.png)
+![PDF – Programming – 19](https://user-images.githubusercontent.com/40578534/196942614-585bdb6f-60aa-4033-8127-439524051907.png)
+![PDF – Programming – 9](https://user-images.githubusercontent.com/40578534/196942605-61242b54-643f-4c6f-9143-8ea8e0fbc629.png)
 
 
 ## Frontend Mockup
