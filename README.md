@@ -3,7 +3,7 @@ A social, location-based iOS chat app. It was programmed using Swift and Google 
 
 
 ## App presentation
-<img src="[https://camo.githubusercontent.com/...](https://user-images.githubusercontent.com/40578534/196942567-0777b5f6-3f4b-4951-bbbb-e75b1201b8f9.png)" width="200" height="400" />
+<img src="https://user-images.githubusercontent.com/40578534/196942567-0777b5f6-3f4b-4951-bbbb-e75b1201b8f9.png" width="200" height="400" />
 ![PDF – Programming – 1]()
 ![PDF – Programming – 2](https://user-images.githubusercontent.com/40578534/196942720-8a3feb62-5184-4496-a840-a8e747966058.png)
 ![PDF – Programming – 3](https://user-images.githubusercontent.com/40578534/196942580-ce09f61c-2f07-4380-ab2a-bdc669645a16.png)
